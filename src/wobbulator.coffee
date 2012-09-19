@@ -11,8 +11,6 @@
 # When the frequencies are lowered to the audible range, it can
 # produce a wide variety of space-y sounds.
 #
-# ![Daphne Oram with the Wobbulator](img/wobbulator-daphne.jpg "Daphne Oram with the Wobbulator")
-#
 # This application is a simulation of the Wobbulator using the Web
 # Audio API.
 
