@@ -1,0 +1,50 @@
+#machine {
+    width: 952px;
+    height: 592px;
+    position: absolute;
+    background: url('/img/gunshot.png') no-repeat;
+}
+
+.knob {
+    width: 102px;
+    height: 102px;
+    position: absolute;
+    background: url('/img/knob.png') no-repeat;
+}
+
+#volume {
+    top: 178px;
+    left: 662px;
+}
+
+#rate-of-fire {
+    top: 355px;
+    left: 557px;
+}
+
+#distance {
+    top: 355px;
+    left: 750px;
+}
+
+#multi-fire {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 413px;
+    left: 445px;
+    background: url('/img/switch_on-off.png') no-repeat;
+}
+
+#multi-fire.off {
+    -webkit-transform:rotate(180deg)
+}
+
+#trigger {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 61px;
+    top: 497px;
+    background: url('/img/play.png') no-repeat;
+}

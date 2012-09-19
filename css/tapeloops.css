@@ -1,0 +1,59 @@
+.machine {
+    width: 352px;
+    height: 408px;
+    background: url('/img/tapeloop.png') no-repeat;
+}
+
+#machine1 {
+    position: absolute;
+}
+#machine2 {
+    position: absolute;
+    left: 400px;
+}
+#machine3 {
+    position: absolute;
+    left: 800px;
+}
+
+.play {
+    position: relative;
+    width: 88px;
+    height: 40px;
+    left: 56px;
+    top: 297px;
+}
+
+.play.on {
+    background: url('/img/stop.png') no-repeat;
+}
+
+.play.off {
+    background: url('/img/play.png') no-repeat;
+}
+
+.double-speed {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    left: 105px;
+    top: 238px;
+}
+
+.double-speed.off {
+    background: url('/img/speed-switch_7.png') no-repeat;
+}
+
+.double-speed.on {
+    background: url('/img/speed-switch_15.png') no-repeat;
+}
+
+.fine-speed {
+    position: relative;
+    cursor: ns-resize;
+    width: 64px;
+    height: 64px;
+    background: url('/img/speed-knob.png') no-repeat;
+    left: 224px;
+    top: 168px;
+}

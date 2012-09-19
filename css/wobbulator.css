@@ -1,0 +1,72 @@
+#machine {
+    width: 672px;
+    height: 672px;
+    position: absolute;
+    background: url('/img/wobbulator.png') no-repeat;
+}
+
+#switch {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 80px;
+    top: 224px;
+    background: url('../img/switch_on-off.png') no-repeat;
+}
+
+#switch.off {
+    -webkit-transform:rotate(180deg)
+}
+
+.knob {
+    cursor: ns-resize;
+    position: absolute;
+}
+
+#frequency {
+    width: 256px;
+    height: 256px;
+    top: 216px;
+    left: 208px;
+    background: url('../img/centre-dial.png') no-repeat;
+}
+
+#bulb {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: 96px;
+    left: 72px;
+}
+
+#bulb.on {
+    background: url('../img/lightbulb_on.png') no-repeat;
+}
+
+#bulb.off {
+    background: url('../img/lightbulb_off.png') no-repeat;
+}
+
+#modulation-frequency {
+    width: 72px;
+    height: 72px;
+    top: 548px;
+    left: 60px;
+    background: url('../img/knob_mod.png') no-repeat;
+}
+
+#volume {
+    width: 72px;
+    height: 72px;
+    top: 548px;
+    left: 540px;
+    background: url('../img/knob_mod.png') no-repeat;
+}
+
+#modulation-depth {
+    width: 58px;
+    height: 58px;
+    top: 543px;
+    left: 215px;
+    background: url('../img/knob_depth.png') no-repeat;
+}
