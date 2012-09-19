@@ -43,9 +43,6 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
         else
           d = destination
 
-        # Weirdness! We need this console.log otherwise the node won't
-        # connect. [Chromium issue 121654](http://code.google.com/p/chromium/issues/detail?id=121654)
-        console.log d
         @node.connect(d)
 
     # # SamplePlayer
