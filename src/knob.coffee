@@ -13,13 +13,17 @@ define(['backbone'], ->
     # * `degMin`: The minimum angle which the knob can be turned to (where
     # 0 degrees is defined as 9 o'clock on a clock face). Default: -45 degrees.
     # * `degMax`: The minimum angle which the knob can be turned to. Default: 225 degrees.
-    # * `value`: The initial value of the knob. Default: 5.
+    # * `valueMin`: The minimum allowed value of the knob. Default: 0.
+    # * `valueMax`: The maximum allowed value of the knob. Default: 1.
+    # * `value`: The initial value of the knob. Default: 0.5.
     # * `distanceMax`: The number of pixels of mouse movement
     # corresponding to a full rotation of the knob. Default: 200px.
     initialize: (params) ->
       @knob = $(params.el)
       @degMin = params.degMin || -45
       @degMax = params.degMax || 225
+      @valueMin = params.valueMin || 0
+      @valueMax = params.valueMax || 1
       @value = params.initial_value || 0.5
       @distanceMax = params.distanceMax || 200
 
@@ -53,11 +57,11 @@ define(['backbone'], ->
 
     distanceToValue: (distance) ->
       distance = Math.min(distance, @distanceMax)
-      value = distance / @distanceMax
+      value = (distance / @distanceMax) * (@valueMax - @valueMin)
       return value
 
     valueToDeg: (value) ->
-      return @degMin + ( value * this.deltaDeg() )
+      return @degMin + ( (value / (@valueMax - @valueMin)) * this.deltaDeg() )
 
     deltaDeg: ->
       return (@degMax - @degMin)
@@ -65,8 +69,8 @@ define(['backbone'], ->
     setValue: (value) ->
       # Setting the value of the knob requires testing the allowed
       # limits ...
-      value = 1 if (value > 1)
-      value = 0 if (value < 0)
+      value = @valueMax if (value > @valueMax)
+      value = @valueMin if (value < @valueMin)
 
       @value = value
 

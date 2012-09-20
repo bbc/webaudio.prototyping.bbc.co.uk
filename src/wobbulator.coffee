@@ -33,7 +33,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     # This class implements a modulated oscillator. It can be
     # represented as a simple graph. An oscilator (Osc2) is connected
     # to the destination of the audioContext. A second oscillator
-    # (Osc1) is used to modulate the frequency of Osc1.
+    # (Osc1) is used to modulate the frequency of Osc2.
     #
     # <pre style="font-family:monospace">
     #
@@ -69,7 +69,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       setFrequency: (value) ->
         @oscillator.frequency.value = value
 
-      setModulationAmplitude: (value) ->
+      setModulationDepth: (value) ->
         @modulation_gain.gain.value = value
 
       setModulationFrequency: (value) ->
@@ -90,10 +90,13 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
 
     # Set the initial parameters of the oscillator
     initialFrequency = 440
+    initialModulationDepth = 100
+    initialModulationFrequency = 10
 
     oscillator.setFrequency(initialFrequency)
-    oscillator.setModulationAmplitude(10)
-    oscillator.setModulationFrequency(5)
+    oscillator.setModulationDepth(initialModulationDepth)
+    oscillator.setModulationFrequency(initialModulationFrequency)
+
     oscillator.off()
 
     # # UI code
@@ -107,17 +110,23 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       el: '#frequency'
       degMin: -53
       degMax: 227
-      initial_value: (initialFrequency-50) / (5000-50)
+      valueMin: 50
+      valueMax: 5000
+      initial_value: initialFrequency
     )
 
     modulation_frequency_knob = new KnobView(
       el: '#modulation-frequency'
-      initial_value: 0.5 / 50
+      valueMin: 0
+      valueMax: 50
+      initial_value: initialModulationFrequency
     )
 
     modulation_depth_knob = new KnobView(
       el: '#modulation-depth'
-      initial_value: 0.5 / 50
+      valueMin: 0
+      valueMax: 200
+      initial_value: initialModulationDepth
     )
 
     volume_knob = new KnobView(
@@ -127,13 +136,13 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     # Register events to be fired when each of the knob values change.
     # One for each parameter of the `ModulatedOscillator`
     frequency_knob.on('valueChanged',
-      (v) -> oscillator.setFrequency( (5000-50) * v + 50 ))
+      (v) -> oscillator.setFrequency(v))
 
     modulation_frequency_knob.on('valueChanged',
-      (v) -> oscillator.setModulationFrequency(50 * v))
+      (v) -> oscillator.setModulationFrequency(v))
 
     modulation_depth_knob.on('valueChanged',
-      (v) -> oscillator.setModulationAmplitude(50 * v))
+      (v) -> oscillator.setModulationDepth(v))
 
     volume_knob.on('valueChanged',
       (v) -> oscillator.setMasterGain(v))
