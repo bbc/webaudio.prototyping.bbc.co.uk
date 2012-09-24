@@ -11,6 +11,7 @@ set :user, 'deploy'
 set :domain, 'radiophonics'
 set :deploy_to, '/var/www/webaudio'
 set :repository, 'gitlab:radiophonics.git'
+set :revision, ENV['GIT_COMMIT'] if ENV['GIT_COMMIT']
 
 desc "Deploys the current version to the server."
 task :deploy do
