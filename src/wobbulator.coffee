@@ -1,19 +1,5 @@
 # # The Wobbulator
 #
-# The "Wobbulator" was one example of a recycled or salvaged piece of
-# equipment put to creative use at the Radiophonic Workshop. The
-# Wobbulator was in fact a beat-frequency oscillator (looking at
-# archive pictures quite likely a [Brüel & Kjær Beat Frequency
-# Oscillator
-# 1022](http://www.radiomuseum.org/r/bruelkjae_beat_frequency_oscillato.html)
-# or similar) used by sound engineers to measure the acoustic
-# properties of studios or by electrical engineers to test equipment.
-# When the frequencies are lowered to the audible range, it can
-# produce a wide variety of space-y sounds.
-#
-# This application is a simulation of the Wobbulator using the Web
-# Audio API.
-
 # # Preamble
 #
 # We use jQuery, backbone.js and some custom UI elements (namely a
