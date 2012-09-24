@@ -13,7 +13,7 @@ def doc_from_file(fn)
 end
 
 desc "Replace the documentation in the application HTML files with generated docs"
-task :build do
+task :build_wobbulator do
   documentation = doc_from_file("docs/wobbulator.html")
   source = doc_from_file("wobbulator/template.html")
 
@@ -24,4 +24,7 @@ task :build do
   old_doc_div.add_child(new_doc_div_contents)
 
   File.open("wobbulator/index.html", 'w') {|f| f.write(source.to_xml) }
+  puts "Wobbulator code documentation generated"
 end
+
+task :build => [:docs, :build_wobbulator]
