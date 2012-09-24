@@ -1,7 +1,10 @@
 #machine {
+    position: relative;
     width: 672px;
     height: 672px;
-    position: absolute;
+
+    margin: 0 auto;
+    
     background: url('/img/wobbulator.png') no-repeat;
 }
 
