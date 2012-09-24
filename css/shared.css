@@ -1,0 +1,25 @@
+html, body {
+	height: 100%;
+}
+
+article {
+	height: 100% !important;
+	overflow: hidden;
+}
+
+#code {
+	height: auto;
+	overflow: visible;
+}
+
+article:nth-child(even) {
+    background-color: red !important;
+}
+
+body {
+	font-family: Helmet, Freesans, sans-serif;
+}
+
+article {
+	margin-bottom: 16px;
+}
