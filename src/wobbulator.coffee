@@ -52,6 +52,8 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @oscillator.noteOn(0)
         @modulator.noteOn(0)
 
+        @turned_on = true
+
       setFrequency: (value) ->
         @oscillator.frequency.value = value
 
@@ -62,13 +64,16 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @modulator.frequency.value = value
 
       setMasterGain: (value) ->
-        @master_gain.gain.value = value
+        @gain = value
+        @master_gain.gain.value = @gain if @turned_on
 
       on: ->
-        this.setMasterGain(1)
+        @turned_on = true
+        @master_gain.gain.value = 1
 
       off: ->
-        this.setMasterGain(0)
+        @turned_on = false
+        @master_gain.gain.value = 0
 
     # # Main application
     audioContext = new webkitAudioContext
@@ -117,6 +122,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
 
     volume_knob = new KnobView(
       el: '#volume'
+      initial_value: 1
     )
 
     # Register events to be fired when each of the knob values change.
