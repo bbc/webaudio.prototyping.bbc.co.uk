@@ -1,0 +1,2 @@
+define [], ->
+	console.log('presenter')
