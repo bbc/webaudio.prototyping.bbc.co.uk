@@ -2,6 +2,7 @@ html, body {
 	height: 100%;
 }
 
+header,
 article {
 	height: 100% !important;
 	overflow: hidden;
