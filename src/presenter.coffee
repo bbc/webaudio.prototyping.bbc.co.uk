@@ -1,12 +1,6 @@
 define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing'], ($) ->
-	console.log('presenter')
-	$(window).bind('scrollstart', ->
-		console.log('START SCROLLING')
-	)
 
-	$(window).bind('scrollstop', ->
-		console.log('STOP SCROLLING')
-
+	scrollMostVisibleElementIntoView = ->
 		visibleEls = $('.area:in-viewport')
 		console.log('visible', visibleEls)
 
@@ -47,4 +41,9 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 		console.log('mostVisible', mostVisible)
 		$.scrollTo(mostVisible.el, axis:'y', duration:500, easing:'easeOutQuart')
-	)	
+
+	# Scroll an area into view when scrolling stops
+	$(window).bind('scrollstop', scrollMostVisibleElementIntoView)	
+
+	# Scroll area into view when browser window is resized
+	$(window).bind('resize', scrollMostVisibleElementIntoView)
