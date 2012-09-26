@@ -25,6 +25,81 @@ article {
 	margin-bottom: 49px;
 }
 
+/* Generic typography */
+a, a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+/* Project context panel */
+#intro {
+	position: relative;
+	text-align: center;
+}
+
+#intro .content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -280px 0 0 -512px;
+	
+	height: 560px;
+	width: 1024px;
+
+	text-align: left;
+}
+
+#intro .content h1 {
+	margin: 0;
+	line-height: 36px;
+	font-size: 36px;
+	color: #666;
+}
+
+#intro .content .image-block {
+	position: relative;
+	height: 100%;
+	background-attachment: fixed;
+	background-position: 50% 50%;
+}
+
+#intro .content .text {
+	position: absolute;
+	top: 96px;
+	left: 50%;
+
+	width: 464px;
+
+	margin-left: -232px;
+	padding:16px;
+
+	background-color: #FFF;
+	
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 20px;
+
+	color: #666;
+}
+
+#intro .content .text p {
+	margin: 0;
+}
+
+#intro .content .text h1 {
+	font-size: 32px;
+	font-weight: normal;
+	line-height: 36px;
+
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+
+#intro .content .text h1 span {
+	font-weight: bold;
+}
+
+/* Demo context info panel */
 #info {
 	position: relative;
 	text-align: center;
@@ -58,6 +133,8 @@ article {
 #info .content .image-block {
 	position: relative;
 	height: 100%;
+	background-attachment: fixed;
+	background-position: 50% 50%;
 }
 
 #info .content .text {
@@ -80,6 +157,7 @@ article {
 /* Vertically center the machine */
 #machine-wrapper {
 	position: relative;
+	background-color: #EEE;
 }
 
 #machine-wrapper #machine {

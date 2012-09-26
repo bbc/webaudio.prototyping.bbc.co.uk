@@ -1,4 +1,5 @@
 /* Wobbulator context */
+#intro .image-block,
 #info .image-block {
     background: transparent url('/wobbulator/wob-archive.png') no-repeat;
 }
