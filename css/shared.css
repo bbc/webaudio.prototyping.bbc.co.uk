@@ -119,6 +119,35 @@ nav {
 	z-index: 10;
 }
 
+nav .hint {
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	
+	height: 24px;
+	line-height: 24px;
+
+	width: 100px;
+
+	margin-left: -50px;
+
+
+  -webkit-transition: opacity 0.3s ease-in; 
+     -moz-transition: opacity 0.3s ease-in; 
+       -o-transition: opacity 0.3s ease-in; 
+          transition: opacity 0.3s ease-in; 
+
+	opacity: 0;
+}
+
+nav .hint.is-visible {
+	opacity: 1;
+}
+
+nav .hint:after {
+	content: '\261F';
+}
+
 nav ul {
 	margin: 0 auto;
 	padding: 0;
