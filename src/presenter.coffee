@@ -46,5 +46,5 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo'], ($) ->
 				console.log('setting mostVisible height', mostVisible?.height)
 
 		console.log('mostVisible', mostVisible)
-		$.scrollTo(mostVisible.el, axis:'y', duration: 500)
+		$.scrollTo(mostVisible.el, axis:'y', duration:500, easing:'easeOutQuart')
 	)	
