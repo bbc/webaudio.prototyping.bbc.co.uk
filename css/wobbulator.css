@@ -1,3 +1,10 @@
+/* Wobbulator context */
+#info .image-block {
+    background: transparent url('/wobbulator/wob-archive.png') no-repeat;
+}
+
+
+/* Wobbulator demo */
 #machine {
     position: relative;
     width: 672px;
