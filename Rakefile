@@ -5,6 +5,11 @@ task :docs do
   system("docco src/*.coffee")
 end
 
+desc "Generate js from coffeescript"
+task :compile_coffee do
+  system("coffee -c -o lib/ src/")
+end
+
 def doc_from_file(fn)
   f = File.open(fn)
   doc = Nokogiri::HTML(f)
@@ -48,4 +53,4 @@ task :build_wobbulator do
   puts "wobbulator/index.html generated"
 end
 
-task :build => [:docs, :build_wobbulator]
+task :build => [:compile_coffee, :docs, :build_wobbulator]
