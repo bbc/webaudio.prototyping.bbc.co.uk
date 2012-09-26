@@ -1,4 +1,4 @@
-define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo'], ($) ->
+define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing'], ($) ->
 	console.log('presenter')
 	$(window).bind('scrollstart', ->
 		console.log('START SCROLLING')
