@@ -137,16 +137,15 @@ nav {
 
 nav .hint {
 	position: absolute;
-	top: -30px;
+	top: -64px;
 	left: 50%;
 	
-	height: 24px;
-	line-height: 24px;
+	height: 48px;
+	width: 48px;
 
-	width: 100px;
+	margin-left: -24px;
 
-	margin-left: -50px;
-
+	background: transparent url('/img/arrow-down.png') no-repeat;
 
   -webkit-transition: opacity 0.3s ease-in; 
      -moz-transition: opacity 0.3s ease-in; 
@@ -156,12 +155,13 @@ nav .hint {
 	opacity: 0;
 }
 
-nav .hint.is-visible {
-	opacity: 1;
+nav .hint span {
+	position: absolute;
+	left: -99999px;
 }
 
-nav .hint:after {
-	content: '\261F';
+nav .hint.is-visible {
+	opacity: 1;
 }
 
 nav ul {
