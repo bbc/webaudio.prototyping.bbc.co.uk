@@ -2,7 +2,6 @@ html, body {
 	height: 100%;
 }
 
-header,
 article {
 	height: 100% !important;
 	overflow: hidden;
@@ -13,14 +12,177 @@ article {
 	overflow: visible;
 }
 
-article:nth-child(even) {
-    background-color: red !important;
-}
-
 body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+
 	font-family: Helmet, Freesans, sans-serif;
 }
 
 article {
-	margin-bottom: 16px;
+	margin-top: 24px;
+	margin-bottom: 49px;
+}
+
+#info {
+	position: relative;
+	text-align: center;
+}
+
+#info .content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -280px 0 0 -512px;
+	
+	height: 560px;
+	width: 1024px;
+
+	text-align: left;
+}
+
+#info .content h1 {
+	margin: 0;
+	line-height: 36px;
+	font-size: 36px;
+	color: #666;
+}
+
+#info .content h1 .sub {
+	font-size: 36px;
+	font-weight: normal;
+	color: #CCC;
+}
+
+#info .content .image-block {
+	position: relative;
+	height: 100%;
+}
+
+#info .content .text {
+	position: absolute;
+	top: 96px;
+
+	width: 368px;
+
+	padding: 0 16px 0 0;
+
+	background-color: #FFF;
+	
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 20px;
+
+	color: #666;
+}
+
+/* Fixed page header */
+header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 24px;
+	line-height: 24px;
+	background-color: #000;
+	z-index: 10;
+}
+
+header h1,
+header h2 {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: bold;
+	color: #CCC;
+	margin: 0;
+	padding: 0;
+}
+
+header h2 {
+	position: absolute;
+	right: 0;
+	font-weight: normal;
+	text-align: right;
+}
+
+/* Fixed page navigation */
+nav {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 49px;
+	line-height: 49px;
+	background-color: #000;
+
+	text-align: center;
+
+	z-index: 10;
+}
+
+nav .hint {
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	
+	height: 24px;
+	line-height: 24px;
+
+	width: 100px;
+
+	margin-left: -50px;
+
+
+  -webkit-transition: opacity 0.3s ease-in; 
+     -moz-transition: opacity 0.3s ease-in; 
+       -o-transition: opacity 0.3s ease-in; 
+          transition: opacity 0.3s ease-in; 
+
+	opacity: 0;
+}
+
+nav .hint.is-visible {
+	opacity: 1;
+}
+
+nav .hint:after {
+	content: '\261F';
+}
+
+nav ul {
+	margin: 0 auto;
+	padding: 0;
+}
+
+nav ul li {
+	display: inline-block;
+	width: 186px;
+	margin-right: 16px;
+	list-style: none;
+
+	font-size: 14px;
+	line-height: 14px;
+
+	padding-top: 7px;
+
+	text-align: left;
+	border-top: 5px solid #9C9C9C;
+}
+
+nav a,
+nav a:hover {
+	text-decoration: none;
+}
+
+nav a {
+	color: #9C9C9C;
+}
+
+nav ul li.active,
+nav ul li:hover {
+	border-top: 5px solid #FFF;
+}
+
+nav ul li.active a,
+nav ul li:hover a {
+	color: #FFF;
 }

@@ -1,12 +1,13 @@
-define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo'], ($) ->
-	console.log('presenter')
-	$(window).bind('scrollstart', ->
-		console.log('START SCROLLING')
-	)
+define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing'], ($) ->
 
-	$(window).bind('scrollstop', ->
-		console.log('STOP SCROLLING')
+	toggleScrollDownHint = ->
+		visibleEls = $('.area:in-viewport')
+		if $(visibleEls).is $('.area')[0]
+			$('nav .hint').addClass('is-visible')
+		else 
+			$('nav .hint').removeClass('is-visible')
 
+	scrollMostVisibleElementIntoView = ->
 		visibleEls = $('.area:in-viewport')
 		console.log('visible', visibleEls)
 
@@ -45,6 +46,15 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo'], ($) ->
 				mostVisible = el:this, height:visibleHeight
 				console.log('setting mostVisible height', mostVisible?.height)
 
-		console.log('mostVisible', mostVisible)
-		$.scrollTo(mostVisible.el, axis:'y', duration: 500)
-	)	
+		console.log('mostVisible', mostVisible, $('.area')[0])
+
+		$.scrollTo(mostVisible.el, axis:'y', duration:500, easing:'easeOutQuart')
+
+	# Scroll an area into view when scrolling stops
+	$(window).bind('scrollstop', scrollMostVisibleElementIntoView)	
+
+	# Scroll area into view when browser window is resized
+	$(window).bind('resize', scrollMostVisibleElementIntoView)
+
+	# When a scrolling, check if we should toggle visibility of "scroll down" message
+	$(window).bind('scroll', toggleScrollDownHint)	
