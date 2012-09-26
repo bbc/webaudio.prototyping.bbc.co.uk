@@ -1,3 +1,11 @@
 /docs/*
 /wobbulator/index.html
 .DS_Store
+/lib/gunshot.js
+/lib/knob.js
+/lib/presenter.js
+/lib/ring_modulator.js
+/lib/speechbubble.js
+/lib/switch.js
+/lib/tapeloops.js
+/lib/wobbulator.js
