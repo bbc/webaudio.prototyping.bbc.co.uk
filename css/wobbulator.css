@@ -3,8 +3,12 @@
     background: transparent url('/wobbulator/wob-archive.png') no-repeat;
 }
 
-
 /* Wobbulator demo */
+#machine-wrapper #machine {
+    margin-top: -336px;
+    margin-left: -336px;
+}
+
 #machine {
     position: relative;
     width: 672px;

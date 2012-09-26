@@ -77,6 +77,17 @@ article {
 	color: #666;
 }
 
+/* Vertically center the machine */
+#machine-wrapper {
+	position: relative;
+}
+
+#machine-wrapper #machine {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
 /* Fixed page header */
 header {
 	position: fixed;
@@ -84,7 +95,10 @@ header {
 	width: 100%;
 	height: 24px;
 	line-height: 24px;
+	
 	background-color: #000;
+	background-color: rgba(0,0,0,0.85);
+
 	z-index: 10;
 }
 
@@ -112,7 +126,9 @@ nav {
 	width: 100%;
 	height: 49px;
 	line-height: 49px;
+
 	background-color: #000;
+	background-color: rgba(0,0,0,0.85);
 
 	text-align: center;
 
