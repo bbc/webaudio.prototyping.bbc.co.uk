@@ -96,54 +96,6 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
 
         request.send()
 
-    # # Oscillator
-    #
-    # This is our principle oscillator node. It implements a sine-wave
-    # oscillator where the primary frequency is a modifiable
-    # parameter. At the time of writing the "native" [Oscillator
-    # interface](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#Oscillator)
-    # is not available in any stable version of Webkit, so we use a
-    # [JavaScript
-    # node](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#JavaScriptAudioNode)
-    # instead.
-    class Oscillator
-      constructor: (@context,frequency) ->
-        # The node has 0 input channels and one output channel.  The `process` callback is called every 1024
-        # samples.
-        @node = @context.createJavaScriptNode(1024, 1, 1)
-        @node.onaudioprocess = (e) => this.process(e)
-
-        @phase = 0
-        @frequency = frequency
-        @sample_rate = @context.sampleRate
-        @amplitude = 1
-        @counter = 0
-
-      process: (e) ->
-        # This Oscillator generates a mono output so we only assign
-        # samples to a single output channel
-        data = e.outputBuffer.getChannelData(0)
-
-        # In for each block of 1024 samples we produce a sine wave. We
-        # accumulate the changes in phase in an instance variable
-        # `phase` so that it is carried over each time the callback is
-        # called. This prevents audible glitching.
-        for i in [0..data.length-1]
-          sample = @amplitude * Math.sin(@phase)
-          data[i] = sample
-          @phase = @phase + ((2 * Math.PI * @frequency)  / @sample_rate)
-
-    class InversionNode extends AudioNodeBase
-      constructor: (@context) ->
-        @node = @context.createJavaScriptNode(1024, 1, 1)
-        @node.onaudioprocess = (e) => this.process(e)
-
-      process: (e) ->
-        input0_data = e.inputBuffer.getChannelData(0)
-        output0_data = e.outputBuffer.getChannelData(0)
-
-        for i in [0..output0_data.length-1]
-          output0_data[i] = -1 * input0_data[i]
 
     # # Diode
     #
@@ -183,173 +135,81 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
 
         @node.curve = wsCurve
 
-    # # PassThroughNode
-    #
-    # At the time of writing any javascript node will delay its
-    # incoming audio signal by value of the blocksize. So in this
-    # instance each of our javascript nodes delays the audio signal by
-    # 1024 samples. This passthrough node has 1 input and 1 output and
-    # simple copies the samples from the input to the output. It can
-    # be used to compensate for delays introduced by javascript nodes
-    # elsewhere in the graph.
-    class PassThroughNode extends AudioNodeBase
-      constructor: (@context) ->
-        @node = @context.createJavaScriptNode(1024, 1, 1)
-        @node.onaudioprocess = (e) => this.process(e)
-
-      process: (e) ->
-        input0_data = e.inputBuffer.getChannelData(0)
-        output0_data = e.outputBuffer.getChannelData(0)
-
-        for i in [0..output0_data.length-1]
-          output0_data[i] = input0_data[i]
-
-    # # AdditionNode
-    #
-    # Although some native nodes sum on input we have decided to
-    # explicitly define our addition function for clarity. This node
-    # has 2 inputs (stereo) and 1 output (mono). It sums the values of
-    # the left and right input and sends them to the single output.
-    class Addition extends AudioNodeBase
-      constructor: (context) ->
-        @context = context
-        @node = @context.createJavaScriptNode(1024, 2, 1)
-        @node.onaudioprocess = (e) => this.process(e)
-
-      process: (e) ->
-        datain0 = e.inputBuffer.getChannelData(0)
-        datain1 = e.inputBuffer.getChannelData(1)
-        dataout0 = e.outputBuffer.getChannelData(0)
-
-        for i in [0..dataout0.length-1]
-          dataout0[i] = datain0[i] +  datain1[i]
 
     # # Connect the graph
     audioContext = new webkitAudioContext
 
     # vIn Signal path objects
-    vIn = new Oscillator(audioContext,30)
+    vIn = audioContext.createOscillator()
+    vIn.frequency.value = 30
+    vIn.noteOn(0) 
     vInGain = audioContext.createGainNode()
     vInGain.gain.value = 0.5
-    vInSplitter1 = audioContext.createChannelSplitter()
-    vInDelay1 = new PassThroughNode(audioContext)
-    vInInverter1 = new InversionNode(audioContext)
-    vInSplitter2 = audioContext.createChannelSplitter()
-    vInMerger1 = audioContext.createChannelMerger()
-    vInAddition1 = new Addition(audioContext)
-    vInDelay2 = new PassThroughNode(audioContext)
-    vInInverter2 = new InversionNode(audioContext)
+    
+    vInInverter1 = audioContext.createGainNode()
+    vInInverter1.gain.value = -1
+    
+    vInInverter2 = audioContext.createGainNode()
+    vInInverter2.gain.value = -1
+    
     vInDiode1 = new DiodeNode(audioContext)
     vInDiode2 = new DiodeNode(audioContext)
-    vInSplitter3 = audioContext.createChannelSplitter()
-    vInSplitter4 = audioContext.createChannelSplitter()
-    vInMerger2 = audioContext.createChannelMerger()
-    vInAddition2 = new Addition(audioContext)
-    vInInverter3 = new InversionNode(audioContext)
-    vInSplitter5 = audioContext.createChannelSplitter()
-    vInCrossSplitter = audioContext.createChannelSplitter()
+    
+    vInInverter3 = audioContext.createGainNode()
+    vInInverter3.gain.value = -1
+
 
     # vc Signal path objects
     player = new SamplePlayer(audioContext)
 
-    vcSplitter1 = audioContext.createChannelSplitter()
-    vcMerger1 = audioContext.createChannelMerger()
-    vcAddition1 = new Addition(audioContext)
-    vcDelay1 = new PassThroughNode(audioContext)
-    vcInverter1 = new InversionNode(audioContext)
-    vcDiode1 = new DiodeNode(audioContext)
-    vcDiode2 = new DiodeNode(audioContext)
-    vcSplitter2 = audioContext.createChannelSplitter()
-    vcSplitter3 = audioContext.createChannelSplitter()
-    vcMerger2 = audioContext.createChannelMerger()
-    vcAddition2 = new Addition(audioContext)
-    vcDelay2 = new PassThroughNode(audioContext)
-    vcSplitter4 = audioContext.createChannelSplitter()
+    vcInverter1 = audioContext.createGainNode()
+    vcInverter1.gain.value = -1
+    vcDiode3 = new DiodeNode(audioContext)
+    vcDiode4 = new DiodeNode(audioContext)
 
     # output Signal path objects
-    outMerger1 = audioContext.createChannelMerger()
-    outAddition = new Addition(audioContext)
-    outSplitter = audioContext.createChannelSplitter()
-    outMerger2 = audioContext.createChannelMerger()
 
     #vc Input Graph
-    player.connect(vcSplitter1)
-    vcSplitter1.connect(vcMerger1)
-    vcMerger1.connect(vcAddition1.node)
+    player.connect(vcInverter1)
+    player.connect(vcDiode4)
+    console.debug()
+    vcInverter1.connect(vcDiode3.node)
 
     #vIn Input Graph
-    vIn.node.connect(vInGain)
-    vInGain.connect(vInSplitter1)
-    vInSplitter1.connect(vInInverter1.node)
-    vInInverter1.connect(vInSplitter2)
-    vInSplitter2.connect(vInMerger1,0,0)
-    vInMerger1.connect(vInAddition1.node)
-
-    #Crossover input graph
-    vcSplitter1.connect(vInMerger1,0,1)
-    vInGain.connect(vInDelay1.node)
-    vInDelay1.connect(vInCrossSplitter)
-    vInCrossSplitter.connect(vcMerger1,0,1)
-
-    # vc Ring Graph
-    # Top
-    vcAddition1.connect(vcDelay1.node)
-    vcDelay1.connect(vcDiode1.node)
-    vcDiode1.connect(vcSplitter2)
-    vcSplitter2.connect(vcMerger2,0,0)
-    # Bottom
-    vcAddition1.connect(vcInverter1.node)
-    vcInverter1.connect(vcDiode2.node)
-    vcDiode2.connect(vcSplitter3)
-    vcSplitter3.connect(vcMerger2,0,1)
-    # output
-    vcMerger2.connect(vcAddition2.node)
-    vcAddition2.connect(vcDelay2.node)
-    vcDelay2.connect(vcSplitter4)
-    vcSplitter4.connect(outMerger1,0,0)
-
-    # vIn Ring graph
-    # Top
-    vInAddition1.connect(vInDelay2.node)
-    vInDelay2.connect(vInDiode1.node)
-    vInDiode1.connect(vInSplitter3)
-    vInSplitter3.connect(vInMerger2,0,0)
-    # Bottom
-    vInAddition1.connect(vInInverter2.node)
-    vInInverter2.connect(vInDiode2.node)
-    vInDiode2.connect(vInSplitter4)
-    vInSplitter4.connect(vInMerger2,0,1)
-    # output
-    vInMerger2.connect(vInAddition2.node)
-    vInAddition2.connect(vInInverter3.node)
-    vInInverter3.connect(vInSplitter5)
-    vInSplitter5.connect(outMerger1,0,1)
-
-    # output graph
-    outMerger1.connect(outAddition.node)
-    outAddition.connect(outSplitter)
-    outSplitter.connect(outMerger2,0,0)
-    outSplitter.connect(outMerger2,0,1)
-
-    outMerger2.connect(audioContext.destination)
-
+    vIn.connect(vInGain)
+    vInGain.connect(vInInverter1)
+    vInGain.connect(vcInverter1)
+    vInGain.connect(vcDiode4.node)
+    
+    vInInverter1.connect(vInInverter2)
+    vInInverter1.connect(vInDiode2.node)
+    vInInverter2.connect(vInDiode1.node)
+    vInDiode1.connect(vInInverter3)
+    vInDiode2.connect(vInInverter3)
+    vInInverter3.connect(audioContext.destination)
+    vcDiode3.connect(audioContext.destination)
+    vcDiode4.connect(audioContext.destination)
     # # User Interface
     bubble1 = new SpeechBubbleView(el: $("#voice1"))
     bubble2 = new SpeechBubbleView(el: $("#voice2"))
     bubble3 = new SpeechBubbleView(el: $("#voice3"))
     bubble4 = new SpeechBubbleView(el: $("#voice4"))
 
-    speedKnob = new KnobView(el: $("#tape-speed"), initial_value: 0.01)
+    speedKnob = new KnobView(
+     el: "#tape-speed"
+     initial_value: 30
+     valueMin: 0 
+     valueMax: 2000
+    )
+
     distortionKnob = new KnobView(el: $("#mod-distortion"), initial_value: 0.4)
 
     speedKnob.on('valueChanged', (v) =>
-      # Scale the [0,1] input from the KnobView into an appropriate range.
-      speed = v * (10 - 2000) + 10
-      vIn.frequency = speed
+      vIn.frequency.value = v
     )
 
     distortionKnob.on('valueChanged', (v) =>
-      _.each([vInDiode1, vInDiode2, vcDiode1, vcDiode2], (diode) -> diode.setDistortion(v))
+      _.each([vInDiode1, vInDiode2, vcDiode3, vcDiode4], (diode) -> diode.setDistortion(v))
     )
 
     bubble1.on('on', ->
