@@ -1,3 +1,11 @@
+#intro .image-block {
+    background: transparent url('/img/archive/rw_home_crop.png') no-repeat;
+}
+
+#info .image-block {
+    background: transparent url('/img/archive/rw_tape_info_crop.png') no-repeat;
+}
+
 #machine-wrapper #machine {
     margin-left: -576px;
     margin-top: -236px;
