@@ -273,12 +273,19 @@ nav a {
 	color: #9C9C9C;
 }
 
-nav ul li.active,
+/* Page 'active' state */
+#wobbulator 	nav .wobbulator,
+#tapeloops 		nav .tapeloops,
+#ring-modulator nav .ring-modulator,
+#gunshot 		nav .gunshot,
 nav ul li:hover {
 	border-top: 5px solid #FFF;
 }
 
-nav ul li.active a,
+#wobbulator 	nav .wobbulator a,
+#tapeloops 		nav .tapeloops a,
+#ring-modulator nav .ring-modulator a,
+#gunshot 		nav .gunshot a,
 nav ul li:hover a {
 	color: #FFF;
 }
