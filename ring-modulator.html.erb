@@ -1,0 +1,51 @@
+<%# coding: utf-8 %>
+
+<article id="intro" class="area">
+  <div class="content">
+    <h1>Ring Modulator</h1>
+    <div class="image-block">
+      <div class="text">
+        <p class="dept">BBC Research &amp; Development</p>
+        <p class="dept">Internet Research &amp; Future Services (IRFS)</p>
+        <h1>Audio on the Web: <br/>Rediscovering the era of the <span class="name">BBC Radiophonic Workshop</span></h1>
+        <p>Lorem ipsum some more text here but to learn more about the project go to the <a href="/about/">about page</a>.</p>
+      </div><!-- .text -->
+    </div><!-- .image-block -->
+  </div><!-- .content -->
+</article>
+
+<article id="info" class="area">
+  <div class="content">
+    <h1>Ring Modulator <span class="sub">demo</span></h1>
+    <div class="image-block">
+      <div class="text">
+        <p>The "Ring Modulator" was used to great effect to modify the
+          sounds of an actors voice - most famously to produce the
+          terrifying shriek of the Daleks in Dr Who.
+        </p>
+
+        <p>This application is a simulation of the Ring Modulator using the
+          Web Audio API.</p>
+      </div><!-- .text -->
+    </div><!-- .image-block -->
+  </div><!-- .content -->
+</article>
+
+<article id="machine-wrapper" class="area">
+  <div id="machine">
+    <div id="voice1" class="voice off"></div>
+    <div id="voice2" class="voice off"></div>
+    <div id="voice3" class="voice off"></div>
+    <div id="voice4" class="voice off"></div>
+    <div id="dalek" class="off"></div>
+    <div id="cyberman" class="off"></div>
+    <div id="tape-switch" class="off"></div>
+    <div id="tape-speed"></div>
+    <div id="mod-switch" class="off"></div>
+    <div id="mod-distortion"></div>
+  </div>
+</article><!-- #machine-wrapper -->
+
+<article id="code" class="area">
+  <%= @code %>
+</article>

@@ -1,4 +1,9 @@
-#application {
+#machine-wrapper #machine {
+    margin-left: -463px;
+    margin-top: -302px;
+}
+
+#machine {
     width:926px;
     height:604px;
     position: absolute;

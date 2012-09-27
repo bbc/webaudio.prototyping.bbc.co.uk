@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <title></title>
+  <script data-main="/lib/<%= @machine %>" src='/lib/require.js' type='text/javascript'></script>
+
+  <link rel="stylesheet" media="all" href="/css/docco.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="/css/shared.css" />
+  <link rel="stylesheet" type="text/css" href="/css/<%= @machine %>.css" />
+
+  <script id="version" type="text/javascript">
+    require.config({ urlArgs: "version=<%= git_version_number %>" });
+  </script>
+
+  <script type="text/javascript">
+    require(['presenter']);
+  </script>
+</head>
+<body id="<%= @machine %>">
+  <header>
+    <h1>Audio on the Web: Rediscovering the era of the BBC Radiophonic Workshop</h1>
+    <h2>a prototype by BBC Research &amp; Development</h2>
+  </header>
+
+  <nav>
+    <div class="hint is-visible"><span>Scroll down</span></div>
+    <ul>
+      <li><a href="/gunshot.html">Gunshot noise generator</a></li>
+      <li><a href="/wobbulator.html">Wobbulator</a></li>
+      <li><a href="/tapeloops.html">Tape Loops</a></li>
+      <li><a href="/ring-modulator.html">Ring Modulator</a></li>
+    </ul>
+  </nav>
+
+  <%= yield %>
+
+</body>

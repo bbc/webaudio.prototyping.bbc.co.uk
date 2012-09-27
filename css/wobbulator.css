@@ -1,7 +1,7 @@
 /* Wobbulator context */
 #intro .image-block,
 #info .image-block {
-    background: transparent url('/wobbulator/wob-archive.png') no-repeat;
+    background: transparent url('/img/wob-archive.png') no-repeat;
 }
 
 /* Wobbulator demo */

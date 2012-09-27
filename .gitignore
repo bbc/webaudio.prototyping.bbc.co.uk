@@ -1,5 +1,5 @@
 /docs/*
-/wobbulator/index.html
+/public/*
 .DS_Store
 /lib/gunshot.js
 /lib/knob.js

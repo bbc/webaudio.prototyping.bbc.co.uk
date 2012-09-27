@@ -1,7 +1,7 @@
 source :rubygems
 
-gem "mina"
 gem "nokogiri"
+gem "stasis"
 
 group :development do
   gem 'guard'
