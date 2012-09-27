@@ -8,4 +8,5 @@ group :development do
   gem 'terminal-notifier-guard'
   gem 'guard-rake'
   gem 'guard-coffeescript'
+  gem 'guard-process'
 end

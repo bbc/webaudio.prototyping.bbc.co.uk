@@ -1,7 +1,10 @@
 /* Wobbulator context */
-#intro .image-block,
+#intro .image-block {
+    background-image: url('/img/archive/rw_home_crop.png');
+}
+
 #info .image-block {
-    background: transparent url('/img/wob-archive.png') no-repeat;
+    background-image: url('/img/archive/rw_wob_info_crop.png');
 }
 
 /* Wobbulator demo */

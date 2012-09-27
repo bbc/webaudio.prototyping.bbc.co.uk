@@ -14,6 +14,8 @@ GEM
     guard-coffeescript (1.2.0)
       coffee-script (>= 2.2.0)
       guard (>= 1.1.0)
+    guard-process (1.0.1)
+      guard (>= 0.4.2)
     guard-rake (0.0.7)
       guard
       rake
@@ -40,6 +42,7 @@ PLATFORMS
 DEPENDENCIES
   guard
   guard-coffeescript
+  guard-process
   guard-rake
   nokogiri
   stasis

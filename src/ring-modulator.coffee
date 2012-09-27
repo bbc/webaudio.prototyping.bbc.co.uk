@@ -111,9 +111,7 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
         this.setCurve()
 
       setDistortion: (distortion) ->
-        #TODO: Set the distortion by shaping the whole curve, not just
-        #the vb threshold.
-        @vb = distortion
+        @h = distortion
         this.setCurve()
 
       setCurve: ->
@@ -138,42 +136,44 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
 
 
     # # Connect the graph
-    audioContext = new webkitAudioContext
+    context = new webkitAudioContext
 
     # vIn Signal path objects
-    vIn = audioContext.createOscillator()
+    vIn = context.createOscillator()
     vIn.frequency.value = 30
-    vIn.noteOn(0) 
-    vInGain = audioContext.createGainNode()
+    vIn.noteOn(0)
+    vInGain = context.createGainNode()
     vInGain.gain.value = 0.5
-    
-    vInInverter1 = audioContext.createGainNode()
+
+    vInInverter1 = context.createGainNode()
     vInInverter1.gain.value = -1
-    
-    vInInverter2 = audioContext.createGainNode()
+
+    vInInverter2 = context.createGainNode()
     vInInverter2.gain.value = -1
-    
-    vInDiode1 = new DiodeNode(audioContext)
-    vInDiode2 = new DiodeNode(audioContext)
-    
-    vInInverter3 = audioContext.createGainNode()
+
+    vInDiode1 = new DiodeNode(context)
+    vInDiode2 = new DiodeNode(context)
+
+    vInInverter3 = context.createGainNode()
     vInInverter3.gain.value = -1
 
 
     # vc Signal path objects
-    player = new SamplePlayer(audioContext)
+    player = new SamplePlayer(context)
 
-    vcInverter1 = audioContext.createGainNode()
+    vcInverter1 = context.createGainNode()
     vcInverter1.gain.value = -1
-    vcDiode3 = new DiodeNode(audioContext)
-    vcDiode4 = new DiodeNode(audioContext)
+    vcDiode3 = new DiodeNode(context)
+    vcDiode4 = new DiodeNode(context)
 
     # output Signal path objects
+    compressor = context.createDynamicsCompressor()
+    compressor.threshold.value = -12
 
     #vc Input Graph
     player.connect(vcInverter1)
     player.connect(vcDiode4)
-    console.debug()
+
     vcInverter1.connect(vcDiode3.node)
 
     #vIn Input Graph
@@ -181,15 +181,19 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
     vInGain.connect(vInInverter1)
     vInGain.connect(vcInverter1)
     vInGain.connect(vcDiode4.node)
-    
+
     vInInverter1.connect(vInInverter2)
     vInInverter1.connect(vInDiode2.node)
     vInInverter2.connect(vInDiode1.node)
     vInDiode1.connect(vInInverter3)
     vInDiode2.connect(vInInverter3)
-    vInInverter3.connect(audioContext.destination)
-    vcDiode3.connect(audioContext.destination)
-    vcDiode4.connect(audioContext.destination)
+
+    vInInverter3.connect(compressor)
+    vcDiode3.connect(compressor)
+    vcDiode4.connect(compressor)
+
+    compressor.connect(context.destination)
+
     # # User Interface
     bubble1 = new SpeechBubbleView(el: $("#voice1"))
     bubble2 = new SpeechBubbleView(el: $("#voice2"))
@@ -199,11 +203,16 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
     speedKnob = new KnobView(
      el: "#tape-speed"
      initial_value: 30
-     valueMin: 0 
+     valueMin: 0
      valueMax: 2000
     )
 
-    distortionKnob = new KnobView(el: $("#mod-distortion"), initial_value: 0.4)
+    distortionKnob = new KnobView(
+      el: "#mod-distortion",
+      initial_value: 1
+      valueMin: 0.2
+      valueMax: 50
+    )
 
     speedKnob.on('valueChanged', (v) =>
       vIn.frequency.value = v
