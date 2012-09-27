@@ -50,11 +50,20 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 		$.scrollTo(mostVisible.el, axis:'y', duration:500, easing:'easeOutQuart')
 
-	# Scroll an area into view when scrolling stops
-	$(window).bind('scrollstop', scrollMostVisibleElementIntoView)	
+	init = ->
+		console.log('init')
+		# Scroll an area into view when scrolling stops
+		$(window).bind('scrollstop', scrollMostVisibleElementIntoView)	
 
-	# Scroll area into view when browser window is resized
-	$(window).bind('resize', scrollMostVisibleElementIntoView)
+		# Scroll area into view when browser window is resized
+		$(window).bind('resize', scrollMostVisibleElementIntoView)
 
-	# When a scrolling, check if we should toggle visibility of "scroll down" message
-	$(window).bind('scroll', toggleScrollDownHint)	
+		# When a scrolling, check if we should toggle visibility of "scroll down" message
+		$(window).bind('scroll', toggleScrollDownHint)	
+
+		$('.hint').on('click', (evt) ->
+			evt.preventDefault()
+			$.scrollTo $('.area')[1], duration:500
+		)
+
+	$(document).ready(init)
