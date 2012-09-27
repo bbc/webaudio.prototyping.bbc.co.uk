@@ -1,3 +1,8 @@
+#machine-wrapper #machine {
+    margin-left: -576px;
+    margin-top: -236px;
+}
+
 .machine {
     width: 352px;
     height: 408px;
