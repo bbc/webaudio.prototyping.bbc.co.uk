@@ -1,54 +1,87 @@
-# # The Wobbulator
+# # How it works: The Wobbulator
 #
-# # Preamble
+# The "Wobbulator" was one example of a recycled or salvaged piece of
+# equipment put to creative use in the Radiophonic Workshop. The
+# Wobbulator was in fact a oscillator (looking at archive pictures
+# quite likely a [Brüel & Kjær Beat Frequency Oscillator
+# 1022](http://www.radiomuseum.org/r/bruelkjae_beat_frequency_oscillato.html)
+# used by sound engineers to measure the acoustic properties of
+# studios or by electrical engineers to test equipment.
 #
-# We use jQuery, backbone.js and some custom UI elements (namely a
-# [knob](views/knob.html) and a [switch](views/switch.html)) in this
-# application. We make these libraries available to our application
-# using [require.js](http://requirejs.org/)
+# The large centre knob sets the frequency of a primary oscillator.
+# This is frequency is then modulated (or "wobbled") a small amount by
+# a secondary oscillator. The depth of the wobble is controlled by the
+# amplitude of the secondary oscillator, and the frequency of the
+# wobble by its frequency.
+#
+# When the frequencies are in the audible range, the wobbulator can
+# produce a wide variety of space-y sounds.
+#
+# To simulate the wobbulator we use the
+# [OscillatorNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#Oscillator)
+# from the [Web Audio
+# API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html).
+#
+
+# # Dependencies
+#
+# We use [jQuery](http://jquery.com/),
+# [backbone.js](http://backbonejs.org/) and some custom UI elements
+# (namely a [knob](docs/knob.html) and a [switch](docs/switch.html))
+# in this application. We make these libraries available to our
+# application using [require.js](http://requirejs.org/)
 require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, SwitchView) ->
   $(document).ready ->
-    # We need to alert the user if the Web Audio API is not available.
-    # Testing for the existence of `webkitAudioContext` is currently
-    # a good way to achieve that.
-    if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
-      alert 'Your browser does not support the Web Audio API'
 
     # # ModulatedOscillator
     #
     # This class implements a modulated oscillator. It can be
-    # represented as a simple graph. An oscilator (Osc2) is connected
-    # to the destination of the audioContext. A second oscillator
-    # (Osc1) is used to modulate the frequency of Osc2.
+    # represented as a simple graph. An oscilator (Osc1) is connected
+    # to the output (the destination of the
+    # [AudioContext](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioContext-section)).
+    # A second oscillator (Osc2) is used to modulate the frequency of
+    # Osc1.
     #
     # <pre style="font-family:monospace">
     #
     # +--------+      +--------+
     # |        |      |        |
-    # |  Osc1  +------>  Gain  |
+    # |  Osc2  +------>  Gain  |
     # |        |      |        |
     # +---+----+      +---+----+
     #                     | Frequency
     #                 +---v----+        +--------+
     #                 |        |        |        |
-    #                 |  Osc2  +--------> Output |
+    #                 |  Osc1  +--------> Output |
     #                 |        |        |        |
     #                 +--------+        +--------+
     #
     # </pre>
     class ModulatedOscillator
       constructor: (context) ->
+        # The primary oscillator
         @oscillator = context.createOscillator()
+
+        # The modulating oscillator
         @modulator = context.createOscillator()
+
+        # The amplitude of the modulation oscillator (its 'depth') is
+        # modified by passing the output through a GainNode.
         @modulation_gain = context.createGainNode()
+
+        # Another GainNode controls the master volume
         @master_gain = context.createGainNode()
 
+        # Connect the graph as above
         @modulator.connect(@modulation_gain)
         @modulation_gain.connect(@oscillator.frequency)
 
         @oscillator.connect(@master_gain)
         @master_gain.connect(context.destination)
 
+        # Once an OscillatorNode is stopped it cannot be restarted. We
+        # turn both oscillators on from the beginning, and achieve the
+        # on/off effect by modifying the master gain.
         @oscillator.noteOn(0)
         @modulator.noteOn(0)
 
@@ -75,9 +108,9 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @turned_on = false
         @master_gain.gain.value = 0
 
-    # # Main application
-    audioContext = new webkitAudioContext
-    oscillator = new ModulatedOscillator(audioContext)
+    # # Initial parameters
+    context = new webkitAudioContext
+    oscillator = new ModulatedOscillator(context)
 
     # Set the initial parameters of the oscillator
     initialFrequency = 440
@@ -90,11 +123,12 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
 
     oscillator.off()
 
-    # # UI code
+    # # User Interface code
     #
-    # We create an on/off switch and three knobs to set each of
-    # the parameters of the `ModulatedOscillator`. We bind these UI
-    # elements to divs in the markup
+    # We create an on/off [switch](docs/switch.html) and three
+    # [knobs](docs/knob.html) to set each of the parameters of the
+    # `ModulatedOscillator`. We bind these UI elements to divs in the
+    # markup
     on_off_switch = new SwitchView(el: '#switch')
 
     frequency_knob = new KnobView(
@@ -125,8 +159,8 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       initial_value: 1
     )
 
-    # Register events to be fired when each of the knob values change.
-    # One for each parameter of the `ModulatedOscillator`
+    # Events are fired when each of the knob values change. We map
+    # these events to parameters of the `ModulatedOscillator`
     frequency_knob.on('valueChanged',
       (v) -> oscillator.setFrequency(v))
 
