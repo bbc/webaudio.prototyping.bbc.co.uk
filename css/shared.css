@@ -32,12 +32,12 @@ a, a:hover {
 }
 
 /* Project context panel */
-#intro {
+.frame {
 	position: relative;
 	text-align: center;
 }
 
-#intro .content {
+.frame .content {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -49,21 +49,22 @@ a, a:hover {
 	text-align: left;
 }
 
-#intro .content h1 {
+.frame .content h1 {
 	margin: 0;
 	line-height: 36px;
 	font-size: 36px;
 	color: #666;
 }
 
-#intro .content .image-block {
+.frame .content .image-block {
 	position: relative;
 	height: 100%;
 	background-attachment: fixed;
 	background-position: 50% 50%;
+	background-repeat: no-repeat;
 }
 
-#intro .content .text {
+.frame .content .text {
 	position: absolute;
 	top: 96px;
 	left: 50%;
@@ -100,29 +101,6 @@ a, a:hover {
 }
 
 /* Demo context info panel */
-#info {
-	position: relative;
-	text-align: center;
-}
-
-#info .content {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -280px 0 0 -512px;
-	
-	height: 560px;
-	width: 1024px;
-
-	text-align: left;
-}
-
-#info .content h1 {
-	margin: 0;
-	line-height: 36px;
-	font-size: 36px;
-	color: #666;
-}
 
 #info .content h1 .sub {
 	font-size: 36px;
@@ -130,28 +108,10 @@ a, a:hover {
 	color: #CCC;
 }
 
-#info .content .image-block {
-	position: relative;
-	height: 100%;
-	background-attachment: fixed;
-	background-position: 50% 50%;
-}
-
 #info .content .text {
-	position: absolute;
-	top: 96px;
-
 	width: 368px;
 
 	padding: 0 16px 0 0;
-
-	background-color: #FFF;
-	
-	font-size: 16px;
-	font-weight: normal;
-	line-height: 20px;
-
-	color: #666;
 }
 
 /* Vertically center the machine */
