@@ -179,10 +179,10 @@ nav .hint {
 	top: -64px;
 	left: 50%;
 	
-	height: 48px;
-	width: 48px;
+	height: 32px;
+	width: 56px;
 
-	margin-left: -24px;
+	margin-left: -28px;
 
 	background: transparent url('/img/arrow-down.png') no-repeat;
 
