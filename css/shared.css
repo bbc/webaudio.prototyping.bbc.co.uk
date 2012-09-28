@@ -20,11 +20,6 @@ body {
 	font-family: Helmet, Freesans, sans-serif;
 }
 
-article {
-	margin-top: 24px;
-	margin-bottom: 49px;
-}
-
 /* Generic typography */
 a, a:hover {
 	color: #000;
@@ -41,27 +36,31 @@ a, a:hover {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -280px 0 0 -512px;
+	/* margin: -277px 0 0 -504px; */ /* --> Centers content area 50% of screen which looks visually wrong */ 
+	margin: -288px 0 0 -504px; /* --> Visually centered in middle of nav bars */ 
 	
-	height: 560px;
-	width: 1024px;
+	height: 554px;
+	width: 1008px;
 
 	text-align: left;
 }
 
 .frame .content h1 {
 	margin: 0;
-	line-height: 36px;
-	font-size: 36px;
+	line-height: 48px;
+	font-size: 32px;
 	color: #666;
 }
 
 .frame .content .image-block {
 	position: relative;
-	height: 100%;
-	background-attachment: fixed;
-	background-position: 50% 50%;
+
+	width: 1008px;
+	height: 505px;
+
 	background-repeat: no-repeat;
+	background-position: 50% 54%;
+	background-attachment: fixed;
 }
 
 .frame .content .text {
@@ -109,7 +108,9 @@ a, a:hover {
 }
 
 #info .content .text {
+	left: 0;
 	width: 368px;
+	margin: 0;
 
 	padding: 0 16px 0 0;
 }
