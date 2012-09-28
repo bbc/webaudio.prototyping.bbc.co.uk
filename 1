@@ -39,9 +39,9 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     class Envelope
       constructor: (context) ->
         self = this
-        @fireRate = 600
-        @fireRandom = 0
         @context = context
+	@fireRate = 250
+        @rateMultiplier = 0
         @node = @context.createGainNode()
         @node.gain.value = 0
  
@@ -51,7 +51,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @node.gain.linearRampToValueAtTime(0.3, @context.currentTime + 0.101);
         @node.gain.linearRampToValueAtTime(0, @context.currentTime + 0.300);
         callback = -> envelope.impulse()
-        setTimeout callback, @fireRate + @fireRandom
+        setTimeout callback, @rate
 
     class ControlView extends Backbone.View
       el: $("#controls")
@@ -115,9 +115,12 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     filter.node.connect(convolver)
     convolver.connect(gainWet)
     gainDry.connect(merger1)
-    gainWet.connect(merger1)
+    #gainWet.connect(merger1)
 
     merger1.connect(audioContext.destination)
+	
+    #callback = -> envelope.impulse()
+    #fireInterval = setInterval callback, 1000
 
     new ControlView(filter,envelope,gainDry,gainWet,audioContext)
 
@@ -126,7 +129,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     distance_knob = new KnobView(el: '#distance')
     multi_fire_switch = new SwitchView(el: '#multi-fire')
     trigger = $('#trigger')
-    
+
     volume_knob.on('valueChanged',
       (v) -> console.log(v) )
     
@@ -134,7 +137,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       (v) -> console.log(v) )
 
     rate_of_fire_knob.on('valueChanged', (v) => 
-     envelope.fireRate = ((1 - v) * 500) + 350
+     envelope.fireRate = v
     )
 
     trigger.click(-> envelope.impulse() )

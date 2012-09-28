@@ -1,10 +1,13 @@
 define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing'], ($) ->
 
+  # if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
+  #   alert 'Your browser does not support the Web Audio API'
+
 	toggleScrollDownHint = ->
 		visibleEls = $('.area:in-viewport')
 		if $(visibleEls).is $('.area')[0]
 			$('nav .hint').addClass('is-visible')
-		else 
+		else
 			$('nav .hint').removeClass('is-visible')
 
 	scrollMostVisibleElementIntoView = ->
@@ -26,7 +29,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 			offsetTop = $(this).offset().top
 			viewportOffset = offsetTop - windowScrollTop
-			
+
 			console.log 'viewportOffset', viewportOffset, (viewportOffset > 0)
 
 			height = $(this).height()
@@ -53,13 +56,13 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	init = ->
 		console.log('init')
 		# Scroll an area into view when scrolling stops
-		$(window).bind('scrollstop', scrollMostVisibleElementIntoView)	
+		$(window).bind('scrollstop', scrollMostVisibleElementIntoView)
 
 		# Scroll area into view when browser window is resized
 		$(window).bind('resize', scrollMostVisibleElementIntoView)
 
 		# When a scrolling, check if we should toggle visibility of "scroll down" message
-		$(window).bind('scroll', toggleScrollDownHint)	
+		$(window).bind('scroll', toggleScrollDownHint)
 
 		$('.hint').on('click', (evt) ->
 			evt.preventDefault()
