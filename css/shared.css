@@ -223,6 +223,18 @@ nav ul li {
 
 	text-align: left;
 	border-top: 5px solid #9C9C9C;
+
+  -webkit-transition: border 0.3s ease-in; 
+     -moz-transition: border 0.3s ease-in; 
+       -o-transition: border 0.3s ease-in; 
+          transition: border 0.3s ease-in; 
+}
+
+nav a {
+  -webkit-transition: color 0.3s ease-in; 
+     -moz-transition: color 0.3s ease-in; 
+       -o-transition: color 0.3s ease-in; 
+          transition: color 0.3s ease-in; 
 }
 
 nav a,
@@ -231,6 +243,10 @@ nav a:hover {
 }
 
 nav a {
+	color: #9C9C9C;
+}
+
+nav a:hover {
 	color: #9C9C9C;
 }
 
