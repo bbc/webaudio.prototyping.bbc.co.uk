@@ -45,7 +45,7 @@ a, a:hover {
 	text-align: left;
 }
 
-.frame .content h1 {
+.frame .content > h1 {
 	margin: 0;
 	line-height: 48px;
 	font-size: 32px;
@@ -57,7 +57,9 @@ a, a:hover {
 
 	width: 1008px;
 	height: 505px;
+}
 
+.frame.fixed .content .image-block {
 	background-repeat: no-repeat;
 	background-position: 50% 54%;
 	background-attachment: fixed;
