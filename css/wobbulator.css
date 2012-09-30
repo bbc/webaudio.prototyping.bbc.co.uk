@@ -7,6 +7,10 @@
     background-image: url('/img/archive/rw_wob_info_crop.png');
 }
 
+.separator {
+    background-image: url(/img/archive/parallax/rw_wob.png);
+}
+
 /* Wobbulator demo */
 #machine-wrapper #machine {
     margin-top: -336px;

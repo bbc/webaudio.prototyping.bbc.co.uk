@@ -1,4 +1,4 @@
-define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing'], ($) ->
+define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar'], ($) ->
 
   # if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   #   alert 'Your browser does not support the Web Audio API'
@@ -68,5 +68,8 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			evt.preventDefault()
 			$.scrollTo $('.area')[1], duration:500
 		)
+
+		# Use stellar when the window object scrolls
+		$(window).stellar()
 
 	$(document).ready(init)

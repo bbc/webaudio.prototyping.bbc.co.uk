@@ -6,6 +6,10 @@
     background-image: url('/img/archive/rw_tape_info_crop.png');
 }
 
+.separator {
+    background-image: url(/img/archive/parallax/rw_window.png);
+}
+
 #machine-wrapper #machine {
     margin-left: -576px;
     margin-top: -236px;
