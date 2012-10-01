@@ -72,4 +72,4 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		# Use stellar when the window object scrolls
 		$(window).stellar()
 
-	$(document).ready(init)
+	$(document).ready(init) unless /no-scroll/.test window.location.hash
