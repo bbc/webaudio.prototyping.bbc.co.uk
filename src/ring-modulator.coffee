@@ -1,4 +1,3 @@
-
 # # Ring Modulator
 #
 # Ring Modulation is one of the most recognisable effects used by the
@@ -11,46 +10,38 @@
 # input. The actor could then use the effect live on the set of Dr
 # Who.
 #
-# It was quite common for the tape to be run at the wrong speed by
-# mistake which is why on some episodes the Daleks sound slightly
-# different. [Reference to SOS]
+# A simple way to achieve a Ring Modulation effect is to simply
+# multiply the input signal by the carrier signal. This approach
+# doesn't allow for the characteristic distortion sound that was
+# present in early analogue ring modulators which used a "ring" of
+# diodes to achieve the multiplication of the signals.
 #
-# This application is a digital simulation of a Diode based Ring
-# Modulator of the type used by the Radiophonic Workshop. [Reference
-# to J Parker]
+# To create a more realistic sound we take the use the digital model
+# of an analogue ring-modulator proposed by Julian Parker. (Julian
+# Parker. [A Simple Digital Model Of The Diode-Based
+# Ring-Modulator](http://recherche.ircam.fr/pub/dafx11/Papers/66_e.pdf).
+# Proc. 14th Int. Conf. Digital Audio Effects, Paris, France, 2011.)
 
 # # Preamble
 #
 # We use jQuery, backbone.js and some custom UI elements (namely a
-# [knob](views/knob.html) and a [switch](views/switch.html)) in this
-# application. We make these libraries available to our application
-# using [require.js](http://requirejs.org/)
+# [knob](views/knob.html) and a [speech
+# bubble](views/speechbubble.html)) in this application. We make these
+# libraries available to our application using
+# [require.js](http://requirejs.org/)
 require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, SpeechBubbleView) ->
   $(document).ready ->
-    # We need to alert the user if the Web Audio API is not available.
-    # Testing for the existence of `webkitAudioContext` is currently a
-    # good way to achieve that.
-    if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
-      alert 'Your browser does not support the Web Audio API. Try Google Chrome or a Webkit nightly build'
-
-    # # AudioNodeBase
-    #
-    # A simple base class to provide the correct destination type to
-    # an audio node and call the connect method.
-    class AudioNodeBase
-      connect: (destination) ->
-        if (typeof destination.node=='object')
-          d = destination.node
-        else
-          d = destination
-
-        @node.connect(d)
 
     # # SamplePlayer
     #
-    # This class uses native audio buffer nodes to load and playback
-    # samples. It requires an audio context.
+    # When a speech bubble is clicked we load a sample using an AJAX
+    # request and put it into the buffer of an
+    # [AudioBufferSourceNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode).
+    # The sample is then triggered and looped.
+
     class SamplePlayer extends Backbone.View
+      # The class requires the AudioContext in order to create the
+      # source buffer.
       constructor: (@context) ->
 
       play: () ->
@@ -97,12 +88,13 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
 
         request.send()
 
-
     # # Diode
     #
     # This class simulates the diode in Parker's paper using the Web
-    # Audio API's WaveShaper node.
-    class DiodeNode extends AudioNodeBase
+    # Audio API's
+    # [WaveShaper](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#WaveShaperNode)
+    # node.
+    class DiodeNode
       constructor: (@context) ->
         @node = @context.createWaveShaper()
         @vb = 0.2
@@ -134,6 +126,13 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
 
         @node.curve = wsCurve
 
+      connect: (destination) ->
+        if (typeof destination.node=='object')
+          d = destination.node
+        else
+          d = destination
+
+        @node.connect(d)
 
     # # Connect the graph
     context = new webkitAudioContext
