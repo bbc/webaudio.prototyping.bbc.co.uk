@@ -1,34 +1,31 @@
 /*--------------------- Layout and Typography ----------------------------*/
-#code {
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
-  font-size: 15px;
-  line-height: 22px;
+#code table {
   color: #252519;
   margin: 0; padding: 0;
 }
-#code a {
+#code table a {
   color: #261a3b;
 }
-  #code a:visited {
+  #code table a:visited {
     color: #261a3b;
   }
-#code p {
+#code table p {
   margin: 0 0 15px 0;
 }
-#code h1, #code h2, #code h3, #code h4, #code h5, #code h6 {
+#code table h1, #code table h2, #code table h3, #code table h4, #code table h5, #code table h6 {
   margin: 0px 0 15px 0;
 }
-  #code h1 {
+  #code table h1 {
     margin-top: 40px;
   }
-#code hr {
+#code table hr {
     border: 0 none;
     border-top: 1px solid #e5e5ee;
     height: 1px;
     margin: 20px 0;
 }
 
-#code img {
+#code table img {
     width: 100%;
 }
 
