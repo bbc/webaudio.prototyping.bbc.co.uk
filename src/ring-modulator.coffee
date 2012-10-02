@@ -1,8 +1,9 @@
 # # Ring Modulator
 #
-# Ring Modulation is one of the most recognisable effects used by the
-# Radiophonic Workshop. It was the effect used to create the voices of
-# both the Cybermen and The Daleks for Dr Who.
+# [Ring Modulation](http://en.wikipedia.org/wiki/Ring_modulation) was
+# one of the most recognisable effects used by the Radiophonic
+# Workshop. It was the effect used to create the voices of both the
+# Cybermen and The Daleks for Dr Who.
 #
 # To create the voice of the Daleks they used a 30Hz sine wave as the
 # modulating signal - this was recorded onto a tape loop and connected
@@ -16,9 +17,11 @@
 # present in early analogue ring modulators which used a "ring" of
 # diodes to achieve the multiplication of the signals.
 #
-# To create a more realistic sound we take the use the digital model
-# of an analogue ring-modulator proposed by Julian Parker. (Julian
-# Parker. [A Simple Digital Model Of The Diode-Based
+# ![Circuit diagram of a traditional ring modulator](/img/circuit_diagram_parker.png "Circuit diagram")
+#
+# To create a more realistic sound we use the digital model of an
+# analogue ring-modulator proposed by Julian Parker. (Julian Parker.
+# [A Simple Digital Model Of The Diode-Based
 # Ring-Modulator](http://recherche.ircam.fr/pub/dafx11/Papers/66_e.pdf).
 # Proc. 14th Int. Conf. Digital Audio Effects, Paris, France, 2011.)
 
@@ -29,7 +32,7 @@
 # bubble](views/speechbubble.html)) in this application. We make these
 # libraries available to our application using
 # [require.js](http://requirejs.org/)
-require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, SpeechBubbleView) ->
+require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, Knob, SpeechBubble) ->
   $(document).ready ->
 
     # # SamplePlayer
@@ -37,8 +40,8 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
     # When a speech bubble is clicked we load a sample using an AJAX
     # request and put it into the buffer of an
     # [AudioBufferSourceNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode).
-    # The sample is then triggered and looped.
-
+    # The sample is then triggered and looped. The `SamplePlayer`
+    # class encapsulates this operation.
     class SamplePlayer extends Backbone.View
       # The class requires the AudioContext in order to create the
       # source buffer.
@@ -48,14 +51,14 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
         this.stop()
         # Create a new source
         @source = @context.createBufferSource()
-        # Assign the previously loaded buffer to the source
+        # Assign the loaded buffer to the source
         @source.buffer = @buffer
         # Enable looping
         @source.loop = true
-        # Connect the source
+        # Connect the source to the node's destination
         @source.connect(@destination)
-        # Play now
-        @source.noteOn 0
+        # Play immediately
+        @source.noteOn(0)
 
       stop: ->
         if @source
@@ -63,14 +66,16 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
           @source.noteOff 0
           @source.disconnect
 
-      # Connect method - we cannot just inherit audio node base as we
-      # do not want to perform the connection when the graph is built
+      # We provide a connect method so that it can
+      # be connected to other nodes in a consistant way.
       connect: (destination) ->
         if (typeof destination.node=='object')
           @destination = destination.node
         else
           @destination = destination
 
+      # Make a request for the sound file to load into this buffer,
+      # decode it and set the buffer contents
       loadBuffer: (url) ->
         self = this
         request = new XMLHttpRequest()
@@ -88,15 +93,17 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
 
         request.send()
 
-    # # Diode
+    # # DiodeNode
     #
-    # This class simulates the diode in Parker's paper using the Web
-    # Audio API's
+    # This class implements the diode described in Parker's paper
+    # using the Web Audio API's
     # [WaveShaper](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#WaveShaperNode)
     # node.
     class DiodeNode
       constructor: (@context) ->
         @node = @context.createWaveShaper()
+
+        # three initial parameters controlling the shape of the curve
         @vb = 0.2
         @vl = 0.4
         @h = 1
@@ -107,6 +114,9 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
         this.setCurve()
 
       setCurve: ->
+        # The non-linear waveshaper curve describes the transformation
+        # between an input signal and an output signal. We calculate a
+        # 1024-point curve following equation (2) from Parker's paper.
         samples = 1024;
         wsCurve = new Float32Array(samples);
 
@@ -126,24 +136,42 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
 
         @node.curve = wsCurve
 
+      # We provide a connect method so that it can
+      # be connected to other nodes in a consistant way.
       connect: (destination) ->
-        if (typeof destination.node=='object')
-          d = destination.node
-        else
-          d = destination
-
-        @node.connect(d)
+        @node.connect(destination)
 
     # # Connect the graph
+    #
+    # The following graph layout is proposed by Parker
+    #
+    # ![Block diagram of diode ring modulator](/img/block_diagram_parker.png "Block diagram")
+    #
+    # Where `Vin` is the modulation oscillator input and `Vc` is the voice
+    # input.
+    #
+    # Signal addition is shown with a `+` and signal gain by a triangle.
+    # The 4 rectangular boxes are non-linear waveshapers which model the
+    # diodes in the ring modulator.
+    #
+    # We implement this graph as in the diagram with the following
+    # correspondences:
+    #
+    # - A triangle is implemented with an [AudioGainNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioGainNode)
+    # - Addition is achieved by noting that Web Audio nodes sum their inputs
+    # - The diodes are implemented in the DiodeNode class
+    #
     context = new webkitAudioContext
 
-    # vIn Signal path objects
+    # First we create the objects on the Vin side of the graph
     vIn = context.createOscillator()
     vIn.frequency.value = 30
     vIn.noteOn(0)
     vInGain = context.createGainNode()
     vInGain.gain.value = 0.5
 
+    # GainNodes can take negative gain which represents phase
+    # inversion
     vInInverter1 = context.createGainNode()
     vInInverter1.gain.value = -1
 
@@ -156,8 +184,7 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
     vInInverter3 = context.createGainNode()
     vInInverter3.gain.value = -1
 
-
-    # vc Signal path objects
+    # Now we create the objects on the Vc side of the graph
     player = new SamplePlayer(context)
 
     vcInverter1 = context.createGainNode()
@@ -165,17 +192,24 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
     vcDiode3 = new DiodeNode(context)
     vcDiode4 = new DiodeNode(context)
 
-    # output Signal path objects
+    # A small addition to the graph given in Parker's paper is a
+    # compressor node immediately before the output. This ensures that
+    # the user's volume remains somewhat constant when the distortion
+    # is increased.
     compressor = context.createDynamicsCompressor()
     compressor.threshold.value = -12
 
-    #vc Input Graph
+    # Now we connect up the graph following the block diagram above.
+    # When working on complex graphs it helps to have a pen and paper
+    # handy!
+
+    # First the Vc side
     player.connect(vcInverter1)
     player.connect(vcDiode4)
 
     vcInverter1.connect(vcDiode3.node)
 
-    #vIn Input Graph
+    # Then the Vin side
     vIn.connect(vInGain)
     vInGain.connect(vInInverter1)
     vInGain.connect(vcInverter1)
@@ -184,6 +218,9 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
     vInInverter1.connect(vInInverter2)
     vInInverter1.connect(vInDiode2.node)
     vInInverter2.connect(vInDiode1.node)
+
+    # Finally connect the four diodes to the destination via the
+    # output-stage compressor
     vInDiode1.connect(vInInverter3)
     vInDiode2.connect(vInInverter3)
 
@@ -194,33 +231,43 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, KnobView, 
     compressor.connect(context.destination)
 
     # # User Interface
-    bubble1 = new SpeechBubbleView(el: $("#voice1"))
-    bubble2 = new SpeechBubbleView(el: $("#voice2"))
-    bubble3 = new SpeechBubbleView(el: $("#voice3"))
-    bubble4 = new SpeechBubbleView(el: $("#voice4"))
 
-    speedKnob = new KnobView(
+    # A [speech bubble](views/speechbubble.html) is a simple
+    # backbone.js view with a toggle and hover state
+    bubble1 = new SpeechBubble(el: $("#voice1"))
+    bubble2 = new SpeechBubble(el: $("#voice2"))
+    bubble3 = new SpeechBubble(el: $("#voice3"))
+    bubble4 = new SpeechBubble(el: $("#voice4"))
+
+    # [Knobs](views/knob.html) for the oscillator frequency ...
+    speedKnob = new Knob(
      el: "#tape-speed"
      initial_value: 30
      valueMin: 0
-     valueMax: 2000
+     valueMax: 10000
     )
 
-    distortionKnob = new KnobView(
+    # ... and the distortion control
+    distortionKnob = new Knob(
       el: "#mod-distortion",
       initial_value: 1
       valueMin: 0.2
       valueMax: 50
     )
 
-    speedKnob.on('valueChanged', (v) =>
-      vIn.frequency.value = v
-    )
-
+    # Map events that are fired when user interface objects are
+    # interacted with to the corresponding parameters in the ring
+    # modulator
     distortionKnob.on('valueChanged', (v) =>
       _.each([vInDiode1, vInDiode2, vcDiode3, vcDiode4], (diode) -> diode.setDistortion(v))
     )
 
+    speedKnob.on('valueChanged', (v) =>
+      vIn.frequency.value = v
+    )
+
+    # For each speech bubble, when clicked we stop any currently
+    # playing buffers and play the sample associated with this buffer.
     bubble1.on('on', ->
       _.each([bubble2, bubble3, bubble4], (o) -> o.turnOff() )
       player.loadBuffer("/audio/ringmod_exterminate.wav")

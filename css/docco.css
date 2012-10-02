@@ -27,6 +27,11 @@
     height: 1px;
     margin: 20px 0;
 }
+
+#code img {
+    width: 100%;
+}
+
 #container {
   position: relative;
 }
