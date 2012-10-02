@@ -314,7 +314,7 @@ nav .about a:active {
 	background-image: url(/img/presenter/rw_button_about_on.png);
 }
 
-
+/* Global nav */
 nav ul {
 	display: inline-block;
 	margin: 0 auto;
@@ -323,25 +323,34 @@ nav ul {
 
 nav ul li {
 	display: inline-block;
-	width: 186px;
-	margin-right: 16px;
+	width: 229px;
+	height: 49px;
+	line-height: 49px;
+
+	margin-right: 8px;
+	padding-right: 8px;
+
+	border-right: 1px solid #515151;
+
 	list-style: none;
 
-	font-size: 14px;
-	line-height: 14px;
+	font-size: 25px;
+	font-weight: bold;
 
-	padding-top: 7px;
+	vertical-align: middle;
+}
 
-	text-align: left;
-	border-top: 5px solid #9C9C9C;
-
-  -webkit-transition: border 0.1s ease-in; 
-     -moz-transition: border 0.1s ease-in; 
-       -o-transition: border 0.1s ease-in; 
-          transition: border 0.1s ease-in; 
+nav ul li:last-child {
+	border-right: none;
+	margin-right: 0;
+	padding-right: 0;
 }
 
 nav a {
+	display: block;
+	width: 100%;
+	height: 100%;
+
   -webkit-transition: color 0.1s ease-in; 
      -moz-transition: color 0.1s ease-in; 
        -o-transition: color 0.1s ease-in; 
@@ -362,18 +371,20 @@ nav a:hover {
 }
 
 /* Page 'active' state */
-#wobbulator 	nav .wobbulator,
-#tapeloops 		nav .tapeloops,
-#ring-modulator nav .ring-modulator,
-#gunshot 		nav .gunshot,
-nav ul li:hover {
-	border-top: 5px solid #FFF;
-}
-
 #wobbulator 	nav .wobbulator a,
 #tapeloops 		nav .tapeloops a,
 #ring-modulator nav .ring-modulator a,
-#gunshot 		nav .gunshot a,
-nav ul li:hover a {
+#gunshot 		nav .gunshot a {
 	color: #FFF;
+}
+
+nav ul li:hover a {
+	color: #DDD;
+}
+
+#wobbulator 	nav .wobbulator,
+#tapeloops 		nav .tapeloops,
+#ring-modulator nav .ring-modulator,
+#gunshot 		nav .gunshot {
+	background: url(/img/presenter/rw_nav-indicator.png) no-repeat 50% 0;
 }
