@@ -9,6 +9,34 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
       alert 'Your browser does not support the Web Audio API. Try Google Chrome or a Webkit nightly build'
 
+    class audioRateTimer
+      constructor: (@context) ->
+        self = this
+        @node = @context.createJavaScriptNode(1024, 1, 2)
+        @node.onaudioprocess = (e) => @process(e)
+
+        @count = 0
+        @voice = 0
+        @frequency = 0
+        @sample_rate = context.sampleRate
+
+      process: (e) ->
+        data_l = e.outputBuffer.getChannelData(0)
+        data_r = e.outputBuffer.getChannelData(1)
+      
+        for i in [0..data_l.length-1]
+          @count++
+          if @count >= @sample_rate / @frequency
+            @voice++
+            @count = 0
+            if @voice == 1        
+              envelope.impulse()
+            else if @voice == 2
+              envelope1.impulse()
+            else if @voice == 3
+              envelope2.impulse()
+              @voice = 0
+            
     class WhiteNoise
       constructor: (context) ->
         self = this
@@ -50,8 +78,6 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @node.gain.linearRampToValueAtTime(1, @context.currentTime + 0.001);
         @node.gain.linearRampToValueAtTime(0.3, @context.currentTime + 0.101);
         @node.gain.linearRampToValueAtTime(0, @context.currentTime + 0.300);
-        callback = -> envelope.impulse()
-        setTimeout callback, @fireRate + @fireRandom
 
     class ControlView extends Backbone.View
       el: $("#controls")
@@ -85,11 +111,15 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
 
 
     audioContext = new webkitAudioContext
+    time = new audioRateTimer(audioContext)
     filter = new Filter(audioContext)
     noise = new WhiteNoise(audioContext)
     envelope = new Envelope(audioContext)
+    envelope1 = new Envelope(audioContext)
+    envelope2 = new Envelope(audioContext)
     gainDry = audioContext.createGainNode()
     gainWet = audioContext.createGainNode()
+    gainMaster = audioContext.createGainNode()
     merger1 = audioContext.createChannelMerger()
     impulseBuffer = null
     convolver = audioContext.createConvolver()
@@ -110,14 +140,19 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     request.send()
 
     noise.node.connect(envelope.node)
+    noise.node.connect(envelope1.node)
+    noise.node.connect(envelope2.node)
     envelope.node.connect(filter.node)
+    envelope1.node.connect(filter.node)
+    envelope2.node.connect(filter.node)
     filter.node.connect(gainDry)
     filter.node.connect(convolver)
     convolver.connect(gainWet)
     gainDry.connect(merger1)
     gainWet.connect(merger1)
-
-    merger1.connect(audioContext.destination)
+    merger1.connect(gainMaster)
+    time.node.connect(audioContext.destination)
+    gainMaster.connect(audioContext.destination)
 
     new ControlView(filter,envelope,gainDry,gainWet,audioContext)
 
@@ -127,14 +162,24 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     multi_fire_switch = new SwitchView(el: '#multi-fire')
     trigger = $('#trigger')
     
-    volume_knob.on('valueChanged',
-      (v) -> console.log(v) )
+    multi_fire_switch.on('on', =>
+      time.frequency = 2
+    )
+
+    multi_fire_switch.on('off', =>
+      time.frequency = 0
+    )
     
-    distance_knob.on('valueChanged',
-      (v) -> console.log(v) )
+    volume_knob.on('valueChanged', (v) => 
+      gainMaster.gain.value = v 
+    )
+    
+    distance_knob.on('valueChanged', (v) => 
+      gainWet.gain.value = v 
+    )
 
     rate_of_fire_knob.on('valueChanged', (v) => 
-     envelope.fireRate = ((1 - v) * 500) + 350
+     time.frequency = (v + 1) * 3
     )
 
     trigger.click(-> envelope.impulse() )
