@@ -7,8 +7,12 @@
     background-image: url('/img/archive/rw_wob_info_crop.png');
 }
 
-.separator {
-    background-image: url(/img/archive/parallax/rw_wob.png);
+.separator.separator-1 {
+    background-image: url(/img/archive/parallax/rw_strip_wob1_1920x384.png);
+}
+
+.separator.separator-2 {
+    background-image: url(/img/archive/parallax/rw_strip-wob2_1920x384.png);
 }
 
 /* Wobbulator demo */

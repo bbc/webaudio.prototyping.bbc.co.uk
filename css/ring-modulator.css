@@ -6,8 +6,12 @@
     background-image: url('/img/archive/rw_ring_info_crop.png');
 }
 
-.separator {
-    background-image: url(/img/archive/parallax/rw_man.png);
+.separator.separator-1 {
+    background-image: url(/img/archive/parallax/rw_strip_ring1_1920x384.png);
+}
+
+.separator.separator-2 {
+    background-image: url(/img/archive/parallax/rw_strip_ring2_1920x384.png);
 }
 
 #machine-wrapper #machine {
