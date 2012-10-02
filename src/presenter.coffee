@@ -83,6 +83,16 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			$.scrollTo $('.area')[1], duration:500
 		)
 
+		# When an internal page link is clicked, scroll to the target
+		# instead of just jumping there
+		$(document).on('click', "[href^='#']", (evt) ->
+			href = $(this).attr('href')
+			el   = $(href)
+			if el.length > 0
+				$.scrollTo el, duration:500
+				evt.preventDefault()
+		)
+
 		###
 		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
 		# the machine is scrolled into view
