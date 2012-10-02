@@ -25,6 +25,10 @@ helpers do
   end
 end
 
+before 'index.html.erb' do
+  @machine = "index"
+end
+
 before 'wobbulator.html.erb' do
   @code = extract_code_for("docs/wobbulator.html")
   @machine = "wobbulator"

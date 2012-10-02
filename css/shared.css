@@ -94,6 +94,9 @@ a, a:hover {
 
 	width: 1008px;
 	height: 505px;
+
+	/* this applies to the index page */
+	background-image: url('/img/archive/rw_home_crop.png');
 }
 
 .frame.fixed .content .image-block {
@@ -253,6 +256,11 @@ nav .hint span {
 
 nav .hint.is-visible {
 	opacity: 1;
+}
+
+/* */
+#index .hint {
+	display: none;
 }
 
 /* About / Back to Top buttons */
