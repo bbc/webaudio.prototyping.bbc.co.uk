@@ -244,7 +244,7 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, Knob, Spee
      el: "#tape-speed"
      initial_value: 30
      valueMin: 0
-     valueMax: 10000
+     valueMax: 2000
     )
 
     # ... and the distortion control
