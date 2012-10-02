@@ -3,8 +3,8 @@
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
 define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar'], ($) ->
 
-  # if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
-  #   alert 'Your browser does not support the Web Audio API'
+  	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
+  	#   alert 'Your browser does not support the Web Audio API'
 
   	# If the first .area element is visible in the viewport, the 'Scroll down' 
   	# .hint is shown otherwise it is hidden
@@ -14,6 +14,11 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			$('nav .hint').addClass('is-visible')
 		else
 			$('nav .hint').removeClass('is-visible')
+
+	# Wrap the jQuery.scrollTo plugin to pass in the same options
+	# for a consistent scroll animation on the page
+	scrollTo = (el) ->
+  		$.scrollTo el, axis:'y', duration:500, easing:'easeOutQuart'
 
 	# When there are 2 .area elements visible within the browser viewport 
 	# the element with the most visible height is scrolled into view.
@@ -63,7 +68,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 		console.log('mostVisible', mostVisible, $('.area')[0])
 
-		$.scrollTo(mostVisible.el, axis:'y', duration:500, easing:'easeOutQuart')
+		scrollTo mostVisible.el
 
 	init = ->
 		console.log('init')
@@ -80,7 +85,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		# the page is scrolled to whatever the second .area element is
 		$('.hint').on('click', (evt) ->
 			evt.preventDefault()
-			$.scrollTo $('.area')[1], duration:500
+			scrollTo $('.area')[1]
 		)
 
 		# When an internal page link is clicked, scroll to the target
@@ -89,7 +94,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			href = $(this).attr('href')
 			el   = $(href)
 			if el.length > 0
-				$.scrollTo el, duration:500
+				scrollTo el
 				evt.preventDefault()
 		)
 
