@@ -170,7 +170,9 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     
     gotStream = (stream) =>
       liveInput = context.createMediaStreamSource( stream )
-      liveInput.connect(vcInverter1)
+      liveInput.connect(liveInputGain)
+      liveInputGain.connect(vcInverter1)
+      liveInputGain.gain.value = 1.0
 
     # First we create the objects on the Vin side of the graph
     
@@ -197,7 +199,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # Now we create the objects on the Vc side of the graph
     player = new SamplePlayer(context)
     
-    
+    liveInputGain = context.createGainNode()
     vcInverter1 = context.createGainNode()
     vcInverter1.gain.value = -1
     vcDiode3 = new DiodeNode(context)
@@ -320,8 +322,12 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     bubble4.on('off', ->
       player.stop()
     )
+    
     tapeswitch.on('on', ->
       getLive()
-      
+    )
+    
+    tapeswitch.on('off', ->
+      liveInputGain.gain.value = 0
     )
   )
