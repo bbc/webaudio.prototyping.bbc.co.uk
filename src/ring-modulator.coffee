@@ -32,7 +32,7 @@
 # bubble](views/speechbubble.html)) in this application. We make these
 # libraries available to our application using
 # [require.js](http://requirejs.org/)
-require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, Knob, SpeechBubble) ->
+require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, Knob, SpeechBubble, SwitchView) ->
   $(document).ready ->
 
     # # SamplePlayer
@@ -161,9 +161,19 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, Knob, Spee
     # - Addition is achieved by noting that Web Audio nodes sum their inputs
     # - The diodes are implemented in the DiodeNode class
     #
+   
+    
     context = new webkitAudioContext
+    
+    getLive = =>
+      navigator.webkitGetUserMedia( {audio:true}, gotStream )
+    
+    gotStream = (stream) =>
+      liveInput = context.createMediaStreamSource( stream )
+      liveInput.connect(vcInverter1)
 
     # First we create the objects on the Vin side of the graph
+    
     vIn = context.createOscillator()
     vIn.frequency.value = 30
     vIn.noteOn(0)
@@ -186,7 +196,8 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, Knob, Spee
 
     # Now we create the objects on the Vc side of the graph
     player = new SamplePlayer(context)
-
+    
+    
     vcInverter1 = context.createGainNode()
     vcInverter1.gain.value = -1
     vcDiode3 = new DiodeNode(context)
@@ -238,6 +249,8 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, Knob, Spee
     bubble2 = new SpeechBubble(el: $("#voice2"))
     bubble3 = new SpeechBubble(el: $("#voice3"))
     bubble4 = new SpeechBubble(el: $("#voice4"))
+    
+    tapeswitch = new SwitchView(el: '#tape-switch')
 
     # [Knobs](views/knob.html) for the oscillator frequency ...
     speedKnob = new Knob(
@@ -307,4 +320,8 @@ require(["jquery", "backbone", "knob", "speechbubble"], ($, Backbone, Knob, Spee
     bubble4.on('off', ->
       player.stop()
     )
-)
+    tapeswitch.on('on', ->
+      getLive()
+      
+    )
+  )
