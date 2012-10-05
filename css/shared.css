@@ -36,13 +36,17 @@ a, a:hover {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	/* margin: -277px 0 0 -504px; */ /* --> Centers content area 50% of screen which looks visually wrong */ 
-	margin: -288px 0 0 -504px; /* --> Visually centered in middle of nav bars */ 
-	
+
+	margin: -288px 0 0 -504px; /* --> Visually centered in middle of nav bars */
+
 	height: 554px;
 	width: 1008px;
 
 	text-align: left;
+}
+
+#landing .frame .content {
+    margin: -240px 0 0 -504px; /* Visually centered when bottom nav bar missing */
 }
 
 .content > h1,
@@ -72,10 +76,10 @@ a, a:hover {
 	color: #CCC;
 	text-decoration: none;
 
-  -webkit-transition: color 0.1s ease-in-out; 
-     -moz-transition: color 0.1s ease-in-out; 
-       -o-transition: color 0.1s ease-in-out; 
-          transition: color 0.1s ease-in-out; 
+  -webkit-transition: color 0.1s ease-in-out;
+     -moz-transition: color 0.1s ease-in-out;
+       -o-transition: color 0.1s ease-in-out;
+          transition: color 0.1s ease-in-out;
 }
 
 .content .sub-nav a:hover,
@@ -116,7 +120,7 @@ a, a:hover {
 	padding:16px;
 
 	background-color: #FFF;
-	
+
 	font-size: 16px;
 	font-weight: normal;
 	line-height: 20px;
@@ -187,7 +191,7 @@ header {
 	width: 100%;
 	height: 24px;
 	line-height: 24px;
-	
+
 	background-color: #000;
 	background-color: rgba(0,0,0,0.85);
 
@@ -231,7 +235,7 @@ nav .hint {
 	position: absolute;
 	top: -64px;
 	left: 50%;
-	
+
 	height: 32px;
 	width: 56px;
 
@@ -241,10 +245,10 @@ nav .hint {
 
 	cursor: pointer;
 
-  -webkit-transition: opacity 0.3s ease-in; 
-     -moz-transition: opacity 0.3s ease-in; 
-       -o-transition: opacity 0.3s ease-in; 
-          transition: opacity 0.3s ease-in; 
+  -webkit-transition: opacity 0.3s ease-in;
+     -moz-transition: opacity 0.3s ease-in;
+       -o-transition: opacity 0.3s ease-in;
+          transition: opacity 0.3s ease-in;
 
 	opacity: 0;
 }
@@ -359,10 +363,10 @@ nav a {
 	width: 100%;
 	height: 100%;
 
-  -webkit-transition: color 0.1s ease-in; 
-     -moz-transition: color 0.1s ease-in; 
-       -o-transition: color 0.1s ease-in; 
-          transition: color 0.1s ease-in; 
+  -webkit-transition: color 0.1s ease-in;
+     -moz-transition: color 0.1s ease-in;
+       -o-transition: color 0.1s ease-in;
+          transition: color 0.1s ease-in;
 }
 
 nav a,
