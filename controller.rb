@@ -26,6 +26,7 @@ helpers do
 end
 
 before 'index.html.erb' do
+  layout 'landing_layout.html.erb'
   @machine = "index"
 end
 
