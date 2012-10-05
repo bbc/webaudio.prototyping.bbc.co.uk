@@ -199,7 +199,9 @@ header {
 }
 
 header h1,
-header h2 {
+header h2,
+header a,
+header a:hover {
 	display: inline-block;
 	font-size: 13px;
 	font-weight: bold;
@@ -214,6 +216,12 @@ header h2 {
 	font-weight: normal;
 	text-align: right;
 }
+
+header a,
+header a:hover {
+	font-weight: normal;
+}
+
 
 /* Fixed page navigation */
 nav {
