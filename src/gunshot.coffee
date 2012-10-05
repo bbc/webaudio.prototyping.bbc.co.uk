@@ -30,18 +30,20 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
             @voice++
             @count = 0
             if @voice == 1        
-              envelope.impulse()
-            else if @voice == 2
               envelope1.impulse()
-            else if @voice == 3
+            else if @voice == 2
               envelope2.impulse()
+            else if @voice == 3
+              envelope3.impulse()
+            else if @voice == 4
+              envelope4.impulse()
               @voice = 0
             
     class WhiteNoise
       constructor: (context) ->
         self = this
         @context = context
-        @node = @context.createJavaScriptNode(1024, 1, 2)
+        @node = @context.createJavaScriptNode(1024, 1,2)
         @node.onaudioprocess = (e) -> self.process(e)
 
       process: (e) ->
@@ -51,14 +53,13 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
           data0[i] = ((Math.random() * 2) - 1)
           data1[i] = data0[i]
 
-
      class Filter
       constructor: (context) ->
         self = this
         @context = context
         @node = @context.createBiquadFilter()
         @node.type = 0
-        @node.Q.value = 10
+        @node.Q.value = 1
         @node.frequency.value = 800
 
       setFrequency: (frequency)->
@@ -67,9 +68,8 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     class Envelope
       constructor: (context) ->
         self = this
-        @fireRate = 600
-        @fireRandom = 0
         @context = context
+        @decayTime = 0.150
         @node = @context.createGainNode()
         @node.gain.value = 0
  
@@ -77,46 +77,22 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @node.gain.linearRampToValueAtTime(0, @context.currentTime);
         @node.gain.linearRampToValueAtTime(1, @context.currentTime + 0.001);
         @node.gain.linearRampToValueAtTime(0.3, @context.currentTime + 0.101);
-        @node.gain.linearRampToValueAtTime(0, @context.currentTime + 0.300);
-
-    class ControlView extends Backbone.View
-      el: $("#controls")
-
-      initialize: (filter,envelope,gainDry,gainWet,audioContext) ->
-        @filter = filter
-        @envelope = envelope
-        @gainDry = gainDry
-        @gainWet = gainWet
-        @audioContext = audioContext
-
-       events:
-         "click #fire": "fire"
-         "change #levelDry": "changeLevelDry"
-         "change #levelWet": "changeLevelWet"
-         "change #distance": "changeDistance"
-
-       fire: ->
-         @envelope.impulse()
-
-       changeLevelDry: ->
-         @gainDry.gain.value = event.target.value
-         console.log(event.target.value)
-
-       changeLevelWet: ->
-         @gainWet.gain.value = event.target.value
-         console.log(event.target.value)
-
-       changeDistance: ->
-         @filter.setFrequency(event.target.value)
-
+        @node.gain.linearRampToValueAtTime(0, @context.currentTime + @decayTime);
+      
+      setDecay: (decay) ->
+        @decayTime = ((1 - decay) * 2) + 0.150
 
     audioContext = new webkitAudioContext
     time = new audioRateTimer(audioContext)
     filter = new Filter(audioContext)
     noise = new WhiteNoise(audioContext)
-    envelope = new Envelope(audioContext)
     envelope1 = new Envelope(audioContext)
     envelope2 = new Envelope(audioContext)
+    envelope3 = new Envelope(audioContext)
+    envelope4 = new Envelope(audioContext)
+    envelope5 = new Envelope(audioContext)
+    gainRapid = audioContext.createGainNode()
+    gainRapid.gain.value = 0 
     gainDry = audioContext.createGainNode()
     gainWet = audioContext.createGainNode()
     gainMaster = audioContext.createGainNode()
@@ -126,7 +102,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
 
 
     request = new XMLHttpRequest()
-    request.open('GET', '/audio/bright_plate.wav', true)
+    request.open('GET', '/audio/bright_space.wav', true)
     request.responseType = 'arraybuffer'
 
     request.onload = =>
@@ -139,22 +115,26 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       audioContext.decodeAudioData request.response, onsuccess, onerror
     request.send()
 
-    noise.node.connect(envelope.node)
     noise.node.connect(envelope1.node)
     noise.node.connect(envelope2.node)
-    envelope.node.connect(filter.node)
-    envelope1.node.connect(filter.node)
-    envelope2.node.connect(filter.node)
+    noise.node.connect(envelope3.node)
+    noise.node.connect(envelope4.node)
+    noise.node.connect(envelope5.node)
+    envelope1.node.connect(gainRapid)
+    envelope2.node.connect(gainRapid)
+    envelope3.node.connect(gainRapid)
+    envelope4.node.connect(gainRapid)
+    envelope5.node.connect(filter.node)
+    gainRapid.connect(filter.node)
     filter.node.connect(gainDry)
     filter.node.connect(convolver)
     convolver.connect(gainWet)
     gainDry.connect(merger1)
     gainWet.connect(merger1)
+    gainWet.gain.value = 0.2
     merger1.connect(gainMaster)
     time.node.connect(audioContext.destination)
     gainMaster.connect(audioContext.destination)
-
-    new ControlView(filter,envelope,gainDry,gainWet,audioContext)
 
     volume_knob = new KnobView(el: '#volume')
     rate_of_fire_knob = new KnobView(el: '#rate-of-fire')
@@ -163,11 +143,13 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     trigger = $('#trigger')
     
     multi_fire_switch.on('on', =>
+      gainRapid.gain.value = 1
       time.frequency = 2
     )
 
     multi_fire_switch.on('off', =>
       time.frequency = 0
+      gainRapid.gain.value = 0
     )
     
     volume_knob.on('valueChanged', (v) => 
@@ -175,13 +157,17 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     )
     
     distance_knob.on('valueChanged', (v) => 
-      gainWet.gain.value = v 
+      filter.setFrequency((v * 800) + 100) 
     )
 
     rate_of_fire_knob.on('valueChanged', (v) => 
-     time.frequency = (v + 1) * 3
+      time.frequency = (v + 1) * 5
+      envelope1.setDecay(v) 
+      envelope2.setDecay(v) 
+      envelope3.setDecay(v) 
+      envelope4.setDecay(v) 
     )
 
-    trigger.click(-> envelope.impulse() )
+    trigger.click(-> envelope5.impulse() )
 
 )
