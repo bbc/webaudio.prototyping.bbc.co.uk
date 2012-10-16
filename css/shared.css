@@ -205,12 +205,12 @@ a, a:hover {
 	text-align: left;
 }
 
-.header,
+.project-header,
 .nav {
 	z-index: 50;
 }
 
-.header {
+.project-header {
 	top: 0;
 }
 
