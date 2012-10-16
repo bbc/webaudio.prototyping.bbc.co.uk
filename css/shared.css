@@ -153,7 +153,7 @@ a, a:hover {
 	margin: 0;
 }
 
-#intro .content .text h1 {
+#intro .content .text .project {
 	font-size: 32px;
 	font-weight: normal;
 	line-height: 36px;
@@ -162,7 +162,7 @@ a, a:hover {
 	margin-bottom: 20px;
 }
 
-#intro .content .text h1 span {
+#intro .content .text .project span {
 	font-weight: bold;
 }
 
@@ -252,8 +252,8 @@ header {
 	line-height: 24px;
 }
 
-header h1,
-header h2,
+header .project,
+header .dept,
 header a,
 header a:hover {
 	display: inline-block;
@@ -264,7 +264,7 @@ header a:hover {
 	padding: 0;
 }
 
-header h2 {
+header .dept {
 	position: absolute;
 	right: 0;
 	font-weight: normal;
@@ -272,7 +272,7 @@ header h2 {
 	color: #999;
 }
 
-header h2 a {
+header .dept a {
 	color: #999;
 }
 
