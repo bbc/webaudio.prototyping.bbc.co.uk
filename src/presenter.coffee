@@ -3,6 +3,11 @@
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
 define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar'], ($) ->
 
+	# Config settings
+	config = 
+		shouldToggleScrollDownHint: false
+		scrollElementIntoView: false
+
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
 
@@ -12,6 +17,19 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		visibleEls = $('.area:in-viewport')
 		if $(visibleEls).is $('.area')[0]
 			$('nav .hint').addClass('is-visible')
+		else
+			$('nav .hint').removeClass('is-visible')
+
+	initScrollDownHint = ->
+		if config.shouldToggleScrollDownHint
+			$(window).bind('scroll', toggleScrollDownHint)
+
+			# When the 'Scroll down' arrow is pressed on the first .area element
+			# the page is scrolled to whatever the second .area element is
+			$('.hint').on('click', (evt) ->
+				evt.preventDefault()
+				scrollTo $('.area')[1]
+			)
 		else
 			$('nav .hint').removeClass('is-visible')
 
@@ -72,21 +90,16 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 	init = ->
 		console.log('init')
-		# Scroll an area into view when scrolling stops
-		$(window).bind('scrollstop', scrollMostVisibleElementIntoView)
 
-		# Scroll area into view when browser window is resized
-		$(window).bind('resize', scrollMostVisibleElementIntoView)
+		if config.scrollElementIntoView
+			# Scroll an area into view when scrolling stops
+			$(window).bind('scrollstop', scrollMostVisibleElementIntoView)
+
+			# Scroll area into view when browser window is resized
+			$(window).bind('resize', scrollMostVisibleElementIntoView)
 
 		# When a scrolling, check if we should toggle visibility of "scroll down" message
-		$(window).bind('scroll', toggleScrollDownHint)
-
-		# When the 'Scroll down' arrow is pressed on the first .area element
-		# the page is scrolled to whatever the second .area element is
-		$('.hint').on('click', (evt) ->
-			evt.preventDefault()
-			scrollTo $('.area')[1]
-		)
+		initScrollDownHint()
 
 		# When an internal page link is clicked, scroll to the target
 		# instead of just jumping there
