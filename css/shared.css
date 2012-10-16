@@ -81,13 +81,13 @@ a, a:hover {
 }
 
 .demo-header .sub-nav a:hover {
-	color: #EEE;
+	color: #007DB3;
 }
 
 #info    [href='#info'],
 #machine [href='#machine'],
 #code    [href='#code'] {
-	color: #FFF;
+	color: #007DB3;
 }
 
 /* Project context panel */
@@ -219,7 +219,7 @@ a, a:hover {
 
 .inner {
 	position: relative;
-	width: 1008px;
+	width: 1024px;
 
 	margin: 0 auto;
 
@@ -335,10 +335,16 @@ nav .hint.is-visible {
 	text-decoration: none;
 
 	z-index: 100;
+
+  -webkit-transition: color, background 0.1s ease-in;
+     -moz-transition: color, background 0.1s ease-in;
+       -o-transition: color, background 0.1s ease-in;
+          transition: color, background 0.1s ease-in;
 }
 
 .prev-next .button:hover {
 	color: #FFF;
+	background-color: #007DB3;
 	text-decoration: none;
 }
 
@@ -391,6 +397,11 @@ nav .button {
 	display: inline-block;
 	width: 48px;
 	height: 48px;
+
+  -webkit-transition: color, background 0.1s ease-in;
+     -moz-transition: color, background 0.1s ease-in;
+       -o-transition: color, background 0.1s ease-in;
+          transition: color, background 0.1s ease-in;
 }
 
 nav .button a {
@@ -409,7 +420,7 @@ nav .button a span {
 /* Back to top button */
 nav .top {
 	left: 0;
-	border-right: 1px solid #CCC;
+	border-right: 1px solid #4D4D4D;
 }
 
 nav .top a {
@@ -417,17 +428,13 @@ nav .top a {
 }
 
 nav .top a:hover {
-	background-image: url(/img/presenter/rw_button_home_hover.png);
-}
-
-nav .top a:active {
 	background-image: url(/img/presenter/rw_button_home_on.png);
 }
 
 /* About button */
 nav .about {
-	right: 0;
-	border-left: 1px solid #CCC;
+	right: 3px;
+	border-left: 1px solid #4D4D4D;
 }
 
 nav .about a {
@@ -435,28 +442,24 @@ nav .about a {
 }
 
 nav .about a:hover {
-	background-image: url(/img/presenter/rw_button_about_hover.png);
-}
-
-nav .about a:active {
 	background-image: url(/img/presenter/rw_button_about_on.png);
 }
 
 /* Global nav */
 nav ul {
-	display: inline-block;
+	display: block;
+	position: absolute;
+	left: 48px;
 	margin: 0 auto;
 	padding: 0;
 }
 
 nav ul li {
-	display: inline-block;
-	width: 209px;
+	display: block;
+	float: left;
+	width: 230px;
 	height: 49px;
 	line-height: 49px;
-
-	margin-right: 8px;
-	padding-right: 8px;
 
 	border-right: 1px solid #515151;
 
@@ -466,23 +469,21 @@ nav ul li {
 	font-weight: bold;
 
 	vertical-align: middle;
+
+  -webkit-transition: color, background 0.1s ease-in;
+     -moz-transition: color, background 0.1s ease-in;
+       -o-transition: color, background 0.1s ease-in;
+          transition: color, background 0.1s ease-in;
 }
 
 nav ul li:last-child {
-	border-right: none;
-	margin-right: 0;
-	padding-right: 0;
+	border-right-color: transparent;
 }
 
 nav a {
 	display: block;
 	width: 100%;
 	height: 100%;
-
-  -webkit-transition: color 0.1s ease-in;
-     -moz-transition: color 0.1s ease-in;
-       -o-transition: color 0.1s ease-in;
-          transition: color 0.1s ease-in;
 }
 
 nav a,
@@ -494,10 +495,6 @@ nav a {
 	color: #9C9C9C;
 }
 
-nav a:hover {
-	color: #9C9C9C;
-}
-
 /* Page 'active' state */
 #wobbulator 	nav .wobbulator a,
 #tapeloops 		nav .tapeloops a,
@@ -506,8 +503,13 @@ nav a:hover {
 	color: #FFF;
 }
 
+nav ul li:hover,
+nav .button:hover {
+	background-color: #007DB3;
+}
+
 nav ul li:hover a {
-	color: #DDD;
+	color: #FFF;
 }
 
 #wobbulator 	nav .wobbulator,
