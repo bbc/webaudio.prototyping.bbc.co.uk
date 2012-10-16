@@ -3,10 +3,15 @@
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
 define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar'], ($) ->
 
+	logger = 
+		log: ->
+			console.log.apply(console, arguments) if config.debug
+
 	# Config settings
 	config = 
 		shouldToggleScrollDownHint: false
-		scrollElementIntoView: false
+		scrollElementIntoView: true
+		debug: false
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
@@ -46,26 +51,31 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	#		causing a visual 'jumping' effect when scrolling.
 	# TODO: Fix so that this scrolls when only 1 element is visible
 	scrollMostVisibleElementIntoView = ->
-		visibleEls = $('.area:in-viewport')
-		console.log('visible', visibleEls)
+		mostVisible = findMostVisibleEl()
+		scrollTo mostVisible.el if mostVisible?
 
-		return if visibleEls.length < 2
+	findMostVisibleEl = ->
+		visibleEls = $('.area:in-viewport')
+		logger.log('visible', visibleEls)
+
+		# Short circuit if only 1 element is visible
+		return el:visibleEls[0], height:null if visibleEls.length == 1
 
 		windowScrollTop = $(window).scrollTop()
-		console.log 'window.scrollTop', windowScrollTop
+		logger.log 'window.scrollTop', windowScrollTop
 
 		viewportHeight = $(window).height()
-		console.log 'viewportHeight', viewportHeight
+		logger.log 'viewportHeight', viewportHeight
 
 		mostVisible = null
 
 		visibleEls.each () ->
-			console.log('------->', this)
+			logger.log('------->', this)
 
 			offsetTop = $(this).offset().top
 			viewportOffset = offsetTop - windowScrollTop
 
-			console.log 'viewportOffset', viewportOffset, (viewportOffset > 0)
+			logger.log 'viewportOffset', viewportOffset, (viewportOffset > 0)
 
 			height = $(this).height()
 
@@ -74,22 +84,23 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			else
 				visibleHeight = (offsetTop + height) - windowScrollTop
 
-			console.log 'height %o, visibleHeight %o', height, visibleHeight
+			logger.log 'height %o, visibleHeight %o', height, visibleHeight
 
 			unless mostVisible?
 				mostVisible = el:this, height:visibleHeight
-				console.log('setting mostVisible height', mostVisible?.height)
+				logger.log('setting mostVisible height', mostVisible?.height)
 
 			if mostVisible? && (mostVisible.height < visibleHeight)
 				mostVisible = el:this, height:visibleHeight
-				console.log('setting mostVisible height', mostVisible?.height)
+				logger.log('setting mostVisible height', mostVisible?.height)
 
-		console.log('mostVisible', mostVisible, $('.area')[0])
+		logger.log('mostVisible', mostVisible, $('.area')[0])
 
-		scrollTo mostVisible.el
+		return mostVisible
+
 
 	init = ->
-		console.log('init')
+		logger.log('init')
 
 		if config.scrollElementIntoView
 			# Scroll an area into view when scrolling stops
