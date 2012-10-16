@@ -205,6 +205,11 @@ a, a:hover {
 	text-align: left;
 }
 
+.header,
+.nav {
+	z-index: 50;
+}
+
 .header {
 	top: 0;
 }
@@ -219,7 +224,6 @@ a, a:hover {
 
 header {
 	line-height: 24px;
-	z-index: 10;
 }
 
 header h1,
@@ -256,8 +260,6 @@ nav {
 	background-color: rgba(0,0,0,0.85);
 
 	text-align: center;
-
-	z-index: 10;
 }
 
 nav .hint {
