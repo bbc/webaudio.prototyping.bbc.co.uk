@@ -28,6 +28,12 @@ a, a:hover {
 	text-decoration: underline;
 }
 
+/* Denotes an accessibility outline */
+.area > h2 {
+	position: absolute;
+	left: -99999px;
+}
+
 /* Demo header and navigation */
 .demo-header {
 	border-top: 1px solid #4D4D4D;
