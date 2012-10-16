@@ -41,7 +41,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	# Wrap the jQuery.scrollTo plugin to pass in the same options
 	# for a consistent scroll animation on the page
 	scrollTo = (el) ->
-  		$.scrollTo el, axis:'y', duration:500, easing:'easeOutQuart'
+  		$.scrollTo el, axis:'y', duration:1300, easing:'easeOutQuart'
 
 	# When there are 2 .area elements visible within the browser viewport 
 	# the element with the most visible height is scrolled into view.
