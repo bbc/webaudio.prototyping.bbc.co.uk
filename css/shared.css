@@ -266,6 +266,10 @@ header h2 {
 	color: #999;
 }
 
+header h2 a {
+	color: #999;
+}
+
 header a,
 header a:hover {
 	font-weight: normal;
