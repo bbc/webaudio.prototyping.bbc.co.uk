@@ -16,7 +16,7 @@
 }
 
 /* Wobbulator demo */
-#machine-wrapper #machine {
+#demo #machine {
     margin-top: -336px;
     margin-left: -336px;
 }

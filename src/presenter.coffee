@@ -54,6 +54,32 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		mostVisible = findMostVisibleEl()
 		scrollTo mostVisible.el if mostVisible?
 
+	updateNavButtons = ->
+		switch findCurrentPanelId()
+			when "intro" then navButtons(null, 'info')
+			when "info"  then navButtons('intro', 'demo')
+			when "demo"  then navButtons('info', 'code') 
+			when "code"	 then navButtons('demo', null) 
+
+	navButtons = (upLabel, downLabel) ->
+		if upLabel
+			$('.up.button').show()
+						   .attr('href', '#' + upLabel)
+						   .find('.label').text(upLabel || '')
+		else
+			$('.up.button').hide()
+
+		if downLabel
+			$('.down.button').show()
+							 .attr('href', '#' + downLabel)
+						     .find('.label').text(downLabel || '')
+		else
+			$('.down.button').hide()
+
+	findCurrentPanelId = ->
+		current = findMostVisibleEl()
+		return current?.el?.getAttribute('id')
+
 	findMostVisibleEl = ->
 		visibleEls = $('.area:in-viewport')
 		logger.log('visible', visibleEls)
@@ -109,6 +135,11 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			# Scroll area into view when browser window is resized
 			$(window).bind('resize', scrollMostVisibleElementIntoView)
 
+		# Which panel is currently in view
+		$(window).bind('scrollstop', updateNavButtons)
+		$(window).bind('resize', updateNavButtons)
+		updateNavButtons()
+
 		# When a scrolling, check if we should toggle visibility of "scroll down" message
 		initScrollDownHint()
 
@@ -127,7 +158,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		# the machine is scrolled into view
 		# TODO: Hook this up listen for machine events so that we can hide the callout 
 		# 		when the machine's activate. Does grumble provide an API for this?
-		$('#machine-wrapper').waypoint ->
+		$('#demo').waypoint ->
 			machineOnOffSwitch = $('#switch')
 			opts = text: 'Switch on the machine', angle: 240, distance: 20, showAfter: 500
 

@@ -14,7 +14,7 @@
     background-image: url(/img/archive/parallax/rw_strip_tape2_1920x384.png);
 }
 
-#machine-wrapper #machine {
+#demo #machine {
     margin-left: -576px;
     margin-top: -236px;
 }

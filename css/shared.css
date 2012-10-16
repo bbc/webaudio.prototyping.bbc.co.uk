@@ -173,12 +173,12 @@ a, a:hover {
 }
 
 /* Vertically center the machine */
-#machine-wrapper {
+#demo {
 	position: relative;
 	background-color: #EEE;
 }
 
-#machine-wrapper #machine {
+#demo #machine {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -268,6 +268,40 @@ nav .hint span {
 
 nav .hint.is-visible {
 	opacity: 1;
+}
+
+/* Up / Down buttons */
+.button {
+	display: block;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+
+	background: #000;
+	color: #FFF;
+
+	text-align: center;
+	text-decoration: none;
+
+	z-index: 100;
+}
+
+.button:hover {
+	color: #FFF;
+	text-decoration: none;
+}
+
+
+.button.up {
+	position: fixed;
+	top: 50px;
+	right: 0;
+}
+
+.button.down {
+	position: fixed;
+	bottom: 50px;
+	right: 0;
 }
 
 /* */
