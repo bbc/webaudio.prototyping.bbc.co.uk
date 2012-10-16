@@ -10,7 +10,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	# Config settings
 	config = 
 		shouldToggleScrollDownHint: false
-		scrollElementIntoView: true
+		scrollElementIntoView: false
 		debug: false
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
