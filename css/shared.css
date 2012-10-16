@@ -256,9 +256,6 @@ nav {
 	height: 49px;
 	line-height: 49px;
 
-	background-color: #000;
-	background-color: rgba(0,0,0,0.85);
-
 	text-align: center;
 }
 
@@ -294,14 +291,15 @@ nav .hint.is-visible {
 }
 
 /* Up / Down buttons */
-.button {
+.prev-next .button {
 	display: block;
 	width: 100px;
 	height: 50px;
 	line-height: 50px;
 
-	background: #000;
 	color: #FFF;
+	background-color: #000;
+	background-color: rgba(0,0,0,0.85);
 
 	text-align: center;
 	text-decoration: none;
@@ -309,19 +307,19 @@ nav .hint.is-visible {
 	z-index: 100;
 }
 
-.button:hover {
+.prev-next .button:hover {
 	color: #FFF;
 	text-decoration: none;
 }
 
 
-.button.up {
+.prev-next .button.prev {
 	position: fixed;
 	top: 50px;
 	right: 0;
 }
 
-.button.down {
+.prev-next .button.next {
 	position: fixed;
 	bottom: 50px;
 	right: 0;

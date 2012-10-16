@@ -61,20 +61,20 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			when "demo"  then navButtons('info', 'code') 
 			when "code"	 then navButtons('demo', null) 
 
-	navButtons = (upLabel, downLabel) ->
-		if upLabel
-			$('.up.button').show()
-						   .attr('href', '#' + upLabel)
-						   .find('.label').text(upLabel || '')
+	navButtons = (prevLabel, nextLabel) ->
+		if prevLabel
+			$('.prev.button').show()
+						   .attr('href', '#' + prevLabel)
+						   .find('.label').text(prevLabel || '')
 		else
-			$('.up.button').hide()
+			$('.prev.button').hide()
 
-		if downLabel
-			$('.down.button').show()
-							 .attr('href', '#' + downLabel)
-						     .find('.label').text(downLabel || '')
+		if nextLabel
+			$('.next.button').show()
+							 .attr('href', '#' + nextLabel)
+						     .find('.label').text(nextLabel || '')
 		else
-			$('.down.button').hide()
+			$('.next.button').hide()
 
 	findCurrentPanelId = ->
 		current = findMostVisibleEl()
