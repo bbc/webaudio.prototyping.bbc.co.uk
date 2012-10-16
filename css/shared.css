@@ -185,16 +185,40 @@ a, a:hover {
 }
 
 /* Fixed page header */
-header {
+
+.wrapper {
 	position: fixed;
-	top: 0;
 	width: 100%;
-	height: 24px;
-	line-height: 24px;
+
+	text-align: center;
 
 	background-color: #000;
 	background-color: rgba(0,0,0,0.85);
+}
 
+.inner {
+	position: relative;
+	width: 1008px;
+
+	margin: 0 auto;
+
+	text-align: left;
+}
+
+.header {
+	top: 0;
+}
+
+.nav {
+	bottom: 0;
+}
+
+.nav .inner {
+	text-align: center;
+}
+
+header {
+	line-height: 24px;
 	z-index: 10;
 }
 
@@ -207,7 +231,7 @@ header a:hover {
 	font-weight: bold;
 	color: #CCC;
 	margin: 0;
-	padding: 0 8px;
+	padding: 0;
 }
 
 header h2 {
@@ -225,9 +249,6 @@ header a:hover {
 
 /* Fixed page navigation */
 nav {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
 	height: 49px;
 	line-height: 49px;
 
@@ -377,7 +398,7 @@ nav ul {
 
 nav ul li {
 	display: inline-block;
-	width: 229px;
+	width: 209px;
 	height: 49px;
 	line-height: 49px;
 
