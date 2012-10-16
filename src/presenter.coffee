@@ -1,7 +1,7 @@
 #
 # TODO:	To use the grubmle and waypoints code below, add the following 2 dependencies
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
-define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar'], ($) ->
+define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], ($) ->
 
 	logger = 
 		log: ->
@@ -10,8 +10,10 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	# Config settings
 	config = 
 		shouldToggleScrollDownHint: false
-		scrollElementIntoView: false
-		debug: false
+		scrollElementIntoViewOnScroll: false
+		scrollElementIntoViewOnResize: true
+		debug: true
+		scrollDebounceTimeInMs: 1000
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
@@ -53,6 +55,9 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	scrollMostVisibleElementIntoView = ->
 		mostVisible = findMostVisibleEl()
 		scrollTo mostVisible.el if mostVisible?
+
+	scrollMostVisibleElementIntoViewWithDebouce = ->
+		$.debounce(config.scrollDebounceTimeInMs, scrollMostVisibleElementIntoView)
 
 	updateNavButtons = ->
 		switch findCurrentPanelId()
@@ -124,16 +129,21 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 		return mostVisible
 
+	initScrollIntoView = ->
+		# Scroll an area into view when scrolling stops
+		if config.scrollElementIntoViewOnScroll
+			console.log('config.scrollElementIntoViewOnScroll')
+			$(window).bind('scrollstop', scrollMostVisibleElementIntoViewWithDebouce)
+
+		if config.scrollElementIntoViewOnResize
+			console.log('config.scrollElementIntoViewOnResize')
+			# Scroll area into view when browser window is resized
+			$(window).bind('resize', scrollMostVisibleElementIntoViewWithDebouce)
 
 	init = ->
 		logger.log('init')
 
-		if config.scrollElementIntoView
-			# Scroll an area into view when scrolling stops
-			$(window).bind('scrollstop', scrollMostVisibleElementIntoView)
-
-			# Scroll area into view when browser window is resized
-			$(window).bind('resize', scrollMostVisibleElementIntoView)
+		initScrollIntoView()
 
 		# Which panel is currently in view
 		$(window).bind('scrollstop', updateNavButtons)
