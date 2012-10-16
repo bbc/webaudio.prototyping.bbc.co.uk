@@ -26,6 +26,62 @@ a, a:hover {
 	text-decoration: underline;
 }
 
+/* Demo header and navigation */
+.demo-header {
+	border-top: 1px solid #4D4D4D;
+}
+
+.demo-header h1 {
+	display: inline-block;
+
+	margin: 0 16px 0 0;
+	line-height: 48px;
+
+	color: #FFF;
+
+	font-size: 32px;
+}
+
+.demo-header .sub-nav {
+	display: inline-block;
+	text-align: right;
+}
+
+.demo-header .sub-nav:before {
+	content: '\\';
+
+	padding-right: 12px;
+
+	font-size: 32px;
+	color: #999;
+}
+
+.demo-header .sub-nav a {
+	display: inline-block;
+
+	padding-right: 8px;
+
+	font-size: 36px;
+	font-weight: normal;
+	color: #999;
+	text-decoration: none;
+
+  -webkit-transition: color 0.1s ease-in-out;
+     -moz-transition: color 0.1s ease-in-out;
+       -o-transition: color 0.1s ease-in-out;
+          transition: color 0.1s ease-in-out;
+}
+
+.demo-header .sub-nav a:hover {
+	color: #EEE;
+}
+
+#info    [href='#info'],
+#machine [href='#machine'],
+#code    [href='#code'] {
+	color: #FFF;
+}
+
 /* Project context panel */
 .frame {
 	position: relative;
@@ -37,9 +93,10 @@ a, a:hover {
 	top: 50%;
 	left: 50%;
 
-	margin: -288px 0 0 -504px; /* --> Visually centered in middle of nav bars */
+	margin: -277px 0 0 -504px; /* --> Visually centered in middle of nav bars */
+	margin: -238px 0 0 -504px;
 
-	height: 554px;
+	height: 505px;
 	width: 1008px;
 
 	text-align: left;
@@ -47,50 +104,6 @@ a, a:hover {
 
 #landing .frame .content {
     margin: -240px 0 0 -504px; /* Visually centered when bottom nav bar missing */
-}
-
-.content > h1,
-.frame .content > h1 {
-	display: inline-block;
-
-	margin: 0 16px 0 0;
-	line-height: 48px;
-	font-size: 32px;
-	color: #666;
-}
-
-.content .sub-nav,
-.frame .content .sub-nav {
-	display: inline-block;
-	text-align: right;
-}
-
-.content .sub-nav a,
-.frame .content .sub-nav a {
-	display: inline-block;
-
-	padding-right: 8px;
-
-	font-size: 36px;
-	font-weight: normal;
-	color: #CCC;
-	text-decoration: none;
-
-  -webkit-transition: color 0.1s ease-in-out;
-     -moz-transition: color 0.1s ease-in-out;
-       -o-transition: color 0.1s ease-in-out;
-          transition: color 0.1s ease-in-out;
-}
-
-.content .sub-nav a:hover,
-.frame .content .sub-nav a:hover {
-	color: #777;
-}
-
-#info    [href='#info'],
-#machine [href='#machine'],
-#code    [href='#code'] {
-	color: #666;
 }
 
 .frame .content .image-block {
@@ -206,12 +219,17 @@ a, a:hover {
 }
 
 .project-header,
+.demo-header,
 .nav {
 	z-index: 50;
 }
 
 .project-header {
 	top: 0;
+}
+
+.demo-header {
+	top: 25px;
 }
 
 .nav {
@@ -249,7 +267,6 @@ header a,
 header a:hover {
 	font-weight: normal;
 }
-
 
 /* Fixed page navigation */
 nav {
@@ -293,15 +310,15 @@ nav .hint.is-visible {
 /* Up / Down buttons */
 .prev-next .button {
 	display: block;
-	width: 100px;
-	height: 50px;
-	line-height: 50px;
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
 
 	color: #FFF;
 	background-color: #000;
 	background-color: rgba(0,0,0,0.85);
 
-	text-align: center;
+	text-align: right;
 	text-decoration: none;
 
 	z-index: 100;
@@ -315,7 +332,7 @@ nav .hint.is-visible {
 
 .prev-next .button.prev {
 	position: fixed;
-	top: 50px;
+	top: 75px;
 	right: 0;
 }
 
@@ -323,6 +340,29 @@ nav .hint.is-visible {
 	position: fixed;
 	bottom: 50px;
 	right: 0;
+}
+
+.prev-next .button .label {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.prev-next .button .icon {
+	display: inline-block;
+	background-repeat: no-repeat;
+
+	width: 32px;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.prev-next .button.prev .icon {
+	background-image: url(/img/presenter/icon_arrow-up.png);
+}
+
+.prev-next .button.next .icon {
+	background-image: url(/img/presenter/icon_arrow-down.png);
 }
 
 /* */

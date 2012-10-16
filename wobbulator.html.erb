@@ -1,9 +1,13 @@
 <%# coding: utf-8 %>
+<div class="demo-header wrapper">
+  <header class="inner">
+    <h1>Wobbulator</h1>
+    <%= render '_sub_nav.html.erb' %>
+  </header>
+</div>
 
 <article id="intro" class="area frame">
   <div class="content">
-    <h1>Wobbulator</h1>
-    <%= render '_sub_nav.html.erb' %>
     <%= render '_image_block.html.erb' %>
   </div><!-- .content -->
 </article>
@@ -12,8 +16,6 @@
 
 <article id="info" class="area frame">
   <div class="content">
-    <h1>Wobbulator</h1>
-    <%= render '_sub_nav.html.erb' %>
     <div class="image-block">
       <div class="text">
         <p>
@@ -55,8 +57,6 @@
 
 <article id="code" class="area">
   <div class="content">
-    <h1>Tape Loops</h1>
-    <%= render '_sub_nav.html.erb' %>
   </div><!-- .content -->
   <%= @code %>
 </article>
