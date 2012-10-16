@@ -10,6 +10,8 @@ article {
 #code {
 	height: auto;
 	overflow: visible;
+
+	padding-top: 75px; /* Start after top of project/demo headers */
 }
 
 body {
