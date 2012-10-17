@@ -12,7 +12,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		shouldToggleScrollDownHint: false
 		scrollElementIntoViewOnScroll: false
 		scrollElementIntoViewOnResize: true
-		debug: true
+		debug: false
 		scrollDebounceTimeInMs: 300
 		panelSelector: '.area'
 
@@ -65,7 +65,35 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		debouncedFunction = $.debounce(config.scrollDebounceTimeInMs, scrollMostVisibleElementIntoView)
 		return debouncedFunction
 
+	inverseScale = (progress) ->
+		return 1-scale(progress)
+
+	scale = (progress) ->
+		if progress >= 0 && progress <= 0.4
+			scaled = 1 - (progress * 2)
+		else if progress >= 0.6 && progress <= 1
+			scaled = (progress * 2) - 1
+		else 
+			scaled = 0
+
+		return scaled
+
 	updateNavButtons = ->
+		windowScrollTop = $(window).scrollTop()
+
+		logger.log('—')
+
+		el = $("#{config.panelSelector}:in-viewport")[0]
+		if el?
+			offset   = getOffsetsFor(el, windowScrollTop)
+			progress = Math.abs( offset.viewportOffset / offset.height )
+			opacity  = scale(progress)
+		else
+			offset = 0
+
+		$('.prev.button').css 'opacity', opacity
+		$('.next.button').css 'opacity', opacity
+
 		switch findCurrentPanelId()
 			when "intro" then navButtons(null, 'info')
 			when "info"  then navButtons('intro', 'demo')
@@ -160,19 +188,17 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	initScrollIntoView = ->
 		# Scroll an area into view when scrolling stops
 		if config.scrollElementIntoViewOnScroll
-			console.log('config.scrollElementIntoViewOnScroll')
+			logger.log('config.scrollElementIntoViewOnScroll')
 			$(window).bind('scrollstop', createScrollMostVisibleElementIntoViewWithDebouce)
 
 		if config.scrollElementIntoViewOnResize
-			console.log('config.scrollElementIntoViewOnResize')
-
+			logger.log('config.scrollElementIntoViewOnResize')
 			debouncedFunction = createScrollMostVisibleElementIntoViewWithDebouce()
-
 			# Scroll area into view when browser window is resized
 			$(window).bind('resize', debouncedFunction)
 
 	initNavButtonUpdates = ->
-		$(window).bind('scrollstop', updateNavButtons)
+		$(window).bind('scroll', updateNavButtons)
 		$(window).bind('resize', updateNavButtons)
 		updateNavButtons()
 
