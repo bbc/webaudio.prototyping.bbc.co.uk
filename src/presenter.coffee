@@ -13,7 +13,8 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		scrollElementIntoViewOnScroll: false
 		scrollElementIntoViewOnResize: true
 		debug: true
-		scrollDebounceTimeInMs: 1000
+		scrollDebounceTimeInMs: 300
+		panelSelector: '.area'
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
@@ -53,11 +54,16 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	#		causing a visual 'jumping' effect when scrolling.
 	# TODO: Fix so that this scrolls when only 1 element is visible
 	scrollMostVisibleElementIntoView = ->
+		logger.log('scrollMostVisibleElementIntoView start')
 		mostVisible = findMostVisibleEl()
-		scrollTo mostVisible.el if mostVisible?
+		logger.log('mostVisible', mostVisible)
+		if mostVisible?
+			logger.log('scrollMostVisibleElementIntoView', mostVisible.el)
+			scrollTo mostVisible.el 
 
-	scrollMostVisibleElementIntoViewWithDebouce = ->
-		$.debounce(config.scrollDebounceTimeInMs, scrollMostVisibleElementIntoView)
+	createScrollMostVisibleElementIntoViewWithDebouce = ->
+		debouncedFunction = $.debounce(config.scrollDebounceTimeInMs, scrollMostVisibleElementIntoView)
+		return debouncedFunction
 
 	updateNavButtons = ->
 		switch findCurrentPanelId()
@@ -85,47 +91,70 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		current = findMostVisibleEl()
 		return current?.el?.getAttribute('id')
 
+	getOffsetsFor = (element, windowScrollTop) ->
+		$el = $(element)
+
+		# The height of this element
+		height = $el.height()
+
+		# The position of the top of this element from the canvas
+		offsetTop = $el.offset().top
+
+		# The position of the top of this element from the viewport
+		viewportOffset = offsetTop - windowScrollTop
+
+		return height:height, offsetTop:offsetTop, viewportOffset:viewportOffset
+
+
+	# The browser *canvas* is the entire document
+	# The browser *viewport* is the area that is currently visible to the user
 	findMostVisibleEl = ->
-		visibleEls = $('.area:in-viewport')
-		logger.log('visible', visibleEls)
+		visibleEls = $("#{config.panelSelector}:in-viewport")
+		logger.log('visible elements', visibleEls)
 
 		# Short circuit if only 1 element is visible
 		return el:visibleEls[0], height:null if visibleEls.length == 1
 
+		# The distance from the top of the canvas to the top of the viewport
 		windowScrollTop = $(window).scrollTop()
 		logger.log 'window.scrollTop', windowScrollTop
 
+		# The height of the viewport (i.e. what the user can see)
 		viewportHeight = $(window).height()
 		logger.log 'viewportHeight', viewportHeight
 
 		mostVisible = null
 
+		# For all visibile elements in the viewport
 		visibleEls.each () ->
-			logger.log('------->', this)
+			logger.log('-----------------')
+			logger.log(this)
 
-			offsetTop = $(this).offset().top
-			viewportOffset = offsetTop - windowScrollTop
+			offsets = getOffsetsFor(this, windowScrollTop)
 
-			logger.log 'viewportOffset', viewportOffset, (viewportOffset > 0)
+			logger.log 'viewportOffset', offsets.viewportOffset, (offsets.viewportOffset > 0)
 
-			height = $(this).height()
-
-			if viewportOffset > 0
-				visibleHeight = (windowScrollTop + viewportHeight) - offsetTop
+			# The top of the element is visible in the viewport
+			if offsets.viewportOffset > 0
+				visibleHeight = (windowScrollTop + viewportHeight) - offsets.offsetTop
+			# Else the top of the element is above the viewport
 			else
-				visibleHeight = (offsetTop + height) - windowScrollTop
+				visibleHeight = (offsets.offsetTop + offsets.height) - windowScrollTop
 
-			logger.log 'height %o, visibleHeight %o', height, visibleHeight
+			logger.log 'height %o, visibleHeight %o', offsets.height, visibleHeight
 
+			# This is the first element we've found
 			unless mostVisible?
 				mostVisible = el:this, height:visibleHeight
 				logger.log('setting mostVisible height', mostVisible?.height)
 
+			# If a mostVisible element has already been found, work out if there's more
+			# of the current element visible
 			if mostVisible? && (mostVisible.height < visibleHeight)
 				mostVisible = el:this, height:visibleHeight
 				logger.log('setting mostVisible height', mostVisible?.height)
 
-		logger.log('mostVisible', mostVisible, $('.area')[0])
+		logger.log('findMostVisibleEl - mostVisible', mostVisible, $('.area')[0])
 
 		return mostVisible
 
@@ -133,12 +162,15 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		# Scroll an area into view when scrolling stops
 		if config.scrollElementIntoViewOnScroll
 			console.log('config.scrollElementIntoViewOnScroll')
-			$(window).bind('scrollstop', scrollMostVisibleElementIntoViewWithDebouce)
+			$(window).bind('scrollstop', createScrollMostVisibleElementIntoViewWithDebouce)
 
 		if config.scrollElementIntoViewOnResize
 			console.log('config.scrollElementIntoViewOnResize')
+
+			debouncedFunction = createScrollMostVisibleElementIntoViewWithDebouce()
+
 			# Scroll area into view when browser window is resized
-			$(window).bind('resize', scrollMostVisibleElementIntoViewWithDebouce)
+			$(window).bind('resize', debouncedFunction)
 
 	init = ->
 		logger.log('init')
