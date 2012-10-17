@@ -81,8 +81,6 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	updateNavButtons = ->
 		windowScrollTop = $(window).scrollTop()
 
-		logger.log('—')
-
 		el = $("#{config.panelSelector}:in-viewport")[0]
 		if el?
 			offset   = getOffsetsFor(el, windowScrollTop)
@@ -202,6 +200,26 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		$(window).bind('resize', updateNavButtons)
 		updateNavButtons()
 
+	initPresentationMode = (modernizr) ->
+
+		$el = $('<div style="position:fixed; right:10px; top:10px; z-index:200; width:170px; height:25px; background-color:red;"><input type="range" min=0 max=1 step=0.1 value=1 /> <span></span></div>')
+		$input = $el.find('input')
+		$label = $el.find('span')
+
+		inputScale = $input.val()
+
+		$('body').append($el)
+
+		scaleMachine = ->
+			inputScale = $input.val()
+			$label.text(inputScale)
+			transformStyleName = modernizr.prefixed('transform')
+			$('#machine')[0].style[transformStyleName] = "scale(#{inputScale})"
+
+		$input.on('change', scaleMachine)
+
+		scaleMachine()
+
 	init = ->
 		logger.log('init')
 
@@ -221,6 +239,8 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 				scrollTo el
 				evt.preventDefault()
 		)
+
+		require(['modernizr-prefix'], initPresentationMode) if /presentation/.test window.location.hash
 
 		###
 		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
