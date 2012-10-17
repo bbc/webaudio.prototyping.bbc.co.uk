@@ -105,7 +105,6 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 		return height:height, offsetTop:offsetTop, viewportOffset:viewportOffset
 
-
 	# The browser *canvas* is the entire document
 	# The browser *viewport* is the area that is currently visible to the user
 	findMostVisibleEl = ->
@@ -172,15 +171,17 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			# Scroll area into view when browser window is resized
 			$(window).bind('resize', debouncedFunction)
 
+	initNavButtonUpdates = ->
+		$(window).bind('scrollstop', updateNavButtons)
+		$(window).bind('resize', updateNavButtons)
+		updateNavButtons()
+
 	init = ->
 		logger.log('init')
 
 		initScrollIntoView()
 
-		# Which panel is currently in view
-		$(window).bind('scrollstop', updateNavButtons)
-		$(window).bind('resize', updateNavButtons)
-		updateNavButtons()
+		initNavButtonUpdates()
 
 		# When a scrolling, check if we should toggle visibility of "scroll down" message
 		initScrollDownHint()
