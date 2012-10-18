@@ -239,10 +239,12 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			$(this).attr('href', hrefWithQs)
 
 	removeSharetools = ->
-		$('.bbc-sharetools').destroy()
+		$('.bbc-sharetools').remove()
 
 	init = ->
 		logger.log('init')
+
+		removeSharetools() unless config.useSharetools
 
 		initScrollIntoView()
 
@@ -262,8 +264,6 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		)
 
 		require(['modernizr-prefix'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
-
-		removeSharetools() unless config.useSharetools || !/bbc.co.uk/.test window.host
 
 		###
 		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
