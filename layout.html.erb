@@ -51,13 +51,5 @@
 
   <%= yield %>
 
-
-  <script id="sharetools-template" type="text/template">
-    <div class="bbc-st bbc-st-slim bbc-st-light bbc-st-disable-counts">
-      <a href="/modules/sharetools/share?url=http%3A%2F%2Fwebaudio.prototyping.bbc.co.uk%2F&appId=news">Share this page</a>
-    </div>
-    
-    <script type="text/javascript" src="http://node1.bbcimg.co.uk/glow/gloader.0.1.6.js"></script>
-    <script src="http://static.bbc.co.uk/modules/sharetools/v1/script/sharetools.js" type="text/javascript"></script>
-  </script>
+  <%= render '_sharetools_script.html.erb' %>
 </body>
