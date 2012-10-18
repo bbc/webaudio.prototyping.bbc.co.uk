@@ -86,8 +86,14 @@ a, a:hover {
 
 .demo-header .bbc-sharetools {
 	position: absolute;
-	top: 0;
+	top: 50%;
 	right: 0;
+
+	margin-top: -11px;
+}
+
+.demo-header .bbc-sharetools a {
+	font-size: 12px !important; /* Override sharetools CSS */
 }
 
 #info    [href='#info'],
