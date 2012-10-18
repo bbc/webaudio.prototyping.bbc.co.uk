@@ -16,7 +16,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		scrollDebounceTimeInMs: 300
 		panelSelector: '.area'
 		presentationModeQuerystring: 'presentation'
-		useSharetools: true
+		useSharetools: false
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
