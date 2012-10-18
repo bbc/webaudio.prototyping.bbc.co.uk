@@ -84,6 +84,12 @@ a, a:hover {
 	color: #007DB3;
 }
 
+.demo-header .bbc-sharetools {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
 #info    [href='#info'],
 #machine [href='#machine'],
 #code    [href='#code'] {

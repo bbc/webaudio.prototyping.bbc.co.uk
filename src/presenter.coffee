@@ -16,6 +16,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		scrollDebounceTimeInMs: 300
 		panelSelector: '.area'
 		presentationModeQuerystring: 'presentation'
+		useSharetools: true
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
@@ -237,6 +238,12 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 			hrefWithQs = $(this).attr('href').replace(/#(.*)/, "?#{config.presentationModeQuerystring}#$1")
 			$(this).attr('href', hrefWithQs)
 
+	initSharetools = ->
+		$container = $('.bbc-sharetools')
+		$template  = $('#sharetools-template').html()
+
+		$container.append($template)
+
 	init = ->
 		logger.log('init')
 
@@ -258,6 +265,8 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		)
 
 		require(['modernizr-prefix'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
+
+		initSharetools() if config.useSharetools && /bbc.co.uk/.test window.location
 
 		###
 		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
