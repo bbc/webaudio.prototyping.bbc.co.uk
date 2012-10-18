@@ -240,6 +240,28 @@ a, a:hover {
 	top: 25px;
 }
 
+/* Presenation mode that hides headers unless hovered */
+.presentation .scale-control,
+.presentation .project-header,
+.presentation .demo-header,
+.presentation .nav,
+.presentation .prev-next {
+	opacity: 0;
+
+  -webkit-transition: opacity 0.1s ease-in-out;
+     -moz-transition: opacity 0.1s ease-in-out;
+       -o-transition: opacity 0.1s ease-in-out;
+          transition: opacity 0.1s ease-in-out;
+}
+
+.presentation .scale-control:hover,
+.presentation .project-header:hover,
+.presentation .demo-header:hover,
+.presentation .nav:hover,
+.presentation .prev-next:hover {
+	opacity: 1;
+}
+
 .nav {
 	bottom: 0;
 }

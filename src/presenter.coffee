@@ -15,6 +15,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		debug: false
 		scrollDebounceTimeInMs: 300
 		panelSelector: '.area'
+		presentationModeQuerystring: 'presentation'
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
@@ -80,8 +81,6 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 	updateNavButtons = ->
 		windowScrollTop = $(window).scrollTop()
-
-		logger.log('—')
 
 		el = $("#{config.panelSelector}:in-viewport")[0]
 		if el?
@@ -202,6 +201,42 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		$(window).bind('resize', updateNavButtons)
 		updateNavButtons()
 
+	initPresentationMode = (modernizr, querystringParam) ->
+
+		# We're in presentation mode
+		$('body').addClass('presentation')
+
+		# Create a scale control
+		$el = $("""<div class="scale-control" 
+						style="position:fixed; right:10px; top:10px; z-index:200; 
+							 	width:170px; line-height:70px; height:70px; background-color:rgba(0,0,0,0.5); 
+							 	border-radius:50px; text-align:center;">
+						<input type="range" min=0 max=1 step=0.1 value=1 /> <span></span>
+				</div>""")
+		$input = $el.find('input')
+		$label = $el.find('span')
+
+		inputScale = $input.val()
+
+		$('body').append($el)
+
+		# Scale on input change
+		scaleMachine = ->
+			inputScale = $input.val()
+			$label.text(inputScale)
+			transformStyleName = modernizr.prefixed('transform')
+			$('#machine')[0].style[transformStyleName] = "scale(#{inputScale})"
+
+		$input.on('change', scaleMachine)
+
+		# Set the initial scale
+		scaleMachine()
+
+		# Ensure all links also point to presentation mode
+		$("a[href^='/']").each ->
+			hrefWithQs = $(this).attr('href').replace(/#(.*)/, "?#{config.presentationModeQuerystring}#$1")
+			$(this).attr('href', hrefWithQs)
+
 	init = ->
 		logger.log('init')
 
@@ -221,6 +256,8 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 				scrollTo el
 				evt.preventDefault()
 		)
+
+		require(['modernizr-prefix'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
 
 		###
 		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
