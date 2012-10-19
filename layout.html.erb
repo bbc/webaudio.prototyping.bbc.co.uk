@@ -21,35 +21,39 @@
   </script>
 </head>
 <body id="<%= @machine %>">
-  <div class="project-header wrapper">
-    <header class="inner">
-      <h1 class="project">Recreating the sounds of the BBC Radiophonic Workshop using
-      the Web Audio API</h1>
-      <p class="dept">a prototype by <a href="http://bbc.co.uk/rd">BBC Research &amp; Development</a></p>
-    </header>
-  </div>
+  <div class="page-wrapper">
+    <div class="project-header wrapper">
+      <header class="inner">
+        <h1 class="project">Recreating the sounds of the BBC Radiophonic Workshop using
+        the Web Audio API</h1>
+        <p class="dept">a prototype by <a href="http://bbc.co.uk/rd">BBC Research &amp; Development</a></p>
+      </header>
+    </div>
 
-  <div class="nav wrapper">
-    <nav class="inner">
-      <!-- <div class="hint is-visible"><span>Scroll down</span></div> -->
-      <div class="button top"><a href="#intro"><span>Back to top</span></a></div>
-      <ul>
-        <li class="gunshot"><a href="/gunshot.html#info">Gunfire Effects
-        Generator</a></li>
-        <li class="wobbulator"><a href="/wobbulator.html#info">Wobbulator</a></li>
-        <li class="tapeloops"><a href="/tapeloops.html#info">Tape Loops</a></li>
-        <li class="ring-modulator"><a href="/ring-modulator.html#info">Ring Modulator</a></li>
-      </ul>
-      <div class="button about"><a href="/"><span>About this project</span></a></div>
-    </nav>
-  </div>
+    <div class="nav wrapper">
+      <nav class="inner">
+        <!-- <div class="hint is-visible"><span>Scroll down</span></div> -->
+        <div class="button top"><a href="#intro"><span>Back to top</span></a></div>
+        <div class="machine-nav">
+          <ul>
+            <li class="gunshot"><a href="/gunshot.html#info">Gunfire Effects
+            Generator</a></li>
+            <li class="wobbulator"><a href="/wobbulator.html#info">Wobbulator</a></li>
+            <li class="tapeloops"><a href="/tapeloops.html#info">Tape Loops</a></li>
+            <li class="ring-modulator"><a href="/ring-modulator.html#info">Ring Modulator</a></li>
+          </ul>
+        </div>
+        <div class="button about"><a href="/"><span>About this project</span></a></div>
+      </nav>
+    </div>
 
-  <div class="prev-next">
-    <a class="prev button"><span class="label"></span><span class="icon"></span></a>
-    <a class="next button"><span class="label"></span><span class="icon"></span></a>
-  </div>
+    <div class="prev-next">
+      <a class="prev button"><span class="label"></span><span class="icon"></span></a>
+      <a class="next button"><span class="label"></span><span class="icon"></span></a>
+    </div>
 
-  <%= yield %>
+    <%= yield %>
 
-  <%= render '_sharetools_script.html.erb' %>
+    <%= render '_sharetools_script.html.erb' %>
+  </div><!-- .page-wrapper -->
 </body>

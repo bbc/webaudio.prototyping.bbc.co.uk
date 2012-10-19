@@ -12,6 +12,7 @@ article {
 	overflow: visible;
 
 	padding-top: 75px; /* Start after top of project/demo headers */
+
 }
 
 body {
@@ -20,6 +21,14 @@ body {
 	padding: 0;
 
 	font-family: Helmet, Freesans, sans-serif;
+}
+
+.page-wrapper {
+	width: 100%;
+	height: 100%;
+	
+	min-height: 600px;
+	min-width: 1024px;
 }
 
 /* Generic typography */
@@ -113,11 +122,11 @@ a, a:hover {
 	top: 50%;
 	left: 50%;
 
-	margin: -277px 0 0 -504px; /* --> Visually centered in middle of nav bars */
-	margin: -238px 0 0 -504px;
+	margin: -238px 0 0 -504px; /* --> Visually centered in middle of nav bars */
 
 	height: 505px;
-	width: 1008px;
+	/* width: 1008px; */
+	width: 100%;
 
 	text-align: left;
 }
@@ -129,11 +138,20 @@ a, a:hover {
 .frame .content .image-block {
 	position: relative;
 
+	/*
 	width: 1008px;
 	height: 505px;
+	*/
+	max-width: 1008px;
+	max-height: 505px;
+
+	width: 100%;
+	height: 100%;
 
 	/* this applies to the index page */
 	background-image: url('/img/archive/rw_home_crop.png');
+
+	background-size: contain;
 }
 
 .frame.fixed .content .image-block {
@@ -480,10 +498,18 @@ nav .about a:hover {
 }
 
 /* Global nav */
-nav ul {
+
+nav .machine-nav {
 	display: block;
 	position: absolute;
 	left: 48px;
+	right: 48px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+nav ul {
+	width: 924px; /* (230 + 1) * 4 */
 	margin: 0 auto;
 	padding: 0;
 }

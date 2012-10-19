@@ -1,7 +1,7 @@
 #
 # TODO:	To use the grubmle and waypoints code below, add the following 2 dependencies
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
-define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], ($) ->
+define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, $) ->
 
 	logger = 
 		log: ->
@@ -202,6 +202,97 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		$(window).bind('resize', updateNavButtons)
 		updateNavButtons()
 
+	getNavHeight = ->
+		_.reduce(
+			$('.project-header, .nav, .demo-header').toArray(),
+			(prev, current) ->
+				return prev + $(current).height()
+			,0
+		)
+
+	scaleContent = ->
+		#return 
+
+		maxWidth  = 1424
+		minWidth  = 1024
+		minHeight = 464
+
+		$contentAreas = $('.frame .content')
+		viewportHeight = $(window).height()
+		viewportWidth  = $(window).width()
+		#fixedPanelHeight = getNavHeight()
+
+		console.log('viewport height %o width %o', viewportHeight, viewportWidth)
+
+		topHeight    = 25 + 49
+		bottomHeight = 49
+
+		contentHeight = viewportHeight - topHeight - bottomHeight - 8 - 8
+		contentWidth  = contentHeight * 2
+
+		console.log('contentHeight %o contentWidth %o', contentHeight, contentWidth)
+
+		###
+		if contentWidth <= minWidth
+			console.log('contentWidth is less than minWidth')
+			$contentAreas.css(
+				height: ''
+				width: ''
+				margin: ''
+				'max-height': ''
+				'max-width' : ''
+			)
+
+			$contentAreas.find('.image-block').css(
+				'max-height': ''
+				'max-width' : ''			
+			)
+			return
+		###
+
+		if contentWidth >= maxWidth
+			contentWidth  = maxWidth 
+			contentHeight = 712
+		
+		if contentWidth >= viewportWidth
+			contentWidth  = viewportWidth - 8 - 8
+			contentHeight = contentWidth / 2
+
+		if contentWidth <= minWidth
+			contentWidth = minWidth
+			contentHeight = minWidth / 2
+		else if contentHeight <= minHeight
+			contentHeight = minHeight
+			contentWidth  = minHeight * 2
+
+		midHeight = (contentHeight / 2)
+
+		marginTop = 0 - midHeight + ((topHeight - bottomHeight) / 2)
+		marginLeft = Math.round(contentWidth / 2)
+		margin = "#{marginTop}px 0 0 -#{marginLeft}px"
+		
+		$contentAreas.css(
+			height: contentHeight
+			width: contentWidth
+			margin: margin
+			'max-height': 'none'
+			'max-width' : 'none'
+		)
+
+		$contentAreas.find('.image-block').css(
+			'max-height': 'none'
+			'max-width' : 'none'			
+		)
+
+		$('.project-header, .nav, .demo-header').find('.inner')
+												.width(contentWidth)
+
+		console.log('Setting content areas to height %o, width %o (%o)', contentHeight, contentWidth, $contentAreas)
+
+	initScaleContent = ->
+		$(window).bind('resize', scaleContent)
+		scaleContent()
+
 	initPresentationMode = (modernizr, querystringParam) ->
 
 		# We're in presentation mode
@@ -249,6 +340,8 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		initScrollIntoView()
 
 		initNavButtonUpdates()
+
+		initScaleContent()
 
 		# When a scrolling, check if we should toggle visibility of "scroll down" message
 		initScrollDownHint()
