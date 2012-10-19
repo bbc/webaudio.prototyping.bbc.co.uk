@@ -17,6 +17,7 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 		panelSelector: '.area'
 		presentationModeQuerystring: 'presentation'
 		useSharetools: true
+		fullscreenButton: true
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
@@ -241,6 +242,73 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 	removeSharetools = ->
 		$('.bbc-sharetools').remove()
 
+	fullscreenMethod = ->
+
+	class FullscreenManager
+		_isFullscreen: false
+
+		enter: ->
+			methodName = @_method().enter
+			window.document.documentElement[methodName]()
+			@_isFullscreen = true
+
+		exit: ->
+			console.log('exit')
+			methodName = @_method().exit
+			window.document[methodName]()
+			@_isFullscreen = false
+
+		isSupported: ->
+			@_method()?
+
+		isFullscreen: ->
+			@_isFullscreen
+
+		_method: ->
+			docEl   = document.documentElement
+			methods = [
+				{
+					enter: 'requestFullscreen',
+					exit : 'exitFullscreen'
+				},
+				{
+					enter: 'mozRequestFullScreen'
+					exit : 'mozCancelFullScreen'
+				},
+				{
+					enter: 'webkitRequestFullScreen',
+					exit : 'webkitCancelFullScreen'
+				}
+			]
+
+			method = _.find(
+						methods, 
+						(item) ->
+							return docEl[item.enter]?
+					)
+
+			return method
+
+
+	fullscreenManager = new FullscreenManager()
+
+	initFullscreenUi = ->
+		return unless fullscreenManager.isSupported()
+
+		isFullscreen = false
+
+		$el = $('<div class="button fullscreen"><a href=""><span>Make fullscreen</span></a></div>')
+		$el.on(
+			'click', 
+			(evt) -> 
+				evt.preventDefault()
+				fullscreenManager.enter() unless fullscreenManager.isFullscreen()
+				fullscreenManager.exit()  if fullscreenManager.isFullscreen()
+		)
+
+		$('.nav').addClass('has-fullscreen')
+		$('.nav nav').append($el)
+
 	init = ->
 		logger.log('init')
 
@@ -252,6 +320,8 @@ define ['jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery
 
 		# When a scrolling, check if we should toggle visibility of "scroll down" message
 		initScrollDownHint()
+
+		initFullscreenUi() if config.fullscreenButton
 
 		# When an internal page link is clicked, scroll to the target
 		# instead of just jumping there
