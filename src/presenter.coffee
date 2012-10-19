@@ -1,7 +1,7 @@
 #
 # TODO:	To use the grubmle and waypoints code below, add the following 2 dependencies
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
-define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, $) ->
+define ['underscore', 'modernizr-prefix', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, modernizr, $) ->
 
 	logger = 
 		log: ->
@@ -284,6 +284,9 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 			'max-width' : 'none'			
 		)
 
+		transformScale = contentWidth / maxWidth
+		scaleMachine(transformScale)
+
 		$('.project-header, .nav, .demo-header').find('.inner')
 												.width(contentWidth)
 
@@ -313,21 +316,21 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 		$('body').append($el)
 
 		# Scale on input change
-		scaleMachine = ->
+		handleChangeEvent = ->
 			inputScale = $input.val()
 			$label.text(inputScale)
-			transformStyleName = modernizr.prefixed('transform')
-			$('#machine')[0].style[transformStyleName] = "scale(#{inputScale})"
+			scaleMachine(inputScale)
 
-		$input.on('change', scaleMachine)
-
-		# Set the initial scale
-		scaleMachine()
+		$input.on('change', handleChangeEvent)
 
 		# Ensure all links also point to presentation mode
 		$("a[href^='/']").each ->
 			hrefWithQs = $(this).attr('href').replace(/#(.*)/, "?#{config.presentationModeQuerystring}#$1")
 			$(this).attr('href', hrefWithQs)
+
+	scaleMachine = (scaleValue) ->
+			transformStyleName = modernizr.prefixed('transform')
+			$('#machine')[0].style[transformStyleName] = "scale(#{scaleValue})"
 
 	removeSharetools = ->
 		$('.bbc-sharetools').remove()
