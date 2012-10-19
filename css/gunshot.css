@@ -20,40 +20,40 @@
 }
 
 #machine {
-    width: 952px;
-    height: 592px;
+    width: 1040px;
+    height: 648px;
     position: absolute;
     background: url('/img/gunshot.png') no-repeat;
 }
 
 .knob {
-    width: 102px;
-    height: 102px;
+    width: 122px;
+    height: 122px;
     position: absolute;
     background: url('/img/knob.png') no-repeat;
 }
 
 #volume {
-    top: 178px;
-    left: 662px;
+    top: 195px;
+    left: 723px;
 }
 
 #rate-of-fire {
-    top: 355px;
-    left: 557px;
+    top: 387px;
+    left: 603px;
 }
 
 #distance {
-    top: 355px;
-    left: 750px;
+    top: 387px;
+    left: 819px;
 }
 
 #multi-fire {
     position: absolute;
-    width: 32px;
-    height: 32px;
-    top: 413px;
-    left: 445px;
+    width: 52px;
+    height: 52px;
+    top: 444px;
+    left: 480px;
     background: url('/img/switch_on-off.png') no-repeat;
 }
 
@@ -63,9 +63,9 @@
 
 #trigger {
     position: absolute;
-    width: 40px;
-    height: 40px;
-    left: 61px;
-    top: 497px;
+    width: 44px;
+    height: 44px;
+    left: 66px;
+    top: 538px;
     background: url('/img/play.png') no-repeat;
 }
