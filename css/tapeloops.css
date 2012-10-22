@@ -15,14 +15,17 @@
 }
 
 #demo #machine {
-    margin-left: -576px;
-    margin-top: -236px;
+    width: 1434px;
+    height: 520px;
+
+    margin-left: -717px;
+    margin-top: -260px;
 }
 
 .machine {
-    width: 352px;
-    height: 408px;
-    background: url('/img/tapeloop.png') no-repeat;
+    width: 448px;
+    height: 520px;
+    background: url('/img/tape/rw_demo_tape_background.png') no-repeat;
 }
 
 #machine1 {
@@ -30,51 +33,51 @@
 }
 #machine2 {
     position: absolute;
-    left: 400px;
+    left: 496px;
 }
 #machine3 {
     position: absolute;
-    left: 800px;
+    left: 992px;
 }
 
 .play {
     position: relative;
-    width: 88px;
-    height: 40px;
-    left: 56px;
-    top: 297px;
+    width: 50px;
+    height: 50px;
+    left: 71px;
+    top: 378px;
 }
 
 .play.on {
-    background: url('/img/stop.png') no-repeat;
+    background: url('/img/tape/rw_demo_tape_stop.png') no-repeat;
 }
 
 .play.off {
-    background: url('/img/play.png') no-repeat;
+    background: url('/img/tape/rw_demo_tape_play.png') no-repeat;
 }
 
 .double-speed {
     position: relative;
-    width: 80px;
-    height: 80px;
-    left: 105px;
-    top: 238px;
+    width: 89px;
+    height: 85px;
+    left: 136px;
+    top: 319px;
 }
 
 .double-speed.off {
-    background: url('/img/speed-switch_7.png') no-repeat;
+    background: url('/img/tape/rw_demo_tape_switch_01.png') no-repeat;
 }
 
 .double-speed.on {
-    background: url('/img/speed-switch_15.png') no-repeat;
+    background: url('/img/tape/rw_demo_tape_switch_02.png') no-repeat;
 }
 
 .fine-speed {
     position: relative;
     cursor: ns-resize;
-    width: 64px;
-    height: 64px;
-    background: url('/img/speed-knob.png') no-repeat;
-    left: 224px;
-    top: 168px;
+    width: 82px;
+    height: 82px;
+    background: url('/img/tape/rw_demo_tape_rotary-knob.png') no-repeat;
+    left: 286px;
+    top: 232px;
 }
