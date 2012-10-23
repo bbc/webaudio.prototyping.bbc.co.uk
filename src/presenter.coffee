@@ -95,7 +95,11 @@ define ['underscore', 'modernizr-prefix', 'jquery', 'scroll-events', 'jquery.vie
 		$('.prev.button').css 'opacity', opacity
 		$('.next.button').css 'opacity', opacity
 
-		switch findCurrentPanelId()
+		currentPanelId = findCurrentPanelId()
+
+		$('body').attr('data-section', currentPanelId)
+
+		switch currentPanelId
 			when "intro" then navButtons(null, 'info')
 			when "info"  then navButtons('intro', 'demo')
 			when "demo"  then navButtons('info', 'code') 
