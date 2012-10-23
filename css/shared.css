@@ -500,6 +500,7 @@ nav ul {
 
 .has-fullscreen nav .fullscreen {
 	right: 48px;
+	background: url(../img/fullscreen.png) no-repeat 50%;
 }
 
 .has-fullscreen nav ul li {
