@@ -100,6 +100,12 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @gain = value
         @master_gain.gain.value = @gain if @turned_on
 
+      setAudioWaveform: (value) ->
+        switch value
+          when "sine" then @oscillator.type = @oscillator.SINE
+          when "square" then @oscillator.type = @oscillator.SQUARE
+          when "sawtooth" then @oscillator.type = @oscillator.SAWTOOTH
+
       on: ->
         @turned_on = true
         @master_gain.gain.value = 1
@@ -130,6 +136,11 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     # `ModulatedOscillator`. We bind these UI elements to divs in the
     # markup
     on_off_switch = new SwitchView(el: '#switch')
+
+    audio_waveform_switch = new SwitchView(
+      el: '#audio-waveform'
+      states: ['sine', 'square', 'sawtooth']
+    )
 
     frequency_knob = new KnobView(
       el: '#frequency'
@@ -182,5 +193,9 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     on_off_switch.on('off', ->
       oscillator.off()
       $('#bulb').removeClass('on').addClass('off')
+    )
+
+    audio_waveform_switch.on('all', (e)->
+      oscillator.setAudioWaveform(e)
     )
 )

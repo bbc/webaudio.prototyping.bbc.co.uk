@@ -90,10 +90,13 @@
     background: url('../img/wob/rw_demo_wob_waveform.png') no-repeat;
 }
 
-#audio-waveform.disabled {
-    opacity: 0.5;
+#audio-waveform.sine {
+    -webkit-transform: rotate(-45deg);
 }
 
+#audio-waveform.sawtooth {
+    -webkit-transform: rotate(45deg);
+}
 
 #volume {
     width: 96px;

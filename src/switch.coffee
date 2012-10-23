@@ -6,29 +6,17 @@ define(['backbone'], ->
   class SwitchView extends Backbone.View
     # The switch defaults to off (0).
     initialize: () ->
-        @state = 0
+      @count = 0
+      @states = @options.states || ['off', 'on']
 
     # When the switch is `click`ed ...
     events:
-      "click": "toggle"
+      "click": "incrementState"
 
-    # ... if the switch is on (1) turn it off; if it's off (0) turn it
-    # on.
-    toggle: ->
-      if (@state == 0)
-        @state = 1
-        this.turnOn()
-      else
-        this.turnOff()
-        @state = 0
-
-    # Fire a custom `on` or `off` event and set the corresponding
-    # class on the view's DOM element
-    turnOn: ->
-      this.trigger('on')
-      $(this.el).removeClass('off').addClass('on')
-
-    turnOff: ->
-      this.trigger('off')
-      $(this.el).removeClass('on').addClass('off')
+    # ... increment the state counter and trigger the new state
+    incrementState: ->
+      @count = @count + 1
+      state = @states[@count % @states.length]
+      this.trigger(state)
+      $(this.el).removeClass(@states.join(' ')).addClass(state)
 )
