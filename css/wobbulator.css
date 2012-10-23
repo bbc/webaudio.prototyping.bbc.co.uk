@@ -17,28 +17,28 @@
 
 /* Wobbulator demo */
 #demo #machine {
-    margin-top: -336px;
-    margin-left: -336px;
+    margin-top: -324px;
+    margin-left: -324px;
 }
 
 #machine {
     position: relative;
-    width: 672px;
-    height: 672px;
+    width: 648px;
+    height: 648px;
 
     margin-left: auto;
     margin-right: auto;
 
-    background: url('/img/wobbulator.png') no-repeat;
+    background: url('/img/wob/rw_demo_wob_background.png') no-repeat;
 }
 
 #switch {
     position: absolute;
     width: 32px;
     height: 32px;
-    left: 80px;
-    top: 224px;
-    background: url('../img/switch_on-off.png') no-repeat;
+    left: 76px;
+    top: 217px;
+    background: url('../img/wob/rw_demo_wob_on-off.png') no-repeat;
 }
 
 #switch.off {
@@ -51,49 +51,62 @@
 }
 
 #frequency {
-    width: 256px;
-    height: 256px;
-    top: 216px;
-    left: 208px;
-    background: url('../img/centre-dial.png') no-repeat;
+    width: 248px;
+    height: 248px;
+    top: 207px;
+    left: 200px;
+    background: url('../img/wob/rw_demo_wob_centre-dial.png') no-repeat;
 }
 
 #bulb {
     position: absolute;
-    width: 48px;
-    height: 48px;
-    top: 96px;
-    left: 72px;
+    width: 32px;
+    height: 32px;
+    top: 100px;
+    left: 76px;
 }
 
 #bulb.on {
-    background: url('../img/lightbulb_on.png') no-repeat;
+    background: url('../img/wob/rw_demo_wob_lightbulb_on.png') no-repeat;
 }
 
 #bulb.off {
-    background: url('../img/lightbulb_off.png') no-repeat;
+    background: url('../img/wob/rw_demo_wob_lightbulb_off.png') no-repeat;
 }
 
 #modulation-frequency {
     width: 72px;
     height: 72px;
-    top: 548px;
-    left: 60px;
-    background: url('../img/knob_mod.png') no-repeat;
+    top: 530px;
+    left: 54px;
+    background: url('../img/wob/rw_demo_wob_knob_mod.png') no-repeat;
 }
 
+#audio-waveform {
+    width: 70px;
+    height: 60px;
+    top: 534px;
+    left: 377px;
+    background: url('../img/wob/rw_demo_wob_waveform.png') no-repeat;
+}
+
+#audio-waveform.disabled {
+    opacity: 0.5;
+}
+
+
 #volume {
-    width: 72px;
-    height: 72px;
-    top: 548px;
-    left: 540px;
-    background: url('../img/knob_mod.png') no-repeat;
+    width: 96px;
+    height: 96px;
+    top: 526px;
+    left: 506px;
+    background: url('../img/wob/rw_demo_wob_rotary-knob.png') no-repeat;
 }
 
 #modulation-depth {
-    width: 58px;
-    height: 58px;
-    top: 543px;
-    left: 215px;
-    background: url('../img/knob_depth.png') no-repeat;
+    width: 54px;
+    height: 54px;
+    top: 530px;
+    left: 205px;
+    background: url('../img/wob/rw_demo_wob_knob_depth.png') no-repeat;
 }
