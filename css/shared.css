@@ -485,7 +485,7 @@ nav .top a:hover {
 
 /* About button */
 nav .about {
-	right: 3px;
+	right: 0;
 	border-left: 1px solid #4D4D4D;
 }
 
@@ -497,6 +497,11 @@ nav .about a:hover {
 	background-image: url(/img/presenter/rw_button_about_on.png);
 }
 
+/* Fullscreen button */
+nav .fullscreen {
+	border-left: 1px solid #4D4D4D;
+}
+
 /* Global nav */
 
 nav .machine-nav {
@@ -506,6 +511,19 @@ nav .machine-nav {
 	right: 48px;
 	margin: 0 auto;
 	padding: 0;
+}
+
+.has-fullscreen nav .machine-nav ul {
+	right: 96px;
+}
+
+.has-fullscreen nav .fullscreen {
+	right: 48px;
+	background: url(../img/fullscreen.png) no-repeat 50%;
+}
+
+.has-fullscreen nav ul li {
+	width: 218px;
 }
 
 nav ul {
