@@ -227,7 +227,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		viewportWidth  = $(window).width()
 		#fixedPanelHeight = getNavHeight()
 
-		console.log('viewport height %o width %o', viewportHeight, viewportWidth)
+		logger.log('viewport height %o width %o', viewportHeight, viewportWidth)
 
 		topHeight    = 25 + 49
 		bottomHeight = 49
@@ -235,25 +235,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		contentHeight = viewportHeight - topHeight - bottomHeight - 8 - 8
 		contentWidth  = contentHeight * 2
 
-		console.log('contentHeight %o contentWidth %o', contentHeight, contentWidth)
-
-		###
-		if contentWidth <= minWidth
-			console.log('contentWidth is less than minWidth')
-			$contentAreas.css(
-				height: ''
-				width: ''
-				margin: ''
-				'max-height': ''
-				'max-width' : ''
-			)
-
-			$contentAreas.find('.image-block').css(
-				'max-height': ''
-				'max-width' : ''			
-			)
-			return
-		###
+		logger.log('contentHeight %o contentWidth %o', contentHeight, contentWidth)
 
 		if contentWidth >= maxWidth
 			contentWidth  = maxWidth 
@@ -295,7 +277,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		$('.project-header, .nav, .demo-header').find('.inner')
 												.width(contentWidth)
 
-		console.log('Setting content areas to height %o, width %o (%o)', contentHeight, contentWidth, $contentAreas)
+		logger.log('Setting content areas to height %o, width %o (%o)', contentHeight, contentWidth, $contentAreas)
 
 	initScaleContent = ->
 		$(window).bind('resize', scaleContent)
@@ -351,7 +333,6 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 			@_isFullscreen = true
 
 		exit: ->
-			console.log('exit')
 			methodName = @_method().exit
 			window.document[methodName]()
 			@_isFullscreen = false
