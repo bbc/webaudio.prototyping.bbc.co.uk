@@ -1,7 +1,7 @@
 #
 # TODO:	To use the grubmle and waypoints code below, add the following 2 dependencies
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
-define ['underscore', 'modernizr-prefix', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, modernizr, $) ->
+define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, modernizr, $) ->
 
 	logger = 
 		log: ->
@@ -433,7 +433,7 @@ define ['underscore', 'modernizr-prefix', 'jquery', 'scroll-events', 'jquery.vie
 				evt.preventDefault()
 		)
 
-		require(['modernizr-prefix'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
+		require(['modernizr'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
 
 		###
 		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
