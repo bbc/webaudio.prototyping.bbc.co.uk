@@ -602,3 +602,39 @@ nav ul li:hover a {
 #gunshot 		nav .gunshot {
 	background: url(/img/presenter/rw_nav-indicator.png) no-repeat 50% 0;
 }
+
+/* Unsupported browser dialog */
+.dialog {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	margin: -100px 0 0 -200px;
+	padding: 8px;
+
+	width: 400px;
+	height: 200px;
+
+	color: #FFF;
+	background: #333;
+}
+
+.dialog a,
+.dialog a:hover {
+	color: #FFF;
+}
+
+.dialog .actions {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	margin: 0;
+}
+
+.dialog .more {
+	float: right;
+}
+
+.dialog h3 {
+	margin: 0;
+}

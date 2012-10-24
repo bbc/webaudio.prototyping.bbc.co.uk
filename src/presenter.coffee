@@ -18,6 +18,8 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		presentationModeQuerystring: 'presentation'
 		useSharetools: true
 		fullscreenButton: true
+		detectWebAudioSupport: true
+		forceWebAudioSupportMessage: false
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
   	#   alert 'Your browser does not support the Web Audio API'
@@ -388,6 +390,22 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		$('.nav').addClass('has-fullscreen')
 		$('.nav nav').append($el)
 
+	isWebAudioSupported = ->
+		return webkitAudioContext? || AudioContext?
+
+	detectWebAudioSupport = ->
+		return if isWebAudioSupported()
+		tmpl = $('#unsupported-browser-template').html()
+		el   = $(tmpl)
+		$('#demo').append(el)
+		el.find('.close')
+		  .on(
+			'click', 
+			(evt) ->
+				evt.preventDefault()
+				el.detach()
+		  )
+
 	init = ->
 		logger.log('init')
 
@@ -403,6 +421,8 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		initScrollDownHint()
 
 		initFullscreenUi() if config.fullscreenButton
+
+		detectWebAudioSupport() if config.forceWebAudioSupportMessage ||config.detectWebAudioSupport
 
 		# When an internal page link is clicked, scroll to the target
 		# instead of just jumping there
