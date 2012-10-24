@@ -6,8 +6,6 @@
 # using [require.js](http://requirejs.org/)
 require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, SwitchView) ->
   $(document).ready ->
-    if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
-      alert 'Your browser does not support the Web Audio API. Try Google Chrome or a Webkit nightly build'
 
     class audioRateTimer
       constructor: (@context) ->
