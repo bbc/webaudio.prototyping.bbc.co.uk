@@ -391,6 +391,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		$('.nav nav').append($el)
 
 	isWebAudioSupported = ->
+		return false if config.forceWebAudioSupportMessage
 		return webkitAudioContext? || AudioContext?
 
 	detectWebAudioSupport = ->
@@ -422,7 +423,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 
 		initFullscreenUi() if config.fullscreenButton
 
-		detectWebAudioSupport() if config.forceWebAudioSupportMessage ||config.detectWebAudioSupport
+		detectWebAudioSupport() if config.detectWebAudioSupport
 
 		# When an internal page link is clicked, scroll to the target
 		# instead of just jumping there
