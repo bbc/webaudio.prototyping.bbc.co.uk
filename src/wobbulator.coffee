@@ -9,7 +9,7 @@
 # studios or by electrical engineers to test equipment.
 #
 # The large centre knob sets the frequency of a primary oscillator.
-# This is frequency is then modulated (or "wobbled") a small amount by
+# This frequency is then modulated (or "wobbled") a small amount by
 # a secondary oscillator. The depth of the wobble is controlled by the
 # amplitude of the secondary oscillator, and the frequency of the
 # wobble by its frequency.
@@ -21,6 +21,10 @@
 # [OscillatorNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#Oscillator)
 # from the [Web Audio
 # API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html).
+# We've taken a historical liberty by including a switch to control
+# the waveshape of the primary oscillator. While probably not true to
+# the original device, the OscillatorNode makes this too easy to
+# resist!
 #
 
 # # Dependencies
@@ -30,7 +34,7 @@
 # (namely a [knob](docs/knob.html) and a [switch](docs/switch.html))
 # in this application. We make these libraries available to our
 # application using [require.js](http://requirejs.org/)
-require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, SwitchView) ->
+require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
   $(document).ready ->
 
     # # ModulatedOscillator
@@ -135,14 +139,14 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     # [knobs](docs/knob.html) to set each of the parameters of the
     # `ModulatedOscillator`. We bind these UI elements to divs in the
     # markup
-    on_off_switch = new SwitchView(el: '#switch')
+    on_off_switch = new Switch(el: '#switch')
 
-    audio_waveform_switch = new SwitchView(
+    audio_waveform_switch = new Switch(
       el: '#audio-waveform'
       states: ['sine', 'square', 'sawtooth']
     )
 
-    frequency_knob = new KnobView(
+    frequency_knob = new Knob(
       el: '#frequency'
       degMin: -53
       degMax: 227
@@ -151,21 +155,21 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       initial_value: initialFrequency
     )
 
-    modulation_frequency_knob = new KnobView(
+    modulation_frequency_knob = new Knob(
       el: '#modulation-frequency'
       valueMin: 0
       valueMax: 50
       initial_value: initialModulationFrequency
     )
 
-    modulation_depth_knob = new KnobView(
+    modulation_depth_knob = new Knob(
       el: '#modulation-depth'
       valueMin: 0
       valueMax: 200
       initial_value: initialModulationDepth
     )
 
-    volume_knob = new KnobView(
+    volume_knob = new Knob(
       el: '#volume'
       initial_value: 1
     )
