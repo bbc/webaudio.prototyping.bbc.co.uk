@@ -56,7 +56,7 @@
     background: url('/img/tape/rw_demo_tape_play.png') no-repeat;
 }
 
-.double-speed {
+.speed {
     position: relative;
     width: 89px;
     height: 85px;
@@ -64,12 +64,12 @@
     top: 319px;
 }
 
-.double-speed.off {
-    background: url('/img/tape/rw_demo_tape_switch_01.png') no-repeat;
+.speed.normal {
+    background: url('/img/tape/rw_demo_tape_switch_02.png') no-repeat;
 }
 
-.double-speed.on {
-    background: url('/img/tape/rw_demo_tape_switch_02.png') no-repeat;
+.speed.half {
+    background: url('/img/tape/rw_demo_tape_switch_01.png') no-repeat;
 }
 
 .fine-speed {

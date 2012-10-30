@@ -21,11 +21,12 @@
 # # Preamble
 #
 # We use jQuery, backbone.js and some custom UI elements (namely a
-# [knob](/docs/knob.html) and a [switch](/docs/switch.html)) in this
-# application. We make these libraries available to our application
-# using [require.js](http://requirejs.org/)
+# [knob](knob.html) and a [switch](switch.html)) in this application.
+# We make these libraries available to our application using
+# [require.js](http://requirejs.org/)
 require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
   $(document).ready ->
+
     # # Player
     #
     # AudioBufferSourceNode's work in a slightly counter-intuitive way
@@ -48,9 +49,9 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
         if @buffer
           # Set the buffer of a new AudioBufferSourceNode equal to the
           # samples loaded by `loadBuffer`
-          @source = audioContext.createBufferSource()
+          @source = context.createBufferSource()
           @source.buffer = @buffer
-          @source.connect audioContext.destination
+          @source.connect context.destination
           @source.loop = true
           this.setSpeed()
 
@@ -92,7 +93,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
 
           onerror = -> alert "Could not load #{@url}"
 
-          audioContext.decodeAudioData request.response, onsuccess, onerror
+          context.decodeAudioData request.response, onsuccess, onerror
 
         request.send()
 
@@ -103,23 +104,23 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     #
     class TapeMachine
       constructor: (@el, @player) ->
-        @setupDoubleSpeed()
+        @setupSpeedToggle()
         @setupFineSpeed()
         @setupPlayStop()
 
-      # The double speed control toggles the base speed of the player
-      # between 1 (normal speed) and 2 (double speed).
-      setupDoubleSpeed: () ->
-        # Bind a [Switch](/docs/switch.html) to the `double-speed`
+      # The tape speed switch toggles the base speed of the player
+      # between normal speed half speed.
+      setupSpeedToggle: () ->
+        # Bind a [Switch](switch.html) to the `double-speed`
         # element within the current `el`
-        double_speed_control = new Switch( el: $(@el).find('.double-speed') )
+        speed_toggle = new Switch(el: $(@el).find('.speed'), states: ['normal', 'half'])
 
-        # [Switch's](/docs/switch.html) trigger custom `on` and `off` events. We bind
+        # The [switch](switch.html) fires `normal` and `half` events. We bind
         # these events to the `setBaseSpeed` method of the player.
-        double_speed_control.on('on', => @player.setBaseSpeed(2))
-        double_speed_control.on('off', => @player.setBaseSpeed(1))
+        speed_toggle.on('normal', => @player.setBaseSpeed(1))
+        speed_toggle.on('half', => @player.setBaseSpeed(0.5))
 
-      # Attach a [Knob](/docs/knob.html) to the fine speed control to
+      # Attach a [Knob](knob.html) to the fine speed control to
       # vary the playback speed by ±3%
       setupFineSpeed: () ->
         fine_speed_control = new Knob(
@@ -129,7 +130,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
           valueMax: 1.03
         )
 
-        # The [Knob](/docs/knob.html) triggers `valueChanged` events
+        # The [Knob](knob.html) triggers `valueChanged` events
         # when turned. We send the value to the `setSpeedFine` method
         # on the player
         fine_speed_control.on('valueChanged', (v) =>
@@ -145,7 +146,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # # Application Setup
 
     # Create an audio context for our application to exist within.
-    audioContext = new webkitAudioContext
+    context = new webkitAudioContext
 
     # Instantiate three separate players with the three loops.
     player1 = new Player('/audio/delia_loop_01.ogg')
@@ -156,4 +157,4 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     new TapeMachine('#machine1', player1)
     new TapeMachine('#machine2', player2)
     new TapeMachine('#machine3', player3)
-)
+  )
