@@ -1,10 +1,10 @@
 # # Preamble
 #
 # We use jQuery, backbone.js and some custom UI elements (namely a
-# [knob](views/knob.html) and a [switch](views/switch.html)) in this
+# [knob](knob.html) and a [switch](switch.html)) in this
 # application. We make these libraries available to our application
 # using [require.js](http://requirejs.org/)
-require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, SwitchView) ->
+require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
   $(document).ready ->
 
     class audioRateTimer
@@ -21,13 +21,13 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       process: (e) ->
         data_l = e.outputBuffer.getChannelData(0)
         data_r = e.outputBuffer.getChannelData(1)
-      
+
         for i in [0..data_l.length-1]
           @count++
           if @count >= @sample_rate / @frequency
             @voice++
             @count = 0
-            if @voice == 1        
+            if @voice == 1
               envelope1.impulse()
             else if @voice == 2
               envelope2.impulse()
@@ -36,7 +36,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
             else if @voice == 4
               envelope4.impulse()
               @voice = 0
-            
+
     class WhiteNoise
       constructor: (context) ->
         self = this
@@ -70,13 +70,13 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
         @decayTime = 0.150
         @node = @context.createGainNode()
         @node.gain.value = 0
- 
+
       impulse: ->
         @node.gain.linearRampToValueAtTime(0, @context.currentTime);
         @node.gain.linearRampToValueAtTime(1, @context.currentTime + 0.001);
         @node.gain.linearRampToValueAtTime(0.3, @context.currentTime + 0.101);
         @node.gain.linearRampToValueAtTime(0, @context.currentTime + @decayTime);
-      
+
       setDecay: (decay) ->
         @decayTime = ((1 - decay) * 2) + 0.150
 
@@ -90,7 +90,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     envelope4 = new Envelope(audioContext)
     envelope5 = new Envelope(audioContext)
     gainRapid = audioContext.createGainNode()
-    gainRapid.gain.value = 0 
+    gainRapid.gain.value = 0
     gainDry = audioContext.createGainNode()
     gainWet = audioContext.createGainNode()
     gainMaster = audioContext.createGainNode()
@@ -134,12 +134,12 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
     time.node.connect(audioContext.destination)
     gainMaster.connect(audioContext.destination)
 
-    volume_knob = new KnobView(el: '#volume')
-    rate_of_fire_knob = new KnobView(el: '#rate-of-fire')
-    distance_knob = new KnobView(el: '#distance')
-    multi_fire_switch = new SwitchView(el: '#multi-fire')
+    volume_knob = new Knob(el: '#volume')
+    rate_of_fire_knob = new Knob(el: '#rate-of-fire')
+    distance_knob = new Knob(el: '#distance')
+    multi_fire_switch = new Switch(el: '#multi-fire')
     trigger = $('#trigger')
-    
+
     multi_fire_switch.on('on', =>
       gainRapid.gain.value = 1
       time.frequency = 2
@@ -149,21 +149,21 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, KnobView, Switch
       time.frequency = 0
       gainRapid.gain.value = 0
     )
-    
-    volume_knob.on('valueChanged', (v) => 
-      gainMaster.gain.value = v 
-    )
-    
-    distance_knob.on('valueChanged', (v) => 
-      filter.setFrequency((v * 800) + 100) 
+
+    volume_knob.on('valueChanged', (v) =>
+      gainMaster.gain.value = v
     )
 
-    rate_of_fire_knob.on('valueChanged', (v) => 
+    distance_knob.on('valueChanged', (v) =>
+      filter.setFrequency((v * 800) + 100)
+    )
+
+    rate_of_fire_knob.on('valueChanged', (v) =>
       time.frequency = (v + 1) * 5
-      envelope1.setDecay(v) 
-      envelope2.setDecay(v) 
-      envelope3.setDecay(v) 
-      envelope4.setDecay(v) 
+      envelope1.setDecay(v)
+      envelope2.setDecay(v)
+      envelope3.setDecay(v)
+      envelope4.setDecay(v)
     )
 
     trigger.click(-> envelope5.impulse() )

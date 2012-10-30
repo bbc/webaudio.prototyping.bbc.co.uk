@@ -28,11 +28,11 @@
 # # Preamble
 #
 # We use jQuery, backbone.js and some custom UI elements (namely a
-# [knob](views/knob.html) and a [speech
-# bubble](views/speechbubble.html)) in this application. We make these
-# libraries available to our application using
+# [knob](knob.html) a [speech bubble](speechbubble.html) and a
+# [switch](switch.html)) in this application. We make these libraries
+# available to our application using
 # [require.js](http://requirejs.org/)
-require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, Knob, SpeechBubble, SwitchView) ->
+require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, Knob, SpeechBubble, Switch) ->
   $(document).ready ->
 
     # # SamplePlayer
@@ -161,21 +161,9 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # - Addition is achieved by noting that Web Audio nodes sum their inputs
     # - The diodes are implemented in the DiodeNode class
     #
-   
-    
     context = new webkitAudioContext
-    
-    getLive = =>
-      navigator.webkitGetUserMedia( {audio:true}, gotStream )
-    
-    gotStream = (stream) =>
-      liveInput = context.createMediaStreamSource( stream )
-      liveInput.connect(liveInputGain)
-      liveInputGain.connect(vcInverter1)
-      liveInputGain.gain.value = 1.0
 
     # First we create the objects on the Vin side of the graph
-    
     vIn = context.createOscillator()
     vIn.frequency.value = 30
     vIn.noteOn(0)
@@ -198,7 +186,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
 
     # Now we create the objects on the Vc side of the graph
     player = new SamplePlayer(context)
-    
+
     liveInputGain = context.createGainNode()
     vcInverter1 = context.createGainNode()
     vcInverter1.gain.value = -1
@@ -245,16 +233,14 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
 
     # # User Interface
 
-    # A [speech bubble](views/speechbubble.html) is a simple
+    # A [speech bubble](speechbubble.html) is a simple
     # backbone.js view with a toggle and hover state
     bubble1 = new SpeechBubble(el: $("#voice1"))
     bubble2 = new SpeechBubble(el: $("#voice2"))
     bubble3 = new SpeechBubble(el: $("#voice3"))
     bubble4 = new SpeechBubble(el: $("#voice4"))
-    
-    tapeswitch = new SwitchView(el: '#tape-switch')
 
-    # [Knobs](views/knob.html) for the oscillator frequency ...
+    # [Knobs](knob.html) for the oscillator frequency ...
     speedKnob = new Knob(
      el: "#tape-speed"
      initial_value: 30
@@ -322,12 +308,24 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     bubble4.on('off', ->
       player.stop()
     )
-    
-    tapeswitch.on('on', ->
-      getLive()
-    )
-    
+
+    # # Experimental! Microphone input support
+    tapeswitch = new Switch(el: '#tape-switch')
+
+    getLive = =>
+      navigator.webkitGetUserMedia( {audio:true}, gotStream )
+
+    gotStream = (stream) =>
+      liveInput = context.createMediaStreamSource( stream )
+      liveInput.connect(liveInputGain)
+      liveInputGain.connect(vcInverter1)
+      liveInputGain.gain.value = 1.0
+
     tapeswitch.on('off', ->
       liveInputGain.gain.value = 0
+    )
+
+    tapeswitch.on('on', ->
+      getLive()
     )
   )
