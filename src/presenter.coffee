@@ -320,7 +320,8 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 	scaleMachine = (scaleValue) ->
 			transformStyleName = Modernizr.prefixed('transform')
 			$machine = $('#machine')
-			$machine[0].style[transformStyleName] = "scale3d(#{scaleValue},#{scaleValue},0)" if $machine.length > 0
+			#$machine[0].style[transformStyleName] = "scale3d(#{scaleValue},#{scaleValue},0)" if $machine.length > 0
+			$machine[0].style[transformStyleName] = "scale(#{scaleValue})" if $machine.length > 0
 
 	removeSharetools = ->
 		$('.bbc-sharetools').remove()
