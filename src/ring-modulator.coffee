@@ -161,21 +161,9 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # - Addition is achieved by noting that Web Audio nodes sum their inputs
     # - The diodes are implemented in the DiodeNode class
     #
-
-
     context = new webkitAudioContext
 
-    getLive = =>
-      navigator.webkitGetUserMedia( {audio:true}, gotStream )
-
-    gotStream = (stream) =>
-      liveInput = context.createMediaStreamSource( stream )
-      liveInput.connect(liveInputGain)
-      liveInputGain.connect(vcInverter1)
-      liveInputGain.gain.value = 1.0
-
     # First we create the objects on the Vin side of the graph
-
     vIn = context.createOscillator()
     vIn.frequency.value = 30
     vIn.noteOn(0)
@@ -245,16 +233,14 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
 
     # # User Interface
 
-    # A [speech bubble](views/speechbubble.html) is a simple
+    # A [speech bubble](speechbubble.html) is a simple
     # backbone.js view with a toggle and hover state
     bubble1 = new SpeechBubble(el: $("#voice1"))
     bubble2 = new SpeechBubble(el: $("#voice2"))
     bubble3 = new SpeechBubble(el: $("#voice3"))
     bubble4 = new SpeechBubble(el: $("#voice4"))
 
-    tapeswitch = new Switch(el: '#tape-switch')
-
-    # [Knobs](views/knob.html) for the oscillator frequency ...
+    # [Knobs](knob.html) for the oscillator frequency ...
     speedKnob = new Knob(
      el: "#tape-speed"
      initial_value: 30
@@ -323,11 +309,23 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
       player.stop()
     )
 
-    tapeswitch.on('on', ->
-      getLive()
-    )
+    # # Experimental! Microphone input support
+    tapeswitch = new Switch(el: '#tape-switch')
+
+    getLive = =>
+      navigator.webkitGetUserMedia( {audio:true}, gotStream )
+
+    gotStream = (stream) =>
+      liveInput = context.createMediaStreamSource( stream )
+      liveInput.connect(liveInputGain)
+      liveInputGain.connect(vcInverter1)
+      liveInputGain.gain.value = 1.0
 
     tapeswitch.on('off', ->
       liveInputGain.gain.value = 0
+    )
+
+    tapeswitch.on('on', ->
+      getLive()
     )
   )
