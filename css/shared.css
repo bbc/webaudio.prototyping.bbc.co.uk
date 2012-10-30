@@ -227,6 +227,8 @@ a, a:hover {
 	background-position: 50% 50%;
 
 	box-shadow: inset 0px 6px 10px 0px rgba(0, 0, 0, 0.5);
+
+    background-image: url(/img/archive/parallax/rw_strip_default_1920x384.png);
 }
 
 /* Vertically center the machine */
