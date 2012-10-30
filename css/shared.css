@@ -450,7 +450,6 @@ nav .hint.is-visible {
 }
 
 /* About / Back to Top buttons */
-/*
 nav .button {
 	position: absolute;
 	top: 0;
@@ -477,7 +476,7 @@ nav .button a span {
 	position: absolute;
 	left: -999999px;
 }
-*/
+
 /* Back to top button */
 /*
 nav .top {

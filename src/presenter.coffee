@@ -374,6 +374,12 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 
 	fullscreenManager = new FullscreenManager()
 
+	toggleFullscreen = ->
+		return unless fullscreenManager.isSupported()
+
+		fullscreenManager.enter() unless fullscreenManager.isFullscreen()
+		fullscreenManager.exit()  if fullscreenManager.isFullscreen()
+
 	initFullscreenUi = ->
 		return unless fullscreenManager.isSupported()
 
@@ -384,8 +390,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 			'click', 
 			(evt) -> 
 				evt.preventDefault()
-				fullscreenManager.enter() unless fullscreenManager.isFullscreen()
-				fullscreenManager.exit()  if fullscreenManager.isFullscreen()
+				toggleFullscreen()
 		)
 
 		$('.nav').addClass('has-fullscreen')
@@ -422,7 +427,9 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		# When a scrolling, check if we should toggle visibility of "scroll down" message
 		initScrollDownHint()
 
-		initFullscreenUi() if config.fullscreenButton
+		initFullscreenUi() if config.fullscreenButton || new RegExp(config.presentationModeQuerystring).test(window.location.search)
+
+		#require(['modernizr'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
 
 		detectWebAudioSupport() if config.detectWebAudioSupport
 
@@ -435,8 +442,6 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 				scrollTo el
 				evt.preventDefault()
 		)
-
-		require(['modernizr'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
 
 		###
 		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
