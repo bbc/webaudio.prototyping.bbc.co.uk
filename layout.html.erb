@@ -46,21 +46,23 @@
         <div class="button top"><a href="#intro"><span>Back to top</span></a></div>
         <div class="machine-nav">
           <ul>
-            <li class="gunshot"><a href="/gunshot.html#info">Gunfire Effects
+            <li class="gunshot"><a href="/gunshot.html">Gunfire Effects
             Generator</a></li>
-            <li class="wobbulator"><a href="/wobbulator.html#info">Wobbulator</a></li>
-            <li class="tapeloops"><a href="/tapeloops.html#info">Tape Loops</a></li>
-            <li class="ring-modulator"><a href="/ring-modulator.html#info">Ring Modulator</a></li>
+            <li class="wobbulator"><a href="/wobbulator.html">Wobbulator</a></li>
+            <li class="tapeloops"><a href="/tapeloops.html">Tape Loops</a></li>
+            <li class="ring-modulator"><a href="/ring-modulator.html">Ring Modulator</a></li>
           </ul>
         </div>
         <div class="button about"><a href="/"><span>About this project</span></a></div>
       </nav>
     </div>
 
+    <% if @show_prev_next_buttons.nil? || @show_prev_next_buttons == true %>
     <div class="prev-next">
       <a class="prev button"><span class="label"></span><span class="icon"></span></a>
       <a class="next button"><span class="label"></span><span class="icon"></span></a>
     </div>
+    <% end %>
 
     <%= yield %>
 

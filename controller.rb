@@ -30,6 +30,12 @@ before 'index.html.erb' do
   @machine = "index"
 end
 
+before 'about.html.erb' do
+  layout 'layout.html.erb'
+  @machine = "about"
+  @show_prev_next_buttons = false
+end
+
 before 'wobbulator.html.erb' do
   @code = extract_code_for("docs/wobbulator.html")
   @machine = "wobbulator"
