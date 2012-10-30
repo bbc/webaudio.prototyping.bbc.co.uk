@@ -17,7 +17,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		panelSelector: '.area'
 		presentationModeQuerystring: 'presentation'
 		useSharetools: true
-		fullscreenButton: true
+		fullscreenButton: false
 		detectWebAudioSupport: true
 		forceWebAudioSupportMessage: false
 
@@ -102,8 +102,8 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 		$('body').attr('data-section', currentPanelId)
 
 		switch currentPanelId
-			when "intro" then navButtons(null, 'info')
-			when "info"  then navButtons('intro', 'demo')
+			#when "intro" then navButtons(null, 'info')
+			when "info"  then navButtons(null, 'demo')
 			when "demo"  then navButtons('info', 'code') 
 			when "code"	 then navButtons('demo', null) 
 

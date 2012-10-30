@@ -450,6 +450,7 @@ nav .hint.is-visible {
 }
 
 /* About / Back to Top buttons */
+/*
 nav .button {
 	position: absolute;
 	top: 0;
@@ -476,8 +477,9 @@ nav .button a span {
 	position: absolute;
 	left: -999999px;
 }
-
+*/
 /* Back to top button */
+/*
 nav .top {
 	left: 0;
 	border-right: 1px solid #4D4D4D;
@@ -490,8 +492,9 @@ nav .top a {
 nav .top a:hover {
 	background-image: url(/img/presenter/rw_button_home_on.png);
 }
-
+*/
 /* About button */
+/*
 nav .about {
 	right: 0;
 	border-left: 1px solid #4D4D4D;
@@ -504,7 +507,7 @@ nav .about a {
 nav .about a:hover {
 	background-image: url(/img/presenter/rw_button_about_on.png);
 }
-
+*/
 /* Fullscreen button */
 nav .fullscreen {
 	border-left: 1px solid #4D4D4D;
@@ -535,7 +538,7 @@ nav .machine-nav {
 }
 
 nav ul {
-	width: 924px; /* (230 + 1) * 4 */
+	width: 1155px; /* (230 + 1) * 4 */
 	margin: 0 auto;
 	padding: 0;
 }
@@ -585,7 +588,8 @@ nav a {
 #wobbulator 	nav .wobbulator a,
 #tapeloops 		nav .tapeloops a,
 #ring-modulator nav .ring-modulator a,
-#gunshot 		nav .gunshot a {
+#gunshot 		nav .gunshot a,
+#about 			nav .about a {
 	color: #FFF;
 }
 
@@ -601,7 +605,8 @@ nav ul li:hover a {
 #wobbulator 	nav .wobbulator,
 #tapeloops 		nav .tapeloops,
 #ring-modulator nav .ring-modulator,
-#gunshot 		nav .gunshot {
+#gunshot 		nav .gunshot,
+#about 		nav .about {
 	background: url(/img/presenter/rw_nav-indicator.png) no-repeat 50% 0;
 }
 
