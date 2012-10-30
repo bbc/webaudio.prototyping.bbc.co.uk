@@ -46,6 +46,9 @@
     position: absolute;
 }
 
+/*
+Unused
+
 #tape-switch {
     width: 50px;
     height: 50px;
@@ -61,6 +64,12 @@
 #tape-switch.on {
     background: url("/img/tape/rw_demo_tape_stop.png") no-repeat scroll 0 0 transparent;
 }
+
+*/
+
+
+/*
+    UNUSED:
 
 #mod-switch {
     background: url("/img/ring/rw_demo_ring_on-off.png") no-repeat scroll 0 0 transparent;
@@ -78,6 +87,8 @@
 #mod-switch.on {
 
 }
+
+*/
 
 .voice {
     width: 184px;
