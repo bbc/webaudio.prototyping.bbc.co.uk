@@ -58,7 +58,7 @@
 }
 
 #multi-fire.off {
-    -webkit-transform:rotate(180deg)
+    -webkit-transform:rotate(180deg);
 }
 
 #trigger {

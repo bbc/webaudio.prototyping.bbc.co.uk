@@ -15,165 +15,130 @@
 }
 
 #demo #machine {
-    margin-left: -463px;
-    margin-top: -302px;
+    margin-left: -660px;
+    margin-top: -339px;
 }
 
 #machine {
-    width:926px;
-    height:604px;
+    width:1320px;
+    height:678px;
     position: absolute;
-    background: url('/img/ring_modulator.png') no-repeat;
-    left:118px;
+    background: url('/img/ring/rw_demo_ring_background.png') no-repeat ;
+    background-position-x: 87px;
 }
 
 #mod-distortion {
-    background: url("/img/ring_mod_knob.png") no-repeat scroll 0 0 transparent;
-    width: 72px;
-    height: 72px;
-    left: 542px;
-    top: 467px;
+    /* Same as wobbulator depth dial */
+    background: url("/img/wob/rw_demo_wob_knob_depth.png") no-repeat scroll 0 0 transparent;
+    width: 54px;
+    height: 54px;
+    left: 789px;
+    top: 571px;
     position: absolute;
 }
 
 #tape-speed {
-    background: url("/img/ring_mod_knob2.png") no-repeat scroll 0 0 transparent;
-    width: 64px;
-    height: 64px;
-    left: 510px;
-    top: 287px;
+    background: url("/img/tape/rw_demo_tape_rotary-knob.png") no-repeat scroll 0 0 transparent;
+    width: 82px;
+    height: 82px;
+    left: 721px;
+    top: 366px;
     position: absolute;
 }
 
 #tape-switch {
-    width: 40px;
-    height: 40px;
-    left: 342px;
-    top: 286px;
+    width: 50px;
+    height: 50px;
+    left: 507px;
+    top: 364px;
     position: absolute;
 }
 
 #tape-switch.off {
-    background: url("/img/play.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/tape/rw_demo_tape_play.png") no-repeat scroll 0 0 transparent;
 }
 
 #tape-switch.on {
-    background: url("/img/stop.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/tape/rw_demo_tape_stop.png") no-repeat scroll 0 0 transparent;
 }
 
 #mod-switch {
+    background: url("/img/ring/rw_demo_ring_on-off.png") no-repeat scroll 0 0 transparent;
     width: 32px;
     height: 32px;
-    left: 488px;
-    top: 487px;
+    left: 461px;
+    top: 572px;
     position: absolute;
 }
 
 #mod-switch.off {
-    background: url("/img/switch.png") no-repeat scroll 0 0 transparent;
+     -webkit-transform:rotate(180deg);
 }
 
 #mod-switch.on {
-    background: url("/img/switch.png") no-repeat scroll 0 0 transparent;
+
 }
 
 .voice {
-    width: 176px;
-    height: 88px;
+    width: 184px;
+    height: 96px;
 }
 
 #voice1 {
-    left: -114px;
+    left: 0;
     position: absolute;
     top: 0px;
 }
 
 #voice1.off {
-    background: url("/img/exterminate_off.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_exterminate_off.png") no-repeat scroll 0 0 transparent;
 }
+
+#voice1.hover,
 #voice1.on {
-    background: url("/img/exterminate_on.png") no-repeat scroll 0 0 transparent;
-}
-#voice1.hover {
-    background: url("/img/exterminate_hover.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_exterminate_on.png") no-repeat scroll 0 0 transparent;
 }
 
 #voice2 {
-    left: 78px;
+    left: 200px;
     position: absolute;
     top: 0px;
-    width: 192px;
+    width: 216px;
 }
 
 #voice2.off {
-    background: url("/img/good-dalek_off.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_good-dalek_off.png") no-repeat scroll 0 0 transparent;
 }
-#voice2.on {
-    background: url("/img/good-dalek_on.png") no-repeat scroll 0 0 transparent;
-}
+#voice2.on,
 #voice2.hover {
-    background: url("/img/good-dalek_hover.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_good-dalek_on.png") no-repeat scroll 0 0 transparent;
 }
 
 #voice3 {
-    left: 654px;
+    left: 904px;
     position: absolute;
     top: 0px;
-    width: 192px;
+    width: 216px;
 }
 
 #voice3.off {
-    background: url("/img/upgrading_off.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_upgrading_off.png") no-repeat scroll 0 0 transparent;
 }
+#voice3.hover,
 #voice3.on {
-    background: url("/img/upgrading_on.png") no-repeat scroll 0 0 transparent;
-}
-#voice3.hover {
-    background: url("/img/upgrading_hover.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_upgrading_on.png") no-repeat scroll 0 0 transparent;
 }
 
 #voice4 {
-    left: 862px;
+    left: 1136px;
     position: absolute;
     top: 0px;
 }
 
 #voice4.off {
-    background: url("/img/delete_off.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_delete_off.png") no-repeat scroll 0 0 transparent;
 }
+#voice4.hover,
 #voice4.on {
-    background: url("/img/delete_on.png") no-repeat scroll 0 0 transparent;
-}
-#voice4.hover {
-    background: url("/img/delete_hover.png") no-repeat scroll 0 0 transparent;
-}
-
-#dalek {
-    width: 200px;
-    height: 175px;
-    left: -31px;
-    position: absolute;
-    top: 112px;
-}
-
-#dalek.off {
-    background: url("/img/dalek_off.png") no-repeat scroll 0 0 transparent;
-}
-#dalek.on {
-    background: url("/img/dalek_on.png") no-repeat scroll 0 0 transparent;
-}
-
-#cyberman {
-    width: 261px;
-    height: 211px;
-    left: 725px;
-    position: absolute;
-    top: 79px;
-}
-
-#cyberman.off {
-    background: url("/img/cyberman_off.png") no-repeat scroll 0 0 transparent;
-}
-#cyberman.on {
-    background: url("/img/cyberman_on.png") no-repeat scroll 0 0 transparent;
+    background: url("/img/ring/rw_demo_ring_txt_delete_on.png") no-repeat scroll 0 0 transparent;
 }
