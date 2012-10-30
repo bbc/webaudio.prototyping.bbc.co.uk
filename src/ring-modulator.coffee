@@ -187,7 +187,6 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # Now we create the objects on the Vc side of the graph
     player = new SamplePlayer(context)
 
-    liveInputGain = context.createGainNode()
     vcInverter1 = context.createGainNode()
     vcInverter1.gain.value = -1
     vcDiode3 = new DiodeNode(context)
@@ -310,7 +309,14 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     )
 
     # # Experimental! Microphone input support
+    #
+    # This will only work on Chrome Canary builds on OS X and Windows.
+    # [HTML5
+    # Rocks](http://updates.html5rocks.com/2012/09/Live-Web-Audio-Input-Enabled)
+    # has the information you'll need to try this feature out.
     tapeswitch = new Switch(el: '#tape-switch')
+
+    liveInputGain = context.createGainNode()
 
     getLive = =>
       navigator.webkitGetUserMedia( {audio:true}, gotStream )
