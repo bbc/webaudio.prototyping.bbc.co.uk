@@ -96,7 +96,7 @@ a, a:hover {
 [data-section='info'] .sub-nav [href='#info'],
 [data-section='demo'] .sub-nav [href='#demo'],
 [data-section='code'] .sub-nav [href='#code'] {
-	color: #007DB3;
+	color: #FFF;
 }
 
 .demo-header .bbc-sharetools {
