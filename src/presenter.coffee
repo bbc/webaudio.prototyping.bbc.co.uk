@@ -1,7 +1,7 @@
 #
 # TODO:	To use the grubmle and waypoints code below, add the following 2 dependencies
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
-define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, modernizr, $) ->
+define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, $) ->
 
 	logger = 
 		log: ->
@@ -318,7 +318,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 			$(this).attr('href', hrefWithQs)
 
 	scaleMachine = (scaleValue) ->
-			transformStyleName = modernizr.prefixed('transform')
+			transformStyleName = Modernizr.prefixed('transform')
 			$machine = $('#machine')
 			$machine[0].style[transformStyleName] = "scale3d(#{scaleValue},#{scaleValue},0)" if $machine.length > 0
 
@@ -429,7 +429,7 @@ define ['underscore', 'modernizr', 'jquery', 'scroll-events', 'jquery.viewport',
 
 		initFullscreenUi() if config.fullscreenButton || new RegExp(config.presentationModeQuerystring).test(window.location.search)
 
-		#require(['modernizr'], initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
+		initPresentationMode(Modernizr, initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
 
 		detectWebAudioSupport() if config.detectWebAudioSupport
 
