@@ -1,3 +1,6 @@
+#
+# ![Block diagram of the Electronic Gunfire Effects Generator](/img/gunfire_block_diagram.png "Block diagram")
+#
 # # Preamble
 #
 # We use jQuery, backbone.js and some custom UI elements (namely a
