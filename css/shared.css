@@ -111,6 +111,10 @@ a, a:hover {
 	font-size: 12px !important; /* Override sharetools CSS */
 }
 
+.bbc-st-panel {
+	font-size: 10px !important; /* Override sharetools CSS */
+}
+
 #info    [href='#info'],
 #machine [href='#machine'],
 #code    [href='#code'] {
