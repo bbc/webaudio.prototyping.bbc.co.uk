@@ -89,19 +89,22 @@
   <![endif]-->
 
   <script id="unsupported-browser-template" type="text/template">
-    <div class="dialog unsupported">
-      <h3>Your browser doesn't seem to support the Web Audio API</h3>
-      <p>To hear these demos, try using:</p>
-      <ul>
-        <li><a href="">Google Chrome</a>
-        <li><a href="">Google Chrome Frame for IE</a>
-        <li><a href="">WebKit Nightly</a>
-      </ul>
-      <p class="actions">
-        <!-- <a href="" class="more">Find out more</a> -->
-        <a href="" class="close">Try it anyway</a>
-      </p>
-    <div>
+  <div class="mask">
+    <div class="content">
+      <div class="image-block">
+        <div class="text dialog unsupported">
+          <h3>Your browser doesn't seem to support the Web Audio API</h3>
+            <p>To hear this demo, try using:</p>
+            <ul>
+              <li><a href="">Google Chrome</a>
+              <li><a href="">Google Chrome Frame for IE</a>
+              <li><a href="">WebKit Nightly</a>
+            </ul>
+            <p>Or you can <a href="" class="close">try it anyway</a></p>
+        </div><!-- .text -->
+      </div><!-- .image-block -->
+    </div><!-- .content -->
+  </div><!-- .mask -->
   </script>
 </body>
 </html>
