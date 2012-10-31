@@ -135,6 +135,11 @@ a, a:hover {
 	width: 100%;
 
 	text-align: left;
+
+  -webkit-transition: all 0.3s ease-in;
+     -moz-transition: all 0.3s ease-in;
+       -o-transition: all 0.3s ease-in;
+          transition: all 0.3s ease-in;
 }
 
 #landing .frame .content {
@@ -157,6 +162,7 @@ a, a:hover {
 	/* this applies to the index page */
 	background-image: url('/img/archive/rw_home_1424x712.png');
 
+	background-repeat: no-repeat;
 	background-size: contain;
 }
 
