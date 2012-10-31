@@ -632,6 +632,7 @@ nav ul li:hover a {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	background: #666;
 	background: rgba(0,0,0,0.7);
 }
 
@@ -662,6 +663,10 @@ nav ul li:hover a {
 .dialog ul {
 	list-style: none;
 	padding: 0;
+}
+
+.dialog ul li {
+	line-height: 24px;
 }
 
 .dialog h3 {

@@ -405,14 +405,25 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 		return if isWebAudioSupported()
 		tmpl = $('#unsupported-browser-template').html()
 		el   = $(tmpl)
-		$('#demo').append(el)
-		el.find('.close')
-		  .on(
-			'click', 
+		$container = $('#demo')
+
+		$container.append(el)
+
+		$dialog = $container.find('.dialog')
+
+		$container.on(
+			'click',
+			'.mask',
 			(evt) ->
-				evt.preventDefault()
-				el.detach()
-		  )
+				$target = $(evt.target)
+
+				# Close the mask and dialog if: 
+				# - .close element clicked
+				# - anything outside of the dialog box
+				if $target.hasClass('close') || $target.has($dialog).length > 0
+					el.detach()
+					evt.preventDefault()				
+		)
 
 	init = ->
 		logger.log('init')
