@@ -1,7 +1,7 @@
 /docs/*
 /public/*
 .DS_Store
-/lib/gunshot.js
+/lib/gunfire.js
 /lib/knob.js
 /lib/presenter.js
 /lib/ring-modulator.js

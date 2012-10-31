@@ -46,9 +46,9 @@ before 'ring-modulator.html.erb' do
   @machine = "ring-modulator"
 end
 
-before 'gunshot.html.erb' do
-  @code = extract_code_for("docs/gunshot.html")
-  @machine = "gunshot"
+before 'gunfire.html.erb' do
+  @code = extract_code_for("docs/gunfire.html")
+  @machine = "gunfire"
 end
 
 before 'tapeloops.html.erb' do

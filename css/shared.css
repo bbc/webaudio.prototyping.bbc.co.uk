@@ -594,7 +594,7 @@ nav a {
 #wobbulator 	nav .wobbulator a,
 #tapeloops 		nav .tapeloops a,
 #ring-modulator nav .ring-modulator a,
-#gunshot 		nav .gunshot a,
+#gunfire 		nav .gunfire a,
 #about 			nav .about a {
 	color: #FFF;
 }
@@ -611,7 +611,7 @@ nav ul li:hover a {
 #wobbulator 	nav .wobbulator,
 #tapeloops 		nav .tapeloops,
 #ring-modulator nav .ring-modulator,
-#gunshot 		nav .gunshot,
+#gunfire 		nav .gunfire,
 #about 			nav .about {
 	background: url(/img/presenter/rw_nav-indicator.png) no-repeat 50% 0;
 }

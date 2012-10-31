@@ -23,14 +23,14 @@
     width: 1040px;
     height: 648px;
     position: absolute;
-    background: url('/img/gunshot/gunshot.png') no-repeat;
+    background: url('/img/gunfire/gunfire.png') no-repeat;
 }
 
 .knob {
     width: 122px;
     height: 122px;
     position: absolute;
-    background: url('/img/gunshot/knob.png') no-repeat;
+    background: url('/img/gunfire/knob.png') no-repeat;
 }
 
 #volume {
@@ -54,7 +54,7 @@
     height: 52px;
     top: 444px;
     left: 480px;
-    background: url('/img/gunshot/switch_on-off.png') no-repeat;
+    background: url('/img/gunfire/switch_on-off.png') no-repeat;
 }
 
 #multi-fire.off {
@@ -67,5 +67,5 @@
     height: 44px;
     left: 66px;
     top: 538px;
-    background: url('/img/gunshot/play.png') no-repeat;
+    background: url('/img/gunfire/play.png') no-repeat;
 }
