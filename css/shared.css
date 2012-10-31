@@ -517,18 +517,18 @@ nav .fullscreen {
 nav .machine-nav {
 	display: block;
 	position: absolute;
-	left: 48px;
-	right: 48px;
+	left: 0;
+	right: 0;
 	margin: 0 auto;
 	padding: 0;
 }
 
 .has-fullscreen nav .machine-nav ul {
-	right: 96px;
+	right: 48px;
 }
 
 .has-fullscreen nav .fullscreen {
-	right: 48px;
+	right: 0;
 	background: url(../img/fullscreen.png) no-repeat 50%;
 }
 
@@ -537,7 +537,7 @@ nav .machine-nav {
 }
 
 nav ul {
-	width: 1155px; /* (230 + 1) * 4 */
+	width: 1155px; /* (230 + 1) * 5 */
 	margin: 0 auto;
 	padding: 0;
 }
@@ -545,7 +545,7 @@ nav ul {
 nav ul li {
 	display: block;
 	float: left;
-	width: 230px;
+	width: 224px;
 	height: 49px;
 	line-height: 49px;
 
@@ -564,8 +564,15 @@ nav ul li {
           transition: color, background 0.1s ease-in;
 }
 
-nav ul li:last-child {
-	border-right-color: transparent;
+nav ul li:first-child {
+	border-left: 1px solid #515151;
+}
+
+nav .about {
+	float: none;
+	position: absolute;
+	right: 0;
+	width: 112px;
 }
 
 nav a {
@@ -605,7 +612,7 @@ nav ul li:hover a {
 #tapeloops 		nav .tapeloops,
 #ring-modulator nav .ring-modulator,
 #gunshot 		nav .gunshot,
-#about 		nav .about {
+#about 			nav .about {
 	background: url(/img/presenter/rw_nav-indicator.png) no-repeat 50% 0;
 }
 
