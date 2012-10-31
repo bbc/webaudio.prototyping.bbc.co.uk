@@ -1,7 +1,7 @@
 #
 # TODO:	To use the grubmle and waypoints code below, add the following 2 dependencies
 #		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
-define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (_, $) ->
+define ['require', 'underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (require, _, $) ->
 
 	logger = 
 		log: ->
@@ -18,7 +18,6 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 		presentationModeQuerystring: 'presentation'
 		useSharetools: true
 		fullscreenButton: false
-		detectWebAudioSupport: true
 		forceWebAudioSupportMessage: false
 
   	# if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
@@ -401,8 +400,7 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 		return false if config.forceWebAudioSupportMessage
 		return webkitAudioContext? || AudioContext?
 
-	detectWebAudioSupport = ->
-		return if isWebAudioSupported()
+	showWebAudioNotSupportedUi = ->
 		tmpl = $('#unsupported-browser-template').html()
 		el   = $(tmpl)
 		$container = $('#demo')
@@ -421,9 +419,14 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 				# - .close element clicked
 				# - anything outside of the dialog box
 				if $target.hasClass('close') || $target.has($dialog).length > 0
+					initDemo()
 					el.detach()
-					evt.preventDefault()				
+					evt.preventDefault()
 		)
+
+	initDemo = ->
+		machine = $('body').attr('id')
+		require([machine])
 
 	init = ->
 		logger.log('init')
@@ -443,7 +446,10 @@ define ['underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scro
 
 		initPresentationMode(Modernizr, initPresentationMode) if new RegExp(config.presentationModeQuerystring).test window.location.search
 
-		detectWebAudioSupport() if config.detectWebAudioSupport
+		if isWebAudioSupported()
+			initDemo()
+		else
+			showWebAudioNotSupportedUi()
 
 		# When an internal page link is clicked, scroll to the target
 		# instead of just jumping there
