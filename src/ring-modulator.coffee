@@ -23,7 +23,10 @@
 # as the modulating signal - this was recorded onto a tape loop and
 # connected to one input. A microphone was connected to the second
 # (carrier) input. The actor could then use the effect live on the set
-# of Dr Who.
+# of Dr Who. In our demo we allow you to change the frequency (by
+# modifying the playback speed of the tape machine). The tape machines
+# used originally did not playback at a constant speed - this
+# contributed to the distinctive sound of the early Daleks.
 
 # # Preamble
 #
