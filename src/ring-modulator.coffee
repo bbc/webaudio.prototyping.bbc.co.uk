@@ -5,12 +5,6 @@
 # Workshop. It was the effect used to create the voices of both the
 # Cybermen and The Daleks for Dr Who.
 #
-# To create the voice of the Daleks they used a 30Hz sine wave as the
-# modulating signal - this was recorded onto a tape loop and connected
-# to one input. A microphone was connected to the second (carrier)
-# input. The actor could then use the effect live on the set of Dr
-# Who.
-#
 # A simple way to achieve a Ring Modulation effect is to simply
 # multiply the input signal by the carrier signal. This approach
 # doesn't allow for the characteristic distortion sound that was
@@ -24,6 +18,12 @@
 # [A Simple Digital Model Of The Diode-Based
 # Ring-Modulator](http://recherche.ircam.fr/pub/dafx11/Papers/66_e.pdf).
 # Proc. 14th Int. Conf. Digital Audio Effects, Paris, France, 2011.)
+#
+# To create the voice of the Daleks the Workshop used a 30Hz sine wave
+# as the modulating signal - this was recorded onto a tape loop and
+# connected to one input. A microphone was connected to the second
+# (carrier) input. The actor could then use the effect live on the set
+# of Dr Who.
 
 # # Preamble
 #
@@ -43,7 +43,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # The sample is then triggered and looped. The `SamplePlayer`
     # class encapsulates this operation.
     class SamplePlayer extends Backbone.View
-      # The class requires the AudioContext in order to create the
+      # Instances require the AudioContext in order to create a
       # source buffer.
       constructor: (@context) ->
 
@@ -110,6 +110,8 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
         this.setCurve()
 
       setDistortion: (distortion) ->
+        # We increase the distortion by increasing the gradient of the
+        # linear portion of the waveshaper's curve.
         @h = distortion
         this.setCurve()
 
@@ -136,8 +138,8 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
 
         @node.curve = wsCurve
 
-      # We provide a connect method so that it can
-      # be connected to other nodes in a consistant way.
+      # We provide a connect method so that instances of this class
+      # can be connected to other nodes in a consistant way.
       connect: (destination) ->
         @node.connect(destination)
 
