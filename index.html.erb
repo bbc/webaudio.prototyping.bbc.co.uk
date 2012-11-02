@@ -1,37 +1,14 @@
-<article id="intro" class="area frame">
-  <div class="content">
-    <div class="image-block">
-      <div class="text">
-        <p class="dept">BBC Research &amp; Development</p>
-        <p class="dept">Internet Research &amp; Future Services (IRFS)</p>
-        <p class="project">Recreating the sounds of the <br/>
-          <span class="name">BBC Radiophonic Workshop</span> <br/>
-          using the Web Audio API
-        </p>
+<%# coding: utf-8 %>
+<div class="demo-header wrapper">
+  <header class="inner">
+    <h1>&nbsp;</h1>
+    <%= render '_sharetools.html.erb' %>
+  </header>
+</div>
 
-        <p>To find out more about this prototype and to create your
-        own Radiophonic sounds
-          <script type="text/javascript">
-//<![CDATA[
-<!--
-var x="function f(x){var i,o=\"\",ol=x.length,l=ol;while(x.charCodeAt(l/13)!" +
-"=68){try{x+=x;l+=l;}catch(e){}}for(i=l-1;i>=0;i--){o+=x.charAt(i);}return o" +
-".substr(0,ol);}f(\")14,\\\"020\\\\230\\\\220\\\\100\\\\500\\\\030\\\\D310\\" +
-"\\730\\\\QT000\\\\sw|q~$;Ddz|ugwu0}ak,{771\\\\)f`oV&_?dln\\\\420\\\\010\\\\" +
-"[X%530\\\\700\\\\710\\\\100\\\\330\\\\700\\\\530\\\\300\\\\ O530\\\\610\\\\" +
-"500\\\\500\\\\500\\\\100\\\\030\\\\010\\\\710\\\\100\\\\500\\\\1_520\\\\300" +
-"\\\\:4?)(e2-y96z003020\\\\<(?%q%=$.'(f730\\\\771\\\\'%MV530\\\\]700\\\\030\\"+
-"\\120\\\\V[SA]AE730\\\\DAK@YHEM\\\"(f};o nruter};))++y(^)i(tAedoCrahc.x(edo" +
-"CrahCmorf.gnirtS=+o;721=%y{)++i;l<i;0=i(rof;htgnel.x=l,\\\"\\\"=o,i rav{)y," +
-"x(f noitcnuf\")"                                                             ;
-while(x=eval(x));
-//-->
-//]]>
-          </script>
-          to be notified when we're ready, or check
-          our <a href="http://www.bbc.co.uk/blogs/researchanddevelopment/">blog</a>
-          for announcements.</p>
-      </div><!-- .text -->
-    </div><!-- .image-block -->
+<article id="intro" class="area frame">
+  <h2>Intro</h2>
+  <div class="content">
+    <%= render '_image_block.html.erb' %>
   </div><!-- .content -->
 </article>
