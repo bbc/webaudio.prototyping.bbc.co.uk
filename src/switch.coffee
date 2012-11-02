@@ -8,15 +8,23 @@ define(['backbone'], ->
     initialize: () ->
       @count = 0
       @states = @options.states || ['off', 'on']
+      @applyState()
 
     # When the switch is `click`ed ...
     events:
       "click": "incrementState"
 
+    # Get the current state of the switch
+    currentState: ->
+      @states[@count % @states.length]
+
+    # Apply the current state to the DOM
+    applyState: ->
+      $(this.el).removeClass(@states.join(' ')).addClass(@currentState())
+
     # ... increment the state counter and trigger the new state
     incrementState: ->
       @count = @count + 1
-      state = @states[@count % @states.length]
-      this.trigger(state)
-      $(this.el).removeClass(@states.join(' ')).addClass(state)
+      @applyState()
+      this.trigger(@currentState())
 )

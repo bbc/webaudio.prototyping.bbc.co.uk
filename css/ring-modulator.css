@@ -90,6 +90,29 @@ Unused
 
 */
 
+#live-input.on,
+#live-input.off {
+    display: block;
+    position: absolute;
+    
+    top: 579px;
+    left: 611px;
+
+    width: 111px;
+    line-height: 32px;
+
+    text-transform: uppercase;
+    text-align: center;
+    color: #FFF;
+    background-color: #007DB3;
+}
+
+#live-input.on,
+#live-input:hover {
+    cursor: pointer;
+    background-color: rgba(0, 125, 179, 0.7);
+}
+
 .voice {
     width: 184px;
     height: 96px;

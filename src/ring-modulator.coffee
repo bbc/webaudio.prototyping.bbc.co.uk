@@ -319,9 +319,21 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # [HTML5
     # Rocks](http://updates.html5rocks.com/2012/09/Live-Web-Audio-Input-Enabled)
     # has the information you'll need to try this feature out.
-    tapeswitch = new Switch(el: '#tape-switch')
 
     liveInputGain = context.createGainNode()
+    liveInput     = null
+
+    # There's no easy way to feature detect if this is supported so 
+    # we have to browser detect the version of Chrome
+    isLiveInputSupported = ->
+      isSupported = false
+      browser = $.browser
+    
+      if browser.chrome
+        majorVersion = parseInt( browser.version.split('.')[0] )
+        isSupported  = true if majorVersion >= 23
+
+      isSupported
 
     getLive = =>
       navigator.webkitGetUserMedia( {audio:true}, gotStream )
@@ -332,11 +344,15 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
       liveInputGain.connect(vcInverter1)
       liveInputGain.gain.value = 1.0
 
-    tapeswitch.on('off', ->
-      liveInputGain.gain.value = 0
-    )
+    if isLiveInputSupported()
+      tapeswitch = new Switch(el: '#live-input')
 
-    tapeswitch.on('on', ->
-      getLive()
-    )
+      tapeswitch.on('off', ->
+        liveInputGain.gain.value = 0
+      )
+
+      tapeswitch.on('on', ->
+        getLive()
+      )
+
   )
