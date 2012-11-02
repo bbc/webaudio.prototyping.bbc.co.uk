@@ -99,6 +99,12 @@ a, a:hover {
 	color: #FFF;
 }
 
+[data-section='info'] .sub-nav [href='#info']:hover,
+[data-section='demo'] .sub-nav [href='#demo']:hover,
+[data-section='code'] .sub-nav [href='#code']:hover {
+	color: #FFF;
+}
+
 .demo-header .bbc-sharetools {
 	position: absolute;
 	top: 50%;
