@@ -6,6 +6,7 @@ define(['backbone'], ->
   class KnobView extends Backbone.View
     events:
       "mousedown": "mousedown"
+      "dragstart": "dragstart"
 
     # The class is instantiated with a params object with the
     # following (optional) properties
@@ -28,6 +29,11 @@ define(['backbone'], ->
       @distanceMax = params.distanceMax || 200
 
       this.setValue(@value)
+
+    # To prevent the Knob element being dragged instead of turned
+    # we prevent the default drag behaviour
+    dragstart: (e) ->
+      e.preventDefault()
 
     # On a mousedown event we grab the location of the mouse cursor
     # and the value at the time the rotation starts to allow smooth
