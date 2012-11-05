@@ -1,6 +1,4 @@
 #
-# TODO:	To use the grubmle and waypoints code below, add the following 2 dependencies
-#		the array below: 'lib/grumble/js/jquery.grumble.js', 'waypoints'
 define ['require', 'underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (require, _, $) ->
 
 	logger = 
@@ -460,18 +458,6 @@ define ['require', 'underscore', 'jquery', 'scroll-events', 'jquery.viewport', '
 				scrollTo el
 				evt.preventDefault()
 		)
-
-		###
-		# This uses the 'Waypoint' plugin to activate a 'grumble' tooltip box when 
-		# the machine is scrolled into view
-		# TODO: Hook this up listen for machine events so that we can hide the callout 
-		# 		when the machine's activate. Does grumble provide an API for this?
-		$('#demo').waypoint ->
-			machineOnOffSwitch = $('#switch')
-			opts = text: 'Switch on the machine', angle: 240, distance: 20, showAfter: 500
-
-			$(machineOnOffSwitch).grumble(opts)
-		###
 
 		# Use stellar when the window object scrolls
 		$(window).stellar()
