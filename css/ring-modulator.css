@@ -46,50 +46,7 @@
     position: absolute;
 }
 
-/*
-Unused
-
-#tape-switch {
-    width: 50px;
-    height: 50px;
-    left: 507px;
-    top: 364px;
-    position: absolute;
-}
-
-#tape-switch.off {
-    background: url("/img/tape/rw_demo_tape_play.png") no-repeat scroll 0 0 transparent;
-}
-
-#tape-switch.on {
-    background: url("/img/tape/rw_demo_tape_stop.png") no-repeat scroll 0 0 transparent;
-}
-
-*/
-
-
-/*
-    UNUSED:
-
-#mod-switch {
-    background: url("/img/ring/rw_demo_ring_on-off.png") no-repeat scroll 0 0 transparent;
-    width: 32px;
-    height: 32px;
-    left: 461px;
-    top: 572px;
-    position: absolute;
-}
-
-#mod-switch.off {
-     -webkit-transform:rotate(180deg);
-}
-
-#mod-switch.on {
-
-}
-
-*/
-
+/* 'Live Mic.' input button */
 #live-input.on,
 #live-input.off {
     display: block;
@@ -113,6 +70,53 @@ Unused
     background-color: rgba(0, 125, 179, 0.7);
 }
 
+#live-input span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    line-height: 32px;
+
+    margin-bottom: 3px;
+    margin-right: 4px;
+
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+#live-input.off span {
+    opacity: 0.2;
+}
+
+#live-input.on span {
+  -webkit-animation: fade-in-out 3s infinite;
+     -moz-animation: fade-in-out 3s infinite;
+       -o-animation: fade-in-out 3s infinite;
+          animation: fade-in-out 3s infinite;
+}
+
+@-webkit-keyframes fade-in-out {
+  0%   { opacity: 0.2; }
+  50%  { opacity: 1.0; }
+  100% { opacity: 0.2; }
+}
+@-moz-keyframes fade-in-out {
+  0%   { opacity: 0.2; }
+  50%  { opacity: 1.0; }
+  100% { opacity: 0.2; }
+}
+@-o-keyframes fade-in-out {
+  0%   { opacity: 0.2; }
+  50%  { opacity: 1.0; }
+  100% { opacity: 0.2; }
+}
+@keyframes fade-in-out {
+  0%   { opacity: 0.2; }
+  50%  { opacity: 1.0; }
+  100% { opacity: 0.2; }
+}
+
+
+/* Voice */
 .voice {
     width: 184px;
     height: 96px;
