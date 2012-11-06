@@ -1,5 +1,10 @@
 #
-define ['require', 'underscore', 'jquery', 'scroll-events', 'jquery.viewport', 'jquery.scrollTo', 'jquery.easing', 'jquery.stellar', 'jquery.ba-throttle-debounce'], (require, _, $) ->
+define(['require', 'underscore', 'jquery', 
+		'vendor/scroll-events', 'vendor/jquery.viewport', 
+		'vendor/jquery.scrollTo', 'vendor/jquery.easing', 
+		'vendor/jquery.stellar', 'vendor/jquery.ba-throttle-debounce'], 
+	
+(require, _, $) ->
 
 	logger = 
 		log: ->
@@ -463,3 +468,4 @@ define ['require', 'underscore', 'jquery', 'scroll-events', 'jquery.viewport', '
 		$(window).stellar()
 
 	$(document).ready(init) unless /no-scroll/.test window.location.hash
+)

@@ -7,7 +7,7 @@ end
 
 desc "Generate js from coffeescript"
 task :coffee do
-  system("coffee -c -o lib/ src/")
+  system("coffee -c -o js/ src/")
 end
 
 desc "Run stasis"
