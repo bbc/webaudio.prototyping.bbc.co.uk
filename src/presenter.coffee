@@ -1,8 +1,5 @@
 #
-define(['require', 'underscore', 'jquery', 
-		'vendor/scroll-events', 'vendor/jquery.viewport', 
-		'vendor/jquery.scrollTo', 'vendor/jquery.easing', 
-		'vendor/jquery.stellar', 'vendor/jquery.ba-throttle-debounce'], 
+define(['require', 'underscore', 'jquery', 'jquery-plugins'], 
 	
 (require, _, $) ->
 
