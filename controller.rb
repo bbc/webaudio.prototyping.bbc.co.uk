@@ -34,28 +34,33 @@ before 'index.html.erb' do
   @machine = "about"
   @show_prev_next_buttons = false
   @encoded_url = encoded_url() # index page 
+  @title = "Recreating the sounds of the BBC Radiophonic Workshop"
 end
 
 before 'wobbulator/index.html.erb' do
   @code = extract_code_for("docs/wobbulator.html")
   @machine = "wobbulator"
   @encoded_url = encoded_url(@machine)
+  @title = "Wobbulator : Recreating the sounds of the BBC Radiophonic Workshop"
 end
 
 before 'ring-modulator/index.html.erb' do
   @code = extract_code_for("docs/ring-modulator.html")
   @machine = "ring-modulator"
   @encoded_url = encoded_url(@machine)
+  @title = "Ring Modulator : Recreating the sounds of the BBC Radiophonic Workshop"
 end
 
 before 'gunfire/index.html.erb' do
   @code = extract_code_for("docs/gunfire.html")
   @machine = "gunfire"
   @encoded_url = encoded_url(@machine)
+  @title = "Gunfire Effects : Recreating the sounds of the BBC Radiophonic Workshop"
 end
 
 before 'tapeloops/index.html.erb' do
   @code = extract_code_for("docs/tapeloops.html")
   @machine = "tapeloops"
   @encoded_url = encoded_url(@machine)
+  @title = "Tape Loops : Recreating the sounds of the BBC Radiophonic Workshop"
 end
