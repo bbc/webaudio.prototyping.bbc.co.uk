@@ -349,7 +349,30 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
       liveInputGain.connect(vcInverter1)
       liveInputGain.gain.value = 1.0
 
-    if isLiveInputSupported()
+    class KonamiCode
+      constructor: () ->
+                    # ↑ ↑ ↓ ↓ ← → ← → B A
+        @konami   = [38,38,40,40,37,39,37,39,66,65];
+        @keys     = []
+        @callback = null
+        $(document).keydown( @keydown )
+      onPowerup: (callback) =>
+        @callback = callback
+      keydown: (e) =>
+        @keys.push(e.keyCode)
+        isCorrectCode = @keys.join(',').indexOf(@konami.join(',')) >= 0
+        if isCorrectCode
+          @callback() if @callback?
+          @keys = []
+        else if @keys.length == @konami.length
+          @keys = []
+
+    konami = new KonamiCode()
+    konami.onPowerup -> 
+      console.log("powerup")
+      activateLiveMicButton()
+
+    activateLiveMicButton = ->
       tapeswitch = new Switch(el: '#live-input')
 
       tapeswitch.on('off', ->
