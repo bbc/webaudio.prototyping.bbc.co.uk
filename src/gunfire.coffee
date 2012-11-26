@@ -100,6 +100,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     merger1 = audioContext.createChannelMerger()
     impulseBuffer = null
     convolver = audioContext.createConvolver()
+    
 
 
     request = new XMLHttpRequest()
@@ -133,6 +134,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     gainDry.connect(merger1)
     gainWet.connect(merger1)
     gainWet.gain.value = 0.2
+    gainMaster.gain.value = 10
     merger1.connect(gainMaster)
     time.node.connect(audioContext.destination)
     gainMaster.connect(audioContext.destination)
@@ -154,7 +156,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     )
 
     volume_knob.on('valueChanged', (v) =>
-      gainMaster.gain.value = v
+      gainMaster.gain.value = v * 20
     )
 
     distance_knob.on('valueChanged', (v) =>

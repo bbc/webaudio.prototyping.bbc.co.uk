@@ -196,6 +196,10 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vcInverter1.gain.value = -1
     vcDiode3 = new DiodeNode(context)
     vcDiode4 = new DiodeNode(context)
+    
+    # A gain node to control master output levels
+    outGain = context.createGainNode()
+    outGain.gain.value = 4
 
     # A small addition to the graph given in Parker's paper is a
     # compressor node immediately before the output. This ensures that
@@ -225,7 +229,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vInInverter2.connect(vInDiode1.node)
 
     # Finally connect the four diodes to the destination via the
-    # output-stage compressor
+    # output-stage compressor and master gain node
     vInDiode1.connect(vInInverter3)
     vInDiode2.connect(vInInverter3)
 
@@ -233,7 +237,8 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vcDiode3.connect(compressor)
     vcDiode4.connect(compressor)
 
-    compressor.connect(context.destination)
+    compressor.connect(outGain)
+    outGain.connect(context.destination)
 
     # # User Interface
 
