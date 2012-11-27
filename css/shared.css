@@ -40,8 +40,8 @@ a, a:hover {
 
 /* External link */
 a[href^="http"] {
-	padding-left: 16px;
-	background: url(/img/presenter/external-link.png) no-repeat 0 50%;
+	padding-left: 20px;
+	background: url(/img/presenter/external-link.png) no-repeat 4px 50%;
 }
 
 /* Denotes an accessibility outline */
@@ -217,7 +217,7 @@ a[href^="http"] {
 	font-weight: normal;
 	line-height: 36px;
 
-	margin-top: 25px;
+	margin-top: 0;
 	margin-bottom: 20px;
 }
 

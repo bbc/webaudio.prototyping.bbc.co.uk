@@ -37,6 +37,14 @@ before 'index.html.erb' do
   @title = "Recreating the sounds of the BBC Radiophonic Workshop"
 end
 
+before 'credits.html.erb' do
+  layout 'layout.html.erb'
+  @machine = "credits"
+  @show_prev_next_buttons = false
+  @encoded_url = encoded_url() # index page 
+  @title = "Recreating the sounds of the BBC Radiophonic Workshop"
+end
+
 before 'wobbulator/index.html.erb' do
   @code = extract_code_for("docs/wobbulator.html")
   @machine = "wobbulator"
