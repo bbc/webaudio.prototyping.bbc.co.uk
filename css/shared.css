@@ -38,6 +38,12 @@ a, a:hover {
 	text-decoration: underline;
 }
 
+/* External link */
+a[href^="http"] {
+	padding-left: 16px;
+	background: url(/img/presenter/external-link.png) no-repeat 0 50%;
+}
+
 /* Denotes an accessibility outline */
 .area > h2 {
 	position: absolute;
