@@ -14,31 +14,20 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
 	# The same effect could be achived using a Javascript Node with the following code
 	# to generate random numbers in a range of -1 - 1
   #
-  # class WhiteNoise
+  #     class WhiteNoise
+  #   
+  #       constructor: (context) ->
+  #         self = this
+  #         @context = context
+  #         @node = @context.createJavaScriptNode(1024, 1,2)
+  #         @node.onaudioprocess = (e) -> self.process(e)
   #
-  #    constructor: (context) ->
-  #
-  #      self = this
-  #
-  #      @context = context
-  #
-  #      @node = @context.createJavaScriptNode(1024, 1,2)
-  #
-  #      @node.onaudioprocess = (e) -> self.process(e)
-  #
-  #
-  #
-  #    process: (e) ->
-  #
-  #      data0 = e.outputBuffer.getChannelData(0)
-  #
-  #      data1 = e.outputBuffer.getChannelData(1)
-  #
-  #      for i in [0..data0.length-1]
-  #
-  #        data0[i] = ((Math.random() * 2) - 1)
-  #
-  #        data1[i] = data0[i]
+  #       process: (e) ->
+  #         data0 = e.outputBuffer.getChannelData(0)
+  #         data1 = e.outputBuffer.getChannelData(1)
+  #         for i in [0..data0.length-1]
+  #           data0[i] = ((Math.random() * 2) - 1)
+  #           data1[i] = data0[i]
     class Player
       constructor: (@url) ->
         this.loadBuffer()
