@@ -357,6 +357,8 @@ header .dept {
 
 header .dept a {
 	color: #999;
+	padding: 0;
+	background: none;
 }
 
 header a,
