@@ -2,3 +2,4 @@
 /public/*
 .DS_Store
 /js/*.js
+/lib/*.js
