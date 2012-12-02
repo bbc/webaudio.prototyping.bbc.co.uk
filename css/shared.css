@@ -177,7 +177,7 @@ a[href^="http"] {
 	height: 100%;
 
 	/* this applies to the index page */
-	background-image: url('/img/archive/rw_home_1424x712.png');
+	background-image: url('/img/archive/rw_home_1424x712.jpg');
 
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -251,7 +251,7 @@ a[href^="http"] {
 
 	box-shadow: inset 0px 6px 10px 0px rgba(0, 0, 0, 0.5);
 
-    background-image: url(/img/archive/parallax/rw_strip_default_1920x384.png);
+    background-image: url(/img/archive/parallax/rw_strip_default_1920x384.jpg);
 }
 
 /* Vertically center the machine */
