@@ -40,7 +40,15 @@
 
 <article id="demo" class="area frame">
   <h2>Demo</h2>
-  <%= render 'machine.html.erb' %>
+  <div id="machine">
+    <div id="switch" class="off"></div>
+    <div id="bulb" class="off"></div>
+    <div class="knob" id="frequency"></div>
+    <div class="knob" id="modulation-frequency"></div>
+    <div class="knob" id="modulation-depth"></div>
+    <div class="knob sine" id="audio-waveform"></div>
+    <div class="knob" id="volume"></div>
+  </div><!-- #machine -->
 </article><!-- #demo -->
 
 <div class="separator separator-2" data-stellar-background-ratio="0.7"></div>
