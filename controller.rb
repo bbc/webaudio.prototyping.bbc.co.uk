@@ -46,7 +46,6 @@ before 'credits.html.erb' do
 end
 
 before 'wobbulator/index.html.erb' do
-  layout 'layout.html.erb'
   @code = extract_code_for("docs/wobbulator.html")
   @machine = "wobbulator"
   @encoded_url = encoded_url(@machine)
@@ -59,7 +58,6 @@ before 'wobbulator/machine.html.erb' do
 end
 
 before 'ring-modulator/index.html.erb' do
-  layout 'layout.html.erb'
   @code = extract_code_for("docs/ring-modulator.html")
   @machine = "ring-modulator"
   @encoded_url = encoded_url(@machine)
@@ -72,7 +70,6 @@ before 'ring-modulator/machine.html.erb' do
 end
 
 before 'gunfire/index.html.erb' do
-  layout 'layout.html.erb'
   @code = extract_code_for("docs/gunfire.html")
   @machine = "gunfire"
   @encoded_url = encoded_url(@machine)
@@ -85,7 +82,6 @@ before 'gunfire/machine.html.erb' do
 end
 
 before 'tapeloops/index.html.erb' do
-  layout 'layout.html.erb'
   @code = extract_code_for("docs/tapeloops.html")
   @machine = "tapeloops"
   @encoded_url = encoded_url(@machine)
