@@ -146,7 +146,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # # Application Setup
 
     # Create an audio context for our application to exist within.
-    context = new webkitAudioContext
+    context = new AudioContext
 
     # Instantiate three separate players with the three loops.
     player1 = new Player('/audio/delia_loop_01.ogg')
