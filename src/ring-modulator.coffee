@@ -61,12 +61,12 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
         # Connect the source to the node's destination
         @source.connect(@destination)
         # Play immediately
-        @source.noteOn(0)
+        @source.start(0)
 
       stop: ->
         if @source
           # Stop the source from playing
-          @source.noteOff 0
+          @source.stop(0)
           @source.disconnect
 
       # We provide a connect method so that it can
@@ -171,7 +171,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # First we create the objects on the Vin side of the graph
     vIn = context.createOscillator()
     vIn.frequency.value = 30
-    vIn.noteOn(0)
+    vIn.start(0)
     vInGain = context.createGain()
     vInGain.gain.value = 0.5
 

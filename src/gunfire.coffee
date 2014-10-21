@@ -39,7 +39,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
 
           @source.buffer = @buffer
           @source.loop = true
-          @source.noteOn 0
+          @source.start 0
       # Load the samples from the provided `url`, decode and store in
       # an instance variable.
       loadBuffer: ->
