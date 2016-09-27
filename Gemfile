@@ -1,13 +1,10 @@
-source :rubygems
+source "https://rubygems.org/"
 
-gem "nokogiri"
-gem "stasis"
+gem "nokogiri", "~> 1.5.9"
+gem "stasis", "~> 0.2.0"
+gem "kramdown", "~> 1.12.0"
 
 group :development do
-  gem 'guard'
-  gem 'terminal-notifier-guard'
-  gem 'guard-rake'
-  gem 'guard-coffeescript'
-  gem 'guard-process'
-  gem 'rb-fsevent', '~> 0.9.1'
+  gem "rb-fsevent", "~> 0.9.3"
+  gem "terminal-notifier-guard", "~> 1.5.3"
 end

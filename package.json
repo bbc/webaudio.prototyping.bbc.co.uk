@@ -1,0 +1,24 @@
+{
+  "name": "webaudio.prototyping.bbc.co.uk",
+  "version": "1.0.0",
+  "description": "Radiophonics WebAudio API demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbc/webaudio.prototyping.bbc.co.uk.git"
+  },
+  "keywords": [],
+  "author": "Chris Lowis (https://github.com/chrislo)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bbc/webaudio.prototyping.bbc.co.uk/issues"
+  },
+  "homepage": "https://github.com/bbc/webaudio.prototyping.bbc.co.uk#readme",
+  "devDependencies": {
+    "coffee-script": "^1.11.0",
+    "docco": "^0.7.0"
+  }
+}
