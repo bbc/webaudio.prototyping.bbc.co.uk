@@ -4,10 +4,10 @@ layout 'layout.html.erb'
 
 ignore /Gemfile.*/
 ignore /Rakefile/
-ignore /Guardfile/
 # coding: utf-8
 
 ignore /src/
+ignore /node_modules/
 ignore /.git/
 ignore /.gitignore/
 
@@ -33,7 +33,7 @@ before 'index.html.erb' do
   layout 'layout.html.erb'
   @machine = "about"
   @show_prev_next_buttons = false
-  @encoded_url = encoded_url() # index page 
+  @encoded_url = encoded_url() # index page
   @title = "Recreating the sounds of the BBC Radiophonic Workshop"
 end
 
@@ -41,7 +41,7 @@ before 'credits.html.erb' do
   layout 'layout.html.erb'
   @machine = "credits"
   @show_prev_next_buttons = false
-  @encoded_url = encoded_url() # index page 
+  @encoded_url = encoded_url() # index page
   @title = "Recreating the sounds of the BBC Radiophonic Workshop"
 end
 
