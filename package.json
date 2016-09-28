@@ -19,6 +19,6 @@
   "homepage": "https://github.com/bbc/webaudio.prototyping.bbc.co.uk#readme",
   "devDependencies": {
     "coffee-script": "^1.11.0",
-    "docco": "^0.7.0"
+    "docco": "^0.4.0"
   }
 }
