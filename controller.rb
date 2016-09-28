@@ -3,7 +3,7 @@ require 'nokogiri'
 layout 'layout.html.erb'
 
 ignore /Gemfile.*/
-ignore /Rakefile/
+ignore /Makefile/
 # coding: utf-8
 
 ignore /src/
