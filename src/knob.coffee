@@ -9,7 +9,7 @@ define(['backbone'], ->
       "dragstart": "dragstart"
 
     # The class is instantiated with a params object with the
-    # following (optional) properties
+    # following (optional) properties:
     #
     # * `degMin`: The minimum angle which the knob can be turned to (where
     # 0 degrees is defined as 9 o'clock on a clock face). Default: -45 degrees.
@@ -17,7 +17,7 @@ define(['backbone'], ->
     # * `valueMin`: The minimum allowed value of the knob. Default: 0.
     # * `valueMax`: The maximum allowed value of the knob. Default: 1.
     # * `value`: The initial value of the knob. Default: 0.5.
-    # * `distanceMax`: The number of pixels of mouse movement
+    # * `distanceMax`: The number of pixels of mouse movement.
     # corresponding to a full rotation of the knob. Default: 200px.
     initialize: (params) ->
       @knob = $(params.el)
@@ -31,7 +31,7 @@ define(['backbone'], ->
       this.setValue(@value)
 
     # To prevent the Knob element being dragged instead of turned
-    # we prevent the default drag behaviour
+    # we prevent the default drag behaviour.
     dragstart: (e) ->
       e.preventDefault()
 
@@ -48,7 +48,7 @@ define(['backbone'], ->
 
     removeEvents: ->
       # jQuery namespaces are used to clear the events when a mouseup
-      # event occurs anywhere in the document
+      # event occurs anywhere in the document.
       $(document).off('.rem')
 
     # When the mouse is moved we calculate the distance it has moved
