@@ -15,4 +15,9 @@ html:
 serve:
 	rbenv exec bundle exec stasis -d 3000
 
-.PHONY: build coffee doc html
+clean:
+	@-rm -f js/*.js
+	@-rm -rf docs
+	@-rm -rf public
+
+.PHONY: build coffee doc html serve clean
