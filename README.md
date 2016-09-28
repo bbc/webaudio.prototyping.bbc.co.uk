@@ -13,6 +13,7 @@ To build the site yourself install the required ruby gems with
 ```bash
 bundle install
 npm install
+pip install -r requirements.txt
 ```
 
 # Build
