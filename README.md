@@ -11,7 +11,7 @@ This repo contains the source code to build the radiophonics
 To build the site yourself install the required ruby gems with
 
 ```bash
-rbenv exec bundle install
+bundle install
 npm install
 ```
 
