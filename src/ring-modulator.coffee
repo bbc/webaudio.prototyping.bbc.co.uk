@@ -72,7 +72,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
       # We provide a connect method so that it can
       # be connected to other nodes in a consistant way.
       connect: (destination) ->
-        if (typeof destination.node=='object')
+        if (typeof destination.node == 'object')
           @destination = destination.node
         else
           @destination = destination
@@ -133,9 +133,9 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
           if (v <= @vb)
             value = 0
           else if ((@vb < v) && (v <= @vl))
-            value = @h * ((Math.pow(v-@vb,2)) / (2*@vl - 2*@vb))
+            value = @h * ((Math.pow(v - @vb, 2)) / (2 * @vl - 2 * @vb))
           else
-            value = @h*v - @h*@vl + (@h*((Math.pow(@vl-@vb,2))/(2*@vl - 2*@vb)))
+            value = @h * v - @h * @vl + (@h * ((Math.pow(@vl - @vb, 2)) / (2 * @vl - 2 * @vb)))
 
           wsCurve[i] = value
 
@@ -197,7 +197,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vcDiode3 = new DiodeNode(context)
     vcDiode4 = new DiodeNode(context)
 
-    # A gain node to control master output levels
+    # A gain node to control master output levels.
     outGain = context.createGain()
     outGain.gain.value = 4
 
@@ -279,7 +279,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # For each speech bubble, when clicked we stop any currently
     # playing buffers and play the sample associated with this buffer.
     bubble1.on('on', ->
-      _.each([bubble2, bubble3, bubble4], (o) -> o.turnOff() )
+      _.each([bubble2, bubble3, bubble4], (o) -> o.turnOff())
       player.loadBuffer("/audio/ringmod_exterminate.wav")
       player.on('bufferLoaded', -> player.play())
     )
@@ -289,7 +289,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     )
 
     bubble2.on('on', ->
-      _.each([bubble1, bubble3, bubble4], (o) -> o.turnOff() )
+      _.each([bubble1, bubble3, bubble4], (o) -> o.turnOff())
       player.loadBuffer("/audio/ringmod_good-dalek.wav")
       player.on('bufferLoaded', -> player.play())
     )
@@ -299,7 +299,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     )
 
     bubble3.on('on', ->
-      _.each([bubble1, bubble2, bubble4], (o) -> o.turnOff() )
+      _.each([bubble1, bubble2, bubble4], (o) -> o.turnOff())
       player.loadBuffer("/audio/ringmod_upgrading.wav")
       player.on('bufferLoaded', -> player.play())
     )
