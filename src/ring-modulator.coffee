@@ -249,7 +249,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     bubble3 = new SpeechBubble(el: $("#voice3"))
     bubble4 = new SpeechBubble(el: $("#voice4"))
 
-    # [Knobs](knob.html) for the oscillator frequency,
+    # [Knobs](/docs/knob.html) for the oscillator frequency,
     speedKnob = new Knob(
      el: "#tape-speed"
      initial_value: 30
