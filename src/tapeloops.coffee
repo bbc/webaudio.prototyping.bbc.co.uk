@@ -3,10 +3,8 @@
 # In the early days of the Radiophonics Workshop pieces of music were
 # painstakingly composed a note at a time by recording and splicing
 # together pieces of tapes in loops. In [this
-# video](http://www.youtube.com/watch?v=NDX_CS3NsTk) you can see Delia
-# Derbyshire explaining the process and showing one of the more tricky
-# aspects - that of "beat matching" the individual loops so that they
-# are in sync.
+# video](https://www.youtube.com/watch?v=nXnmSgaeGAI#t=231) you can see Delia
+# Derbyshire explaining the process.
 #
 # ![Tape machine](/img/tapemachine.jpg "A photo of a tapemachine from the Science Museum Oramics Exhibit")
 #
