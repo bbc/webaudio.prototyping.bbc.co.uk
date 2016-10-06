@@ -104,10 +104,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
         @master_gain.gain.value = @gain if @turned_on
 
       setAudioWaveform: (value) ->
-        switch value
-          when "sine" then @oscillator.type = @oscillator.SINE
-          when "square" then @oscillator.type = @oscillator.SQUARE
-          when "sawtooth" then @oscillator.type = @oscillator.SAWTOOTH
+        @oscillator.type = value
 
       on: ->
         @turned_on = true
