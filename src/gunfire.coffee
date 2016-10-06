@@ -32,6 +32,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
       constructor: (@url) ->
         this.loadBuffer()
         @source = audioContext.createBufferSource()
+
       play: ->
         if @buffer
           # Set the buffer of a new AudioBufferSourceNode equal to the
@@ -40,6 +41,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
           @source.buffer = @buffer
           @source.loop = true
           @source.start 0
+
       # Load the samples from the provided `url`, decode and store in
       # an instance variable.
       loadBuffer: ->
@@ -124,7 +126,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # A function to select the next voice and queue the event.
     voiceSelect = 0
     fireRate = 1000
-    intervalTimer = 0
+    intervalTimer = null
 
     schedule = () ->
       voiceSelect++
@@ -150,6 +152,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # Clear the rapid fire function.
     multi_fire_switch.on('off', =>
       clearInterval(intervalTimer)
+      intervalTimer = null
     )
 
     # Set the master gain value.
@@ -166,7 +169,8 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     rate_of_fire_knob.on('valueChanged', (v) =>
       fireRate = (v + 1) * 150
       clearInterval(intervalTimer)
-      intervalTimer = setInterval (-> schedule()), fireRate
+      if intervalTimer != null
+        intervalTimer = setInterval (-> schedule()), fireRate
     )
 
     # Trigger a single shot.
