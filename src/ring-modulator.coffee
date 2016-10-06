@@ -341,10 +341,10 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
       isSupported
 
     getLive = =>
-      navigator.webkitGetUserMedia( {audio:true}, gotStream )
+      navigator.webkitGetUserMedia({ audio: true }, gotStream)
 
     gotStream = (stream) =>
-      liveInput = context.createMediaStreamSource( stream )
+      liveInput = context.createMediaStreamSource(stream)
       liveInput.connect(liveInputGain)
       liveInputGain.connect(vcInverter1)
       liveInputGain.gain.value = 1.0
@@ -355,9 +355,11 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
         @konami   = [38,38,40,40,37,39,37,39,66,65];
         @keys     = []
         @callback = null
-        $(document).keydown( @keydown )
+        $(document).keydown(@keydown)
+
       onPowerup: (callback) =>
         @callback = callback
+
       keydown: (e) =>
         @keys.push(e.keyCode)
         isCorrectCode = @keys.join(',').indexOf(@konami.join(',')) >= 0

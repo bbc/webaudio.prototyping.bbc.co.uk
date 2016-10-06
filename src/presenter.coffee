@@ -20,11 +20,8 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
     fullscreenButton: false
     forceWebAudioSupportMessage: false
 
-    # if typeof(webkitAudioContext) == 'undefined' && typeof(AudioContext) == 'undefined'
-    #   alert 'Your browser does not support the Web Audio API'
-
-    # If the first .area element is visible in the viewport, the 'Scroll down'
-    # .hint is shown otherwise it is hidden
+  # If the first .area element is visible in the viewport, the 'Scroll down'
+  # .hint is shown otherwise it is hidden
   toggleScrollDownHint = ->
     visibleEls = $('.area:in-viewport')
     if $(visibleEls).is $('.area')[0]
@@ -70,7 +67,7 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
     return debouncedFunction
 
   inverseScale = (progress) ->
-    return 1-scale(progress)
+    return 1 - scale(progress)
 
   scale = (progress) ->
     if progress >= 0 && progress <= 0.4
@@ -88,7 +85,7 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
     el = $("#{config.panelSelector}:in-viewport")[0]
     if el?
       offset   = getOffsetsFor(el, windowScrollTop)
-      progress = Math.abs( offset.viewportOffset / offset.height )
+      progress = Math.abs(offset.viewportOffset / offset.height)
       opacity  = scale(progress)
     else
       offset = 0
@@ -109,15 +106,15 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
   navButtons = (prevLabel, nextLabel) ->
     if prevLabel
       $('.prev.button').show()
-               .attr('href', '#' + prevLabel)
-               .find('.label').text(prevLabel || '')
+                       .attr('href', '#' + prevLabel)
+                       .find('.label').text(prevLabel || '')
     else
       $('.prev.button').hide()
 
     if nextLabel
       $('.next.button').show()
-               .attr('href', '#' + nextLabel)
-                 .find('.label').text(nextLabel || '')
+                       .attr('href', '#' + nextLabel)
+                       .find('.label').text(nextLabel || '')
     else
       $('.next.button').hide()
 
@@ -158,7 +155,7 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
 
     mostVisible = null
 
-    # For all visibile elements in the viewport
+    # For all visible elements in the viewport
     visibleEls.each () ->
       logger.log('-----------------')
       logger.log(this)
@@ -217,8 +214,6 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
     )
 
   scaleContent = ->
-    #return
-
     maxWidth  = 1424
     minWidth  = 1024
     minHeight = 464
@@ -226,7 +221,7 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
     $contentAreas = $('.frame .content')
     viewportHeight = $(window).height()
     viewportWidth  = $(window).width()
-    #fixedPanelHeight = getNavHeight()
+    # fixedPanelHeight = getNavHeight()
 
     logger.log('viewport height %o width %o', viewportHeight, viewportWidth)
 
@@ -276,7 +271,7 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
     scaleMachine(transformScale)
 
     $('.project-header, .nav, .demo-header').find('.inner')
-                        .width(contentWidth)
+                                            .width(contentWidth)
 
     logger.log('Setting content areas to height %o, width %o (%o)', contentHeight, contentWidth, $contentAreas)
 
@@ -363,10 +358,10 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
       ]
 
       method = _.find(
-            methods,
-            (item) ->
-              return docEl[item.enter]?
-          )
+        methods,
+        (item) ->
+          return docEl[item.enter]?
+      )
 
       return method
 
@@ -397,7 +392,7 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
 
   isWebAudioSupported = ->
     return false if config.forceWebAudioSupportMessage
-    return webkitAudioContext? || AudioContext?
+    return AudioContext? || webkitAudioContext?
 
   showWebAudioNotSupportedUi = ->
     tmpl = $('#unsupported-browser-template').html()
