@@ -67,7 +67,6 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # to simulate the attack and release time of the gunshot.
     class Envelope
       constructor: () ->
-        self = this
         @node = audioContext.createGain()
         @node.gain.value = 0
 
@@ -123,12 +122,12 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # Connect the gain node to the output destination.
     gainMaster.connect(audioContext.destination)
 
-    # A function to select the next voice and queue the event.
     voiceSelect = 0
-    fireRate = 1000
+    fireRate = 1100 # 50% of 200ms to 2000ms range
     intervalTimer = null
 
-    schedule = () ->
+    # A function to select the next voice and queue the event.
+    fire = () ->
       voiceSelect++
       if voiceSelect > 4 then voiceSelect = 1
       if voiceSelect == 1 then voice1.addEventToQueue()
@@ -136,43 +135,48 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
       if voiceSelect == 3 then voice3.addEventToQueue()
       if voiceSelect == 4 then voice4.addEventToQueue()
 
+    # A function to repeatedly fire the gunshot when the rapid fire switch is
+    # on.
+    schedule = () ->
+      fire()
+      if intervalTimer != null
+        intervalTimer = setTimeout(schedule, fireRate)
+
     # Set up the controls.
-    volume_knob = new Knob(el: '#volume')
-    rate_of_fire_knob = new Knob(el: '#rate-of-fire')
-    distance_knob = new Knob(el: '#distance')
-    multi_fire_switch = new Switch(el: '#multi-fire')
+    volumeKnob = new Knob(el: '#volume')
+    rateOfFireKnob = new Knob(el: '#rate-of-fire')
+    distanceKnob = new Knob(el: '#distance')
+    multiFireSwitch = new Switch(el: '#multi-fire')
     trigger = $('#trigger')
 
     # Set the rapid fire rate.
-    multi_fire_switch.on('on', =>
-      schedule()
-      intervalTimer = setInterval (-> schedule()), fireRate
+    multiFireSwitch.on('on', =>
+      fire()
+      intervalTimer = setTimeout(schedule, fireRate)
     )
 
     # Clear the rapid fire function.
-    multi_fire_switch.on('off', =>
+    multiFireSwitch.on('off', =>
       clearInterval(intervalTimer)
       intervalTimer = null
     )
 
     # Set the master gain value.
-    volume_knob.on('valueChanged', (v) =>
+    volumeKnob.on('valueChanged', (v) =>
       gainMaster.gain.value = v * 20
     )
 
     # Set the filter frequency.
-    distance_knob.on('valueChanged', (v) =>
-      filter.frequency.value = ((v * 800) + 100)
+    distanceKnob.on('valueChanged', (v) =>
+      filter.frequency.value = 100 + (1.0 - v) * 800
     )
 
-    # Change the rate of fire.
-    rate_of_fire_knob.on('valueChanged', (v) =>
-      fireRate = (v + 1) * 150
-      clearInterval(intervalTimer)
-      if intervalTimer != null
-        intervalTimer = setInterval (-> schedule()), fireRate
+    # Change the rate of fire. The knob provides a value from 0 to 1, from
+    # which we compute the rate of fire, in the range 2000ms to 200ms.
+    rateOfFireKnob.on('valueChanged', (v) =>
+      fireRate = 200 + (1.0 - v) * 1800
     )
 
     # Trigger a single shot.
-    trigger.click(->schedule())
+    trigger.click(fire)
 )
