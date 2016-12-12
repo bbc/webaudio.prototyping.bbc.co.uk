@@ -46,6 +46,8 @@
     height: 50px;
     left: 71px;
     top: 378px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 .play.on {
@@ -62,6 +64,8 @@
     height: 85px;
     left: 136px;
     top: 319px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 .speed.normal {
