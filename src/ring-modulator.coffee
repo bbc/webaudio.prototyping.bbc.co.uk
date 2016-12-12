@@ -68,6 +68,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
           # Stop the source from playing
           @source.stop(0)
           @source.disconnect
+          @source = null
 
       # We provide a connect method so that it can
       # be connected to other nodes in a consistant way.
