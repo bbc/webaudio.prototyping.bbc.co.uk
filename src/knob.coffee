@@ -67,7 +67,7 @@ define(['backbone'], ->
       return value
 
     valueToDeg: (value) ->
-      return @degMin + ( (value / (@valueMax - @valueMin)) * this.deltaDeg() )
+      return @degMin + (((value - @valueMin) / (@valueMax - @valueMin)) * this.deltaDeg())
 
     deltaDeg: ->
       return (@degMax - @degMin)
