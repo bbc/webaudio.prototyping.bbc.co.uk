@@ -39,6 +39,8 @@
     left: 76px;
     top: 217px;
     background: url('../img/wob/rw_demo_wob_on-off.png') no-repeat;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #switch.off {
@@ -46,7 +48,6 @@
 }
 
 .knob {
-    cursor: ns-resize;
     position: absolute;
 }
 
@@ -56,6 +57,7 @@
     top: 207px;
     left: 200px;
     background: url('../img/wob/rw_demo_wob_centre-dial.png') no-repeat;
+    cursor: ns-resize;
 }
 
 #bulb {
@@ -80,6 +82,7 @@
     top: 530px;
     left: 54px;
     background: url('../img/wob/rw_demo_wob_knob_mod.png') no-repeat;
+    cursor: ns-resize;
 }
 
 #audio-waveform {
@@ -88,6 +91,8 @@
     top: 534px;
     left: 377px;
     background: url('../img/wob/rw_demo_wob_waveform.png') no-repeat;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #audio-waveform.sine {
@@ -104,6 +109,7 @@
     top: 526px;
     left: 506px;
     background: url('../img/wob/rw_demo_wob_rotary-knob.png') no-repeat;
+    cursor: ns-resize;
 }
 
 #modulation-depth {
@@ -112,4 +118,5 @@
     top: 530px;
     left: 205px;
     background: url('../img/wob/rw_demo_wob_knob_depth.png') no-repeat;
+    cursor: ns-resize;
 }

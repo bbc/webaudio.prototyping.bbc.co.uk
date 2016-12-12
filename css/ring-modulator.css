@@ -35,6 +35,7 @@
     left: 789px;
     top: 571px;
     position: absolute;
+    cursor: ns-resize;
 }
 
 #tape-speed {
@@ -44,6 +45,7 @@
     left: 721px;
     top: 366px;
     position: absolute;
+    cursor: ns-resize;
 }
 
 /* 'Live Mic.' input button */
@@ -51,7 +53,7 @@
 #live-input.off {
     display: block;
     position: absolute;
-    
+
     top: 579px;
     left: 611px;
 
@@ -126,6 +128,8 @@
     left: 0;
     position: absolute;
     top: 0px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #voice1.off {
@@ -142,6 +146,8 @@
     position: absolute;
     top: 0px;
     width: 216px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #voice2.off {
@@ -157,6 +163,8 @@
     position: absolute;
     top: 0px;
     width: 216px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #voice3.off {
@@ -171,6 +179,8 @@
     left: 1136px;
     position: absolute;
     top: 0px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #voice4.off {
