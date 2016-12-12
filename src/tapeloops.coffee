@@ -89,7 +89,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
           onsuccess = (buffer) ->
             self.buffer = buffer
 
-          onerror = -> alert "Could not load #{self.url}"
+          onerror = -> alert "Could not decode #{self.url}"
 
           context.decodeAudioData request.response, onsuccess, onerror
 
@@ -147,9 +147,9 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     context = new AudioContext
 
     # Instantiate three separate players with the three loops.
-    player1 = new Player('/audio/delia_loop_01.ogg')
-    player2 = new Player('/audio/delia_loop_02.ogg')
-    player3 = new Player('/audio/delia_loop_03.ogg')
+    player1 = new Player('/audio/delia_loop_01.wav')
+    player2 = new Player('/audio/delia_loop_02.wav')
+    player3 = new Player('/audio/delia_loop_03.wav')
 
     # Set up the UI.
     new TapeMachine('#machine1', player1)

@@ -57,7 +57,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
             self.buffer = buffer
             self.play()
 
-          onerror = -> alert "Could not load #{self.url}"
+          onerror = -> alert "Could not decode #{self.url}"
 
           audioContext.decodeAudioData request.response, onsuccess, onerror
 

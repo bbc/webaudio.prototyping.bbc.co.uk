@@ -90,7 +90,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
             self.buffer = buffer
             self.trigger('bufferLoaded')
 
-          onerror = -> alert "Could not load #{self.url}"
+          onerror = -> alert "Could not decode #{self.url}"
 
           @context.decodeAudioData request.response, onsuccess, onerror
 
