@@ -10,24 +10,32 @@
 require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
   $(document).ready ->
 
-  # This BufferSource plays a white noise signal read in from a WAV file
-  # The same effect could be achived using a JavaScriptNode with the following code
-  # to generate random numbers in a range of -1 to 1.
-  #
-  #     class WhiteNoise
-  #
-  #       constructor: (context) ->
-  #         self = this
-  #         @context = context
-  #         @node = @context.createJavaScriptNode(1024, 1,2)
-  #         @node.onaudioprocess = (e) -> self.process(e)
-  #
-  #       process: (e) ->
-  #         data0 = e.outputBuffer.getChannelData(0)
-  #         data1 = e.outputBuffer.getChannelData(1)
-  #         for i in [0..data0.length-1]
-  #           data0[i] = ((Math.random() * 2) - 1)
-  #           data1[i] = data0[i]
+    # This BufferSource plays a white noise signal read in from a WAV file.
+    # The same effect could be achived using a [ScriptProcessorNode](https://webaudio.github.io/web-audio-api/#idl-def-ScriptProcessorNode)
+    # with the following code to generate random numbers in a range of -1 to 1.
+    #
+    #     class WhiteNoise
+    #
+    #       constructor: (context) ->
+    #         self = this
+    #         @context = context
+    #         @node = @context.createScriptProcessor(1024, 1, 2)
+    #         @node.onaudioprocess = (e) -> self.process(e)
+    #
+    #       process: (e) ->
+    #         data0 = e.outputBuffer.getChannelData(0)
+    #         data1 = e.outputBuffer.getChannelData(1)
+    #         for i in [0...data0.length]
+    #           data0[i] = Math.random() * 2 - 1
+    #           data1[i] = data0[i]
+    #
+    #       connect: (destination) ->
+    #         @node.connect(destination)
+
+    # # Player
+    #
+    # This class wraps an [AudioBufferSourceNode](https://webaudio.github.io/web-audio-api/#idl-def-AudioBufferSourceNode)
+    # and loads the audio from a given URL.
     class Player
       constructor: (@url) ->
         this.loadBuffer()
@@ -63,6 +71,8 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
 
         request.send()
 
+    # # Envelope
+    #
     # This class uses a gain node to generate a volume ramp at specific times
     # to simulate the attack and release time of the gunshot.
     class Envelope

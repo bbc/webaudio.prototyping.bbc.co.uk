@@ -33,7 +33,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # [FAQ](http://updates.html5rocks.com/2012/01/Web-Audio-FAQ) on
     # [HTML5 Rocks](http://www.html5rocks.com/) discusses the reasons
     # behind this. To make the sample player more natural to work with
-    # in this application we wrap a AudioBufferSourceNode in a custom
+    # in this application we wrap an AudioBufferSourceNode in a custom
     # class.
     class Player
       constructor: (@url) ->
