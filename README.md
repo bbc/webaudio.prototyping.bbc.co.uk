@@ -1,14 +1,21 @@
 # Radiophonics WebAudio API demo
 
-This repo contains the source code to build the radiophonics
+This repo contains the source code to build the BBC Radiophonics
 [demonstration website](http://webaudio.prototyping.bbc.co.uk).
 
 ![](screenshot.png)
 
+# Prerequisites
 
 # Install
 
-To build the site yourself install the required ruby gems with
+To build the site yourself, you need to have the following software installed:
+
+* Node.js
+* Python
+* Ruby
+
+Install the package dependencies:
 
 ```bash
 bundle install
@@ -18,13 +25,13 @@ pip install -r requirements.txt
 
 # Build
 
-Use [CoffeeScript](http://coffeescript.org/) to compile the JS sources
+Use [CoffeeScript](http://coffeescript.org/) to compile the JavaScript sources:
 
 ```bash
 make build
 ```
 
-Generate the annotated source documentation with
+Generate the annotated source documentation using [docco](https://jashkenas.github.io/docco/) with:
 
 ```bash
 make doc
@@ -32,7 +39,7 @@ make doc
 
 # Develop
 
-And then build and serve the site using stasis
+And then build and serve the site using [stasis](https://github.com/winton/stasis):
 
 ```bash
 make serve
@@ -48,20 +55,17 @@ The site will be available on [http://localhost:3000](http://localhost:3000).
 
 ![](img/readme-gunfire.png)
 
-
 ## Ring Modulator
 
 - [ring-modulator.coffee](src/ring-modulator.coffee)
 
 ![](img/readme-ring-modulator.png)
 
-
 ## Tape Loops
 
 - [tapeloops.coffee](src/tapeloops.coffee)
 
 ![](img/readme-tapeloops.png)
-
 
 ## Wobbulator
 
