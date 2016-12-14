@@ -15,9 +15,13 @@ html:
 serve:
 	bundle exec stasis -d 3000
 
+dist: build
+	tar cvzf webaudio.tar.gz public
+
 clean:
 	@-rm -f js/*.js
 	@-rm -rf docs
 	@-rm -rf public
+	@-rm -f webaudio.tar.gz
 
-.PHONY: build coffee doc html serve clean
+.PHONY: build coffee doc html serve dist clean

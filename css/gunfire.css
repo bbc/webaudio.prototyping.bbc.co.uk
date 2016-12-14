@@ -36,16 +36,19 @@
 #volume {
     top: 195px;
     left: 723px;
+    cursor: ns-resize;
 }
 
 #rate-of-fire {
     top: 387px;
     left: 603px;
+    cursor: ns-resize;
 }
 
 #distance {
     top: 387px;
     left: 819px;
+    cursor: ns-resize;
 }
 
 #multi-fire {
@@ -55,6 +58,8 @@
     top: 444px;
     left: 480px;
     background: url('/img/gunfire/switch_on-off.png') no-repeat;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #multi-fire.off {
@@ -68,4 +73,6 @@
     left: 66px;
     top: 538px;
     background: url('/img/gunfire/play.png') no-repeat;
+    cursor: pointer;
+    cursor: hand;
 }

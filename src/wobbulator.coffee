@@ -2,7 +2,7 @@
 #
 # The "Wobbulator" was one example of a recycled or salvaged piece of
 # equipment put to creative use in the Radiophonic Workshop. The
-# Wobbulator was in fact a oscillator (looking at archive pictures
+# Wobbulator was in fact an oscillator (looking at archive pictures
 # quite likely a [Brüel & Kjær Beat Frequency Oscillator
 # 1022](http://www.radiomuseum.org/r/bruelkjae_beat_frequency_oscillato.html)
 # used by sound engineers to measure the acoustic properties of
@@ -18,12 +18,11 @@
 # produce a wide variety of space-y sounds.
 #
 # To simulate the wobbulator we use the
-# [OscillatorNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#Oscillator)
-# from the [Web Audio
-# API](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html).
+# [OscillatorNode](https://webaudio.github.io/web-audio-api/#the-oscillatornode-interface)
+# from the Web Audio API.
 # We've taken a historical liberty by including a switch to control
 # the waveshape of the primary oscillator. While probably not true to
-# the original device, the OscillatorNode makes this too easy to
+# the original device, the OscillatorNode makes this too hard to
 # resist!
 #
 
@@ -31,9 +30,9 @@
 #
 # We use [jQuery](http://jquery.com/),
 # [backbone.js](http://backbonejs.org/) and some custom UI elements
-# (namely a [knob](docs/knob.html) and a [switch](docs/switch.html))
+# (namely a [knob](/docs/knob.html) and a [switch](/docs/switch.html))
 # in this application. We make these libraries available to our
-# application using [require.js](http://requirejs.org/)
+# application using [require.js](http://requirejs.org/).
 require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
   $(document).ready ->
 
@@ -42,7 +41,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # This class implements a modulated oscillator. It can be
     # represented as a simple graph. An oscilator (Osc1) is connected
     # to the output (the destination of the
-    # [AudioContext](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioContext-section)).
+    # [AudioContext](https://webaudio.github.io/web-audio-api/#AudioContext)).
     # A second oscillator (Osc2) is used to modulate the frequency of
     # Osc1.
     #
@@ -63,20 +62,20 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     # </pre>
     class ModulatedOscillator
       constructor: (context) ->
-        # The primary oscillator
+        # The primary oscillator.
         @oscillator = context.createOscillator()
 
-        # The modulating oscillator
+        # The modulating oscillator.
         @modulator = context.createOscillator()
 
         # The amplitude of the modulation oscillator (its 'depth') is
         # modified by passing the output through a GainNode.
         @modulation_gain = context.createGain()
 
-        # Another GainNode controls the master volume
+        # Another GainNode controls the master volume.
         @master_gain = context.createGain()
 
-        # Connect the graph as above
+        # Connect the graph as shown above.
         @modulator.connect(@modulation_gain)
         @modulation_gain.connect(@oscillator.frequency)
 
@@ -105,10 +104,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
         @master_gain.gain.value = @gain if @turned_on
 
       setAudioWaveform: (value) ->
-        switch value
-          when "sine" then @oscillator.type = @oscillator.SINE
-          when "square" then @oscillator.type = @oscillator.SQUARE
-          when "sawtooth" then @oscillator.type = @oscillator.SAWTOOTH
+        @oscillator.type = value
 
       on: ->
         @turned_on = true
@@ -122,7 +118,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     context = new AudioContext
     oscillator = new ModulatedOscillator(context)
 
-    # Set the initial parameters of the oscillator
+    # Set the initial parameters of the oscillator.
     initialFrequency = 440
     initialModulationDepth = 100
     initialModulationFrequency = 10
@@ -135,10 +131,10 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
 
     # # User Interface code
     #
-    # We create an on/off [switch](docs/switch.html) and three
-    # [knobs](docs/knob.html) to set each of the parameters of the
-    # `ModulatedOscillator`. We bind these UI elements to divs in the
-    # markup
+    # We create an on/off [switch](/docs/switch.html) and three
+    # [knobs](/docs/knob.html) to set each of the parameters of the
+    # `ModulatedOscillator`. We bind these UI elements to `div`s in the
+    # HTML.
     on_off_switch = new Switch(el: '#switch')
 
     audio_waveform_switch = new Switch(
@@ -175,7 +171,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     )
 
     # Events are fired when each of the knob values change. We map
-    # these events to parameters of the `ModulatedOscillator`
+    # these events to parameters of the `ModulatedOscillator`.
     frequency_knob.on('valueChanged',
       (v) -> oscillator.setFrequency(v))
 

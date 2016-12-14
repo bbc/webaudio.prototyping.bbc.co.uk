@@ -2,7 +2,7 @@
 #
 # This class implements a Backbone View which can be bound to the DOM
 # elements representing the speech bubbles (toggle-able switches with
-# a hover state)
+# a hover state).
 define(['backbone'], ->
   class SpeechBubbleView extends Backbone.View
     initialize: () ->

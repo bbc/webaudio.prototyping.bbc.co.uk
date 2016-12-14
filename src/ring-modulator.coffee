@@ -31,8 +31,8 @@
 # # Preamble
 #
 # We use jQuery, backbone.js and some custom UI elements (namely a
-# [knob](knob.html) a [speech bubble](speechbubble.html) and a
-# [switch](switch.html)) in this application. We make these libraries
+# [knob](/docs/knob.html) a [speech bubble](/docs/speechbubble.html) and a
+# [switch](/docs/switch.html)) in this application. We make these libraries
 # available to our application using
 # [require.js](http://requirejs.org/)
 require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, Knob, SpeechBubble, Switch) ->
@@ -42,7 +42,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     #
     # When a speech bubble is clicked we load a sample using an AJAX
     # request and put it into the buffer of an
-    # [AudioBufferSourceNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioBufferSourceNode).
+    # [AudioBufferSourceNode](https://webaudio.github.io/web-audio-api/#AudioBufferSourceNode).
     # The sample is then triggered and looped. The `SamplePlayer`
     # class encapsulates this operation.
     class SamplePlayer extends Backbone.View
@@ -68,11 +68,12 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
           # Stop the source from playing
           @source.stop(0)
           @source.disconnect
+          @source = null
 
       # We provide a connect method so that it can
       # be connected to other nodes in a consistant way.
       connect: (destination) ->
-        if (typeof destination.node=='object')
+        if (typeof destination.node == 'object')
           @destination = destination.node
         else
           @destination = destination
@@ -90,7 +91,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
             self.buffer = buffer
             self.trigger('bufferLoaded')
 
-          onerror = -> alert "Could not load #{self.url}"
+          onerror = -> alert "Could not decode #{self.url}"
 
           @context.decodeAudioData request.response, onsuccess, onerror
 
@@ -100,8 +101,8 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     #
     # This class implements the diode described in Parker's paper
     # using the Web Audio API's
-    # [WaveShaper](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#WaveShaperNode)
-    # node.
+    # [WaveShaperNode](https://webaudio.github.io/web-audio-api/#WaveShaperNode)
+    # interface.
     class DiodeNode
       constructor: (@context) ->
         @node = @context.createWaveShaper()
@@ -126,29 +127,29 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
         wsCurve = new Float32Array(samples);
 
         for i in [0...wsCurve.length]
-          # convert the index to a voltage of range -1 to 1
+          # Convert the index to a voltage of range -1 to 1.
           v = (i - samples/2) / (samples/2)
           v = Math.abs(v)
 
           if (v <= @vb)
             value = 0
           else if ((@vb < v) && (v <= @vl))
-            value = @h * ((Math.pow(v-@vb,2)) / (2*@vl - 2*@vb))
+            value = @h * ((Math.pow(v - @vb, 2)) / (2 * @vl - 2 * @vb))
           else
-            value = @h*v - @h*@vl + (@h*((Math.pow(@vl-@vb,2))/(2*@vl - 2*@vb)))
+            value = @h * v - @h * @vl + (@h * ((Math.pow(@vl - @vb, 2)) / (2 * @vl - 2 * @vb)))
 
           wsCurve[i] = value
 
         @node.curve = wsCurve
 
       # We provide a connect method so that instances of this class
-      # can be connected to other nodes in a consistant way.
+      # can be connected to other nodes in a consistent way.
       connect: (destination) ->
         @node.connect(destination)
 
     # # Connect the graph
     #
-    # The following graph layout is proposed by Parker
+    # The following graph layout is proposed by Parker:
     #
     # ![Block diagram of diode ring modulator](/img/block_diagram_parker.png "Block diagram")
     #
@@ -162,13 +163,13 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # We implement this graph as in the diagram with the following
     # correspondences:
     #
-    # - A triangle is implemented with an [AudioGainNode](https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioGainNode)
-    # - Addition is achieved by noting that Web Audio nodes sum their inputs
+    # - A triangle is implemented with a [GainNode](https://webaudio.github.io/web-audio-api/#idl-def-GainNode)
+    # - Addition is achieved by noting that WebAudio nodes sum their inputs
     # - The diodes are implemented in the DiodeNode class
     #
     context = new AudioContext
 
-    # First we create the objects on the Vin side of the graph
+    # First we create the objects on the Vin side of the graph.
     vIn = context.createOscillator()
     vIn.frequency.value = 30
     vIn.start(0)
@@ -176,7 +177,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vInGain.gain.value = 0.5
 
     # GainNodes can take negative gain which represents phase
-    # inversion
+    # inversion.
     vInInverter1 = context.createGain()
     vInInverter1.gain.value = -1
 
@@ -189,7 +190,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vInInverter3 = context.createGain()
     vInInverter3.gain.value = -1
 
-    # Now we create the objects on the Vc side of the graph
+    # Now we create the objects on the Vc side of the graph.
     player = new SamplePlayer(context)
 
     vcInverter1 = context.createGain()
@@ -197,7 +198,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vcDiode3 = new DiodeNode(context)
     vcDiode4 = new DiodeNode(context)
 
-    # A gain node to control master output levels
+    # A gain node to control master output levels.
     outGain = context.createGain()
     outGain.gain.value = 4
 
@@ -212,13 +213,13 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # When working on complex graphs it helps to have a pen and paper
     # handy!
 
-    # First the Vc side
+    # First the Vc side,
     player.connect(vcInverter1)
     player.connect(vcDiode4)
 
     vcInverter1.connect(vcDiode3.node)
 
-    # Then the Vin side
+    # then the Vin side.
     vIn.connect(vInGain)
     vInGain.connect(vInInverter1)
     vInGain.connect(vcInverter1)
@@ -229,7 +230,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     vInInverter2.connect(vInDiode1.node)
 
     # Finally connect the four diodes to the destination via the
-    # output-stage compressor and master gain node
+    # output-stage compressor and master gain node.
     vInDiode1.connect(vInInverter3)
     vInDiode2.connect(vInInverter3)
 
@@ -242,14 +243,14 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
 
     # # User Interface
 
-    # A [speech bubble](speechbubble.html) is a simple
-    # backbone.js view with a toggle and hover state
+    # A [speech bubble](/docs/speechbubble.html) is a simple
+    # backbone.js view with a toggle and hover state.
     bubble1 = new SpeechBubble(el: $("#voice1"))
     bubble2 = new SpeechBubble(el: $("#voice2"))
     bubble3 = new SpeechBubble(el: $("#voice3"))
     bubble4 = new SpeechBubble(el: $("#voice4"))
 
-    # [Knobs](knob.html) for the oscillator frequency ...
+    # [Knobs](/docs/knob.html) for the oscillator frequency,
     speedKnob = new Knob(
      el: "#tape-speed"
      initial_value: 30
@@ -257,7 +258,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
      valueMax: 2000
     )
 
-    # ... and the distortion control
+    # and the distortion control.
     distortionKnob = new Knob(
       el: "#mod-distortion",
       initial_value: 1
@@ -267,7 +268,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
 
     # Map events that are fired when user interface objects are
     # interacted with to the corresponding parameters in the ring
-    # modulator
+    # modulator.
     distortionKnob.on('valueChanged', (v) =>
       _.each([vInDiode1, vInDiode2, vcDiode3, vcDiode4], (diode) -> diode.setDistortion(v))
     )
@@ -279,7 +280,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     # For each speech bubble, when clicked we stop any currently
     # playing buffers and play the sample associated with this buffer.
     bubble1.on('on', ->
-      _.each([bubble2, bubble3, bubble4], (o) -> o.turnOff() )
+      _.each([bubble2, bubble3, bubble4], (o) -> o.turnOff())
       player.loadBuffer("/audio/ringmod_exterminate.wav")
       player.on('bufferLoaded', -> player.play())
     )
@@ -289,7 +290,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     )
 
     bubble2.on('on', ->
-      _.each([bubble1, bubble3, bubble4], (o) -> o.turnOff() )
+      _.each([bubble1, bubble3, bubble4], (o) -> o.turnOff())
       player.loadBuffer("/audio/ringmod_good-dalek.wav")
       player.on('bufferLoaded', -> player.play())
     )
@@ -299,7 +300,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     )
 
     bubble3.on('on', ->
-      _.each([bubble1, bubble2, bubble4], (o) -> o.turnOff() )
+      _.each([bubble1, bubble2, bubble4], (o) -> o.turnOff())
       player.loadBuffer("/audio/ringmod_upgrading.wav")
       player.on('bufferLoaded', -> player.play())
     )
@@ -329,7 +330,7 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     liveInput     = null
 
     # There's no easy way to feature detect if this is supported so
-    # we have to browser detect the version of Chrome
+    # we have to browser detect the version of Chrome.
     isLiveInputSupported = ->
       isSupported = false
       browser = $.browser
@@ -341,10 +342,10 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
       isSupported
 
     getLive = =>
-      navigator.webkitGetUserMedia( {audio:true}, gotStream )
+      navigator.webkitGetUserMedia({ audio: true }, gotStream)
 
     gotStream = (stream) =>
-      liveInput = context.createMediaStreamSource( stream )
+      liveInput = context.createMediaStreamSource(stream)
       liveInput.connect(liveInputGain)
       liveInputGain.connect(vcInverter1)
       liveInputGain.gain.value = 1.0
@@ -355,9 +356,11 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
         @konami   = [38,38,40,40,37,39,37,39,66,65];
         @keys     = []
         @callback = null
-        $(document).keydown( @keydown )
+        $(document).keydown(@keydown)
+
       onPowerup: (callback) =>
         @callback = callback
+
       keydown: (e) =>
         @keys.push(e.keyCode)
         isCorrectCode = @keys.join(',').indexOf(@konami.join(',')) >= 0
@@ -382,5 +385,4 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
       tapeswitch.on('on', ->
         getLive()
       )
-
   )
