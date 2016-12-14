@@ -10,28 +10,6 @@
 require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
   $(document).ready ->
 
-    # This BufferSource plays a white noise signal read in from a WAV file.
-    # The same effect could be achived using a [ScriptProcessorNode](https://webaudio.github.io/web-audio-api/#idl-def-ScriptProcessorNode)
-    # with the following code to generate random numbers in a range of -1 to 1.
-    #
-    #     class WhiteNoise
-    #
-    #       constructor: (context) ->
-    #         self = this
-    #         @context = context
-    #         @node = @context.createScriptProcessor(1024, 1, 2)
-    #         @node.onaudioprocess = (e) -> self.process(e)
-    #
-    #       process: (e) ->
-    #         data0 = e.outputBuffer.getChannelData(0)
-    #         data1 = e.outputBuffer.getChannelData(1)
-    #         for i in [0...data0.length]
-    #           data0[i] = Math.random() * 2 - 1
-    #           data1[i] = data0[i]
-    #
-    #       connect: (destination) ->
-    #         @node.connect(destination)
-
     # # Player
     #
     # This class wraps an [AudioBufferSourceNode](https://webaudio.github.io/web-audio-api/#idl-def-AudioBufferSourceNode)
@@ -39,6 +17,7 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
     class Player
       constructor: (@url) ->
         this.loadBuffer()
+        # This BufferSource plays a white noise signal read in from a WAV file.
         @source = audioContext.createBufferSource()
 
       play: ->
@@ -70,6 +49,28 @@ require(["jquery", "backbone", "knob", "switch"], ($, Backbone, Knob, Switch) ->
           audioContext.decodeAudioData request.response, onsuccess, onerror
 
         request.send()
+
+      # # WhiteNoise
+      #
+      # Instead of using an AudioBufferSourceNode, the same effect could be
+      # achieved using a [ScriptProcessorNode](https://webaudio.github.io/web-audio-api/#idl-def-ScriptProcessorNode).
+      class WhiteNoise
+        constructor: (context) ->
+          self = this
+          @context = context
+          @node = @context.createScriptProcessor(1024, 1, 2)
+          @node.onaudioprocess = (e) -> self.process(e)
+
+        process: (e) ->
+          data0 = e.outputBuffer.getChannelData(0)
+          data1 = e.outputBuffer.getChannelData(1)
+          # Generate random numbers in the range of -1 to 1.
+          for i in [0...data0.length]
+            data0[i] = Math.random() * 2 - 1
+            data1[i] = data0[i]
+
+        connect: (destination) ->
+          @node.connect(destination)
 
     # # Envelope
     #
