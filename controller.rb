@@ -2,14 +2,17 @@ require 'nokogiri'
 
 layout 'layout.html.erb'
 
-ignore /Gemfile.*/
-ignore /Makefile/
-# coding: utf-8
-
-ignore /src/
-ignore /node_modules/
 ignore /.git/
 ignore /.gitignore/
+ignore /.ruby-version/
+ignore /Gemfile.*/
+ignore /Makefile/
+ignore /README/
+ignore /package.json/
+ignore /requirements.txt/
+ignore /screenshot.png/
+ignore /node_modules/
+ignore /src/
 
 helpers do
   def extract_code_for(fn)
