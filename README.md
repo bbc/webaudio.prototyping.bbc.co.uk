@@ -1,7 +1,6 @@
-# Radiophonics WebAudio API demo
+# BBC Radiophonics Workshop Web Audio API demo
 
-This repo contains the source code to build the BBC Radiophonics
-[demonstration website](http://webaudio.prototyping.bbc.co.uk).
+This repo contains the source code for our project to [recreate the sound of the BBC Radiophonic Workshop using the Web Audio API](http://webaudio.prototyping.bbc.co.uk). You can read more about the project on the BBC R&D blog [here](http://www.bbc.co.uk/rd/blog/2012-05-web-audio-radiophonics-1), [here](http://www.bbc.co.uk/rd/blog/2012-07-web-audio-radiophonics-2), and [here](http://www.bbc.co.uk/blogs/researchanddevelopment/2012/11/audio-on-the-web---explore-the.shtml).
 
 ![](screenshot.png)
 
@@ -89,16 +88,22 @@ The site will be available on [http://localhost:3000](http://localhost:3000).
 
 # License
 
-> Copyright 2016 British Broadcasting Corporation
->
-> Licensed under the Apache License, Version 2.0 (the "License");
-> you may not use this file except in compliance with the License.
-> You may obtain a copy of the License at
->
->     http://www.apache.org/licenses/LICENSE-2.0
->
-> Unless required by applicable law or agreed to in writing, software
-> distributed under the License is distributed on an "AS IS" BASIS,
-> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-> See the License for the specific language governing permissions and
-> limitations under the License.
+See COPYING for details.
+
+# Contributing
+
+If you have a feature request or want to report a bug, we'd be happy to hear from you. Please either [raise an issue](https://github.com/bbc/webaudio.prototyping.bbc.co.uk/issues), or fork the project and send us a pull request.
+
+# Authors
+
+This software was written by [Lara Bostock](https://github.com/LaraBostock),
+[Chris Lowis](https://github.com/chrislo),
+[Chris Needham](https://github.com/chrisn),
+[Andrew Nicolaou](https://github.com/andrewn),
+[Matthew Paradis](https://github.com/mdjp),
+[Thomas Parisot](https://github.com/oncletom), and
+[Pete Warren](https://twitter.com/petewarrensnds).
+
+# Copyright
+
+Copyright 2017 British Broadcasting Corporation
