@@ -12,7 +12,7 @@ doc:
 html:
 	bundle exec stasis -p ./public
 
-serve:
+serve: build
 	bundle exec stasis -d 3000
 
 dist: build
