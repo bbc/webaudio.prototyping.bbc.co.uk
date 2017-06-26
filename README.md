@@ -2,10 +2,6 @@
 
 This repo contains the source code for our project to [recreate the sound of the BBC Radiophonic Workshop using the Web Audio API](http://webaudio.prototyping.bbc.co.uk). You can read more about the project on the BBC R&D blog [here](http://www.bbc.co.uk/rd/blog/2012-05-web-audio-radiophonics-1), [here](http://www.bbc.co.uk/rd/blog/2012-07-web-audio-radiophonics-2), and [here](http://www.bbc.co.uk/blogs/researchanddevelopment/2012/11/audio-on-the-web---explore-the.shtml).
 
-![](screenshot.png)
-
-# Prerequisites
-
 # Install
 
 To build the site yourself, you need to have the following software installed:
@@ -17,9 +13,9 @@ To build the site yourself, you need to have the following software installed:
 Install the package dependencies:
 
 ```bash
-bundle install
 npm install
 pip install -r requirements.txt
+bundle install
 ```
 
 # Build
@@ -46,45 +42,20 @@ make serve
 
 The site will be available on [http://localhost:3000](http://localhost:3000).
 
-# WebAudio Components
+# Source Code
 
-## Gunfire
+## Web Audio components
 
-- [gunfire.coffee](src/gunfire.coffee)
+- [Gunfire](src/gunfire.coffee)
+- [Ring Modulator](src/ring-modulator.coffee)
+- [Tape Loops](src/tapeloops.coffee)
+- [Wobbulator](src/wobbulator.coffee)
 
-![](img/readme-gunfire.png)
+## Other components
 
-## Ring Modulator
-
-- [ring-modulator.coffee](src/ring-modulator.coffee)
-
-![](img/readme-ring-modulator.png)
-
-## Tape Loops
-
-- [tapeloops.coffee](src/tapeloops.coffee)
-
-![](img/readme-tapeloops.png)
-
-## Wobbulator
-
-- [wobbulator.coffee](src/wobbulator.coffee)
-
-![](img/readme-wobbulator.png)
-
-# Components
-
-## Knob
-
-- [knob.coffee](src/knob.coffee)
-
-## Speech Bubble
-
-- [speechbubble.coffee](src/speechbubble.coffee)
-
-## Switch
-
-- [switch.coffee](src/switch.coffee)
+- [Knob](src/knob.coffee)
+- [Speech Bubble](src/speechbubble.coffee)
+- [Switch](src/switch.coffee)
 
 # License
 
