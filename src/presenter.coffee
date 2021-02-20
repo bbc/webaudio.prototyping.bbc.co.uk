@@ -16,7 +16,6 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
     scrollDebounceTimeInMs: 300
     panelSelector: '.area'
     presentationModeQuerystring: 'presentation'
-    useSharetools: true
     fullscreenButton: false
     forceWebAudioSupportMessage: false
 
@@ -316,9 +315,6 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
       #$machine[0].style[transformStyleName] = "scale3d(#{scaleValue},#{scaleValue},0)" if $machine.length > 0
       $machine[0].style[transformStyleName] = "scale(#{scaleValue})" if $machine.length > 0
 
-  removeSharetools = ->
-    $('.bbc-sharetools').remove()
-
   fullscreenMethod = ->
 
   class FullscreenManager
@@ -425,8 +421,6 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
 
   init = ->
     logger.log('init')
-
-    removeSharetools() unless config.useSharetools
 
     initScrollIntoView()
 
