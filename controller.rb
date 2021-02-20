@@ -30,7 +30,7 @@ helpers do
   end
 
   def encoded_url(page='')
-    "http%3A%2F%2Fwebaudio.prototyping.bbc.co.uk%2F#{page}"
+    "https%3A%2F%2Fwebaudio.prototyping.bbc.co.uk%2F#{page}"
   end
 end
 
