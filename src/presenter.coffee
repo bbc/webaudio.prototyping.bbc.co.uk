@@ -420,7 +420,8 @@ define(['require', 'underscore', 'jquery', 'jquery-plugins'],
 
   initDemo = ->
     machine = $('body').attr('id')
-    require([machine])
+    if machine != 'credits'
+      require([machine])
 
   init = ->
     logger.log('init')
