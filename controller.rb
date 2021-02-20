@@ -5,10 +5,12 @@ layout 'layout.html.erb'
 ignore /.git/
 ignore /.gitignore/
 ignore /.ruby-version/
+ignore /COPYING/
 ignore /Gemfile.*/
 ignore /Makefile/
 ignore /README/
 ignore /package.json/
+ignore /package-lock.json/
 ignore /requirements.txt/
 ignore /screenshot.png/
 ignore /node_modules/
