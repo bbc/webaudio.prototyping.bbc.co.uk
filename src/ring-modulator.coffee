@@ -48,7 +48,9 @@ require(["jquery", "backbone", "knob", "speechbubble", "switch"], ($, Backbone, 
     class SamplePlayer extends Backbone.View
       # Instances require the AudioContext in order to create a
       # source buffer.
-      constructor: (@context) ->
+      constructor: (context) ->
+        super()
+        @context = context
 
       play: () ->
         this.stop()
